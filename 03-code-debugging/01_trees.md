@@ -4,8 +4,8 @@
 
 ## Problem 1: Height-Balanced Binary Tree ($O(N)$ DFS)
 
-**Tag**: [CHAT]  
-**Video Reference**: Height-Balanced Tree Debugging (unverified link, see [RESOURCES.md](../RESOURCES.md#video-references))  
+**Tag**: [VIDEO]  
+**Video Reference**: [KN Academy Height-Balanced Tree Debugging](http://www.youtube.com/watch?v=YEZy2e_PARE) (Verified)  
 **Practice Link**: [LeetCode: balanced-binary-tree](https://leetcode.com/problems/balanced-binary-tree/)
 
 ### Problem Statement
@@ -31,24 +31,25 @@ class Solution {
         int left = checkHeight(node.left);
         int right = checkHeight(node.right);
 
-        // BUG 1: Returning 0 masks unbalanced subtree failure
-        if (left == -1 || right == -1) return 0;
+        // BUG 1: Returning 0 masks unbalanced subtree failure (or using && requiring both to fail simultaneously)
+        if (left == -1 && right == -1) return 0;
 
         // BUG 2: >= 1 flags valid trees with height difference of 1 as invalid
         if (Math.abs(left - right) >= 1) return -1;
 
-        // BUG 3: Missing height calculation return statement
+        // BUG 3: Missing height calculation return statement (fails to compile or breaks ancestor checks)
     }
 }
 ```
 
 ### Bugs Found & Why They Are Wrong
-1. **Returning `0` on subtree failure (`left == -1 || right == -1 return 0;`)**:
-   - *Why wrong*: `-1` is the failure sentinel meaning a descendant subtree is unbalanced. Returning `0` masks the failure and falsely reports a valid height of 0 to parent nodes.
+1. **Sentinel Suppression & Faulty Conjunction (`left == -1 && right == -1 return 0;`)**:
+   - *Why wrong*: Using `&&` requires both subtrees to fail simultaneously. If only the left subtree is unbalanced (`left == -1`) while the right is valid, execution continues. Furthermore, returning `0` treats an unbalanced tree as balanced with height 0, hiding previous errors.
+   - *Fix*: If either branch returns `-1`, immediately propagate `-1` up the call stack (`if (left == -1 || right == -1) return -1;`).
 2. **Checking `>= 1` instead of `> 1` (`Math.abs(left - right) >= 1`)**:
    - *Why wrong*: A height difference of exactly 1 is valid in a balanced binary tree. Only a difference strictly greater than 1 (`> 1`) violates balance.
 3. **Missing Return Statement**:
-   - *Why wrong*: After verifying the node is balanced, the function must return its true height: `1 + Math.max(left, right)`. Failing to return this causes compilation failure.
+   - *Why wrong*: After verifying the node is balanced, the function must return its true height: `1 + Math.max(left, right)`. Failing to return this causes compilation failure or broken height calculations for ancestor nodes.
 
 ### Fixed Production Code
 
@@ -396,3 +397,74 @@ Look for `leftToRight = !leftToRight;` at the end of the while loop. If missing,
 ### Time & Space Complexity
 - **Time**: $O(N)$ — Every node is visited once.
 - **Space**: $O(N)$ — Queue holds at most $N/2$ nodes.
+
+---
+
+## Problem 4: Validate Binary Search Tree (Boundary Pointer Bug)
+
+**Tag**: [MOCK-EXAM]  
+**Practice Link**: [LeetCode: validate-binary-search-tree](https://leetcode.com/problems/validate-binary-search-tree/)
+
+### Problem Statement
+Given the root of a binary tree, determine if it is a valid binary search tree (BST).  
+A valid BST requires that:
+1. The left subtree of a node contains only nodes with keys strictly less than the node's key.
+2. The right subtree of a node contains only nodes with keys strictly greater than the node's key.
+3. Both the left and right subtrees must also be binary search trees.
+
+### Buggy Exam Code
+```cpp
+// BUGGY: Local child check fails to enforce global ancestor bounds
+bool isValidBST(TreeNode* root) {
+    if (!root) return true;
+    if (root->left && root->left->val >= root->val) return false;
+    if (root->right && root->right->val <= root->val) return false;
+    return isValidBST(root->left) && isValidBST(root->right);
+}
+```
+
+### Bugs Found & Why They Are Wrong
+1. **Immediate Child Check Only (Missing Global Range Propagation)**:
+   - *Why wrong*: The buggy code only checks whether a node's direct children satisfy the BST condition. It fails when a deeply nested descendant violates an ancestor's bound.
+   - *Counter-Example*: Tree `root = [5, 4, 6, null, null, 3, 7]`. Here, node `6` has left child `3` and right child `7`. Locally at node `6`, $3 < 6$ and $7 > 6$ holds. However, node `3` is in the *right subtree* of `5`, which violates the global requirement that all nodes in the right subtree of `5` must be $> 5$. The buggy code incorrectly returns `true` instead of `false`.
+
+### Fixed Production Code
+
+#### C++
+```cpp
+class Solution {
+public:
+    bool validate(TreeNode* node, long long minVal, long long maxVal) {
+        if (!node) return true;
+        // Strictly between minVal and maxVal
+        if (node->val <= minVal || node->val >= maxVal) return false;
+        return validate(node->left, minVal, node->val) && 
+               validate(node->right, node->val, maxVal);
+    }
+
+    bool isValidBST(TreeNode* root) {
+        return validate(root, LLONG_MIN, LLONG_MAX);
+    }
+};
+```
+
+#### Java
+```java
+class Solution {
+    public boolean isValidBST(TreeNode root) {
+        return validate(root, Long.MIN_VALUE, Long.MAX_VALUE);
+    }
+
+    private boolean validate(TreeNode node, long minVal, long maxVal) {
+        if (node == null) return true;
+        if (node.val <= minVal || node.val >= maxVal) return false;
+        return validate(node.left, minVal, node.val) && 
+               validate(node.right, node.val, maxVal);
+    }
+}
+```
+
+### Time & Space Complexity
+- **Time**: $O(N)$ — Every node is visited once during the range validation.
+- **Space**: $O(H)$ — Recursion stack bounded by tree height $H$ ($O(\log N)$ balanced, $O(N)$ skewed).
+

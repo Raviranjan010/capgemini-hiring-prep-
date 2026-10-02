@@ -190,3 +190,91 @@ int knapsack(int W, const vector<int>& wt, const vector<int>& val, int n) {
 ### Complexity
 - **Time Complexity**: $O(n \times W)$ pseudopolynomial time.
 - **Space Complexity**: $O(W)$ using a single 1D rolling array.
+
+---
+
+## Problem 3: Cycle in a Directed Graph (Missing Backtrack Reset)
+
+**Tag**: [MOCK-EXAM]  
+**Practice Link**: [LeetCode: course-schedule](https://leetcode.com/problems/course-schedule/)
+
+### Problem Statement
+Given a directed graph with $V$ vertices labeled $0$ to $V-1$ and an adjacency list `adj`, determine whether the graph contains a directed cycle.
+
+### Buggy Exam Code
+```cpp
+// BUGGY: Node remains permanently marked in call stack
+bool dfs(int u, vector<vector<int>>& adj, vector<bool>& vis, vector<bool>& inStack) {
+    vis[u] = true;
+    inStack[u] = true;
+
+    for (int v : adj[u]) {
+        if (!vis[v] && dfs(v, adj, vis, inStack)) return true;
+        else if (inStack[v]) return true;
+    }
+
+    // BUG: Missing inStack[u] = false on backtrack!
+    return false;
+}
+
+bool hasCycle(int V, vector<vector<int>>& adj) {
+    vector<bool> vis(V, false);
+    vector<bool> inStack(V, false);
+    for (int i = 0; i < V; ++i) {
+        if (!vis[i] && dfs(i, adj, vis, inStack)) return true;
+    }
+    return false;
+}
+```
+
+### Bugs Found & Why They Are Wrong
+1. **Missing Recursion Backtracking Reset (`inStack[u] = false;`)**:
+   - *Why wrong*: `inStack[u]` denotes whether vertex $u$ is in the **current recursion call stack path**. If `inStack[u]` is never reset to `false` when backtracking, vertex $u$ remains marked as active.
+   - *Failure Scenario*: In a diamond-shaped DAG: $0 \to 1 \to 3$ and $0 \to 2 \to 3$ (no cycle). When the DFS finishes exploring path $0 \to 1 \to 3$ and returns, it later explores $0 \to 2 \to 3$. When it reaches $3$ from $2$, it finds `inStack[3] == true` and falsely flags a non-existent cycle!
+   - *Fix*: Unmark the current node upon exiting the function: `inStack[u] = false;` right before `return false;`.
+
+### Fixed Production Code
+
+#### C++
+```cpp
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    bool dfs(int u, const vector<vector<int>>& adj, vector<bool>& vis, vector<bool>& inStack) {
+        vis[u] = true;
+        inStack[u] = true;
+
+        for (int v : adj[u]) {
+            if (!vis[v]) {
+                if (dfs(v, adj, vis, inStack)) return true;
+            } else if (inStack[v]) {
+                // Back-edge detected -> cycle exists
+                return true;
+            }
+        }
+
+        // BACKTRACK: Remove node from current recursion path
+        inStack[u] = false;
+        return false;
+    }
+
+    bool hasCycle(int V, const vector<vector<int>>& adj) {
+        vector<bool> vis(V, false);
+        vector<bool> inStack(V, false);
+
+        for (int i = 0; i < V; ++i) {
+            if (!vis[i]) {
+                if (dfs(i, adj, vis, inStack)) return true;
+            }
+        }
+        return false;
+    }
+};
+```
+
+### Time & Space Complexity
+- **Time Complexity**: $O(V + E)$ — Every vertex and edge is visited at most once.
+- **Space Complexity**: $O(V)$ — Visited and inStack arrays plus recursion stack depth.
+

@@ -73,6 +73,10 @@ A concise, high-yield master reference summarizing core strategies, formulas, tr
   - Negative values, modulo constraints, or bitwise XOR $\implies$ Prefix Sum / Prefix XOR + HashMap ($O(N)$ Time, $O(N)$ Space).
   - Sliding Window Extremes (Min/Max over $K$) $\implies$ Monotonic Deque ($O(N)$ Time, $O(K)$ Space; never use a heap).
 - **Core Problem Patterns**:
+  - **Is Graph Bipartite?**: Alternating 2-coloring via BFS using bitwise XOR (`color[v] = color[u] ^ 1`). A graph is bipartite $\iff$ it has **NO odd-length cycles**. Must iterate an outer loop $0 \le i < V$ to handle disconnected components.
+  - **Course Schedule (Cycle Detection)**: Model as directed dependency graph. Apply Kahn's Algorithm (BFS Topological Sort) using an `inDegree` array. Push `inDegree == 0` nodes to queue; schedule is valid if processed node count equals $N$.
+  - **Number of Islands**: BFS flood fill; sink visited cells in-place (`grid[r][c] = '0'`) immediately upon enqueuing to eliminate $O(M \times N)$ auxiliary visited memory.
+  - **0/1 Matrix Shortest Distance**: Multi-source BFS initializing all `0` cells with distance `0` and enqueuing them simultaneously; expands in $O(M \times N)$ time without running redundant single-source BFS passes.
   - **LCA in Binary Tree**: Post-order DFS; if `root == p || root == q` return root; if both subtrees non-null, root is LCA; else return non-null child.
   - **Bitwise Equality Inversions**: Count zeroes $Z \implies \frac{Z(Z - 1)}{2}$ using `long long`.
   - **Palindromic Partitioning Min Cuts**: Precompute 2D `isPal[i][j]` in $O(N^2)$, then 1D `dp[i] = min(dp[j - 1] + 1)`.
@@ -147,3 +151,8 @@ A concise, high-yield master reference summarizing core strategies, formulas, tr
 12. **Undirected Graph DFS**: Check if `adj[edge[1]].push_back(edge[0])` is missing or `return components;` is inside the loop.
 13. **0/1 Knapsack 1D DP**: Check if capacity loop runs forward (`w++`); must be reverse (`w--`).
 14. **Bitwise AND vs Equality**: Check `x & 1 == 0` precedence trap; `==` runs first, so use `(x & 1) == 0`.
+15. **Validate BST**: Check if code only tests immediate children (`root->left->val >= root->val`); must pass down global ancestor bounds `(minVal, maxVal)`.
+16. **Directed Graph Cycle**: Check for missing `inStack[u] = false;` on backtrack before returning `false`, falsely flagging subsequent paths as cycles.
+17. **Kadane's Algorithm**: Check if `maxSoFar` / `currMax` are initialized to `0`; returns 0 on all-negative arrays (must initialize to `nums[0]`).
+18. **Binary Search (Bounds)**: Check for `high = mid` (causes TLE / infinite loop when `low + 1 == high`) and `(low + high) / 2` (integer overflow); fix to `high = mid - 1` and `low + (high - low) / 2`.
+

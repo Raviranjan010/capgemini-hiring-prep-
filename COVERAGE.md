@@ -106,10 +106,21 @@
 | N-Queens undo | [CHAT] | 03-code-debugging/04_linkedlist_stack_backtracking.md | [x] |
 | Connected components in undirected graph (dfs, edges) | [MOCK-EXAM] | 03-code-debugging/05_graphs_and_dp.md | [x] |
 | 0/1 Knapsack DP space optimization (reverse traversal) | [MOCK-EXAM] | 03-code-debugging/05_graphs_and_dp.md | [x] |
+| Validate BST boundary pointer bug (global bounds) | [VIDEO] | 03-code-debugging/01_trees.md | [x] |
+| Cycle in directed graph missing backtrack reset (inStack[u]) | [VIDEO] | 03-code-debugging/05_graphs_and_dp.md | [x] |
+| Kadane's algorithm all-negative array bug (maxSoFar = nums[0]) | [VIDEO] | 03-code-debugging/06_kadane_and_binary_search.md | [x] |
+| Binary search first occurrence (high = mid - 1 & overflow) | [VIDEO] | 03-code-debugging/06_kadane_and_binary_search.md | [x] |
+| Common bug categories reference table | [VIDEO] | 03-code-debugging/06_kadane_and_binary_search.md | [x] |
 | **AI Coding** | | | |
 | Decision flowchart | [CHAT] | 04-ai-assisted-coding/README.md | [x] |
 | Token-saving prompts & RTC-FC framework | [CHAT] | 04-ai-assisted-coding/README.md | [x] |
 | Debugging prompt pattern | [ADDED] | 04-ai-assisted-coding/README.md | [x] |
+| Interactive AI Co-Pilot pipeline & 5-turn structured dialogue | [VIDEO] | 04-ai-assisted-coding/04_graph_bipartite_course_schedule_islands.md | [x] |
+| Is Graph Bipartite (BFS 2-coloring, odd cycle theorem, 5-turn dialog) | [VIDEO] | 04-ai-assisted-coding/04_graph_bipartite_course_schedule_islands.md | [x] |
+| Course schedule (Kahn's in-degree BFS topological sort) | [VIDEO] | 04-ai-assisted-coding/04_graph_bipartite_course_schedule_islands.md | [x] |
+| Number of connected islands (in-place sinking grid[r][c] = '0') | [VIDEO] | 04-ai-assisted-coding/04_graph_bipartite_course_schedule_islands.md | [x] |
+| 0/1 Matrix shortest distance (multi-source BFS) | [VIDEO] | 04-ai-assisted-coding/04_graph_bipartite_course_schedule_islands.md | [x] |
+| Chatbot dialogue management blueprint & starter code audit | [VIDEO] | 04-ai-assisted-coding/04_graph_bipartite_course_schedule_islands.md | [x] |
 | Harmonic subarray | [CHAT] | 04-ai-assisted-coding/01_sliding_window.md | [x] |
 | Sliding window maximum | [CHAT] | 04-ai-assisted-coding/01_sliding_window.md | [x] |
 | Subarray sum = K | [CHAT] | 04-ai-assisted-coding/02_prefix_sum_hashmap.md | [x] |
@@ -122,6 +133,7 @@
 | Bitwise equality inversions A[i] & A[j] == A[i] ^ A[j] | [MOCK-EXAM] | 04-ai-assisted-coding/03_tree_lca_bitwise_palindrome_partition.md | [x] |
 | Palindromic partitioning minimum cuts (DP) | [MOCK-EXAM] | 04-ai-assisted-coding/03_tree_lca_bitwise_palindrome_partition.md | [x] |
 | long for prefix sums | [CHAT] | 04-ai-assisted-coding/README.md | [x] |
+
 | **Cognitive** | | | |
 | Motion challenge (rules, 3 levels, 3 tricks) | [VIDEO] | 05-cognitive-and-behavioral/01_motion_and_bubble.md | [x] |
 | Motion challenge (Level 4: 2-step clearing, shortest path Q2/Q5) | [VIDEO] | 05-cognitive-and-behavioral/01_motion_and_bubble.md | [x] |

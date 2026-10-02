@@ -104,3 +104,5 @@ Complexity: Time O(N), Space O(1).
 1. [01_sliding_window.md](01_sliding_window.md) - Maximum Sum Harmonic Subarray and Sliding Window Maximum (Monotonic Deque).
 2. [02_prefix_sum_hashmap.md](02_prefix_sum_hashmap.md) - Subarray Sum = K, Continuous Subarray Sum, Divisible by K, Contiguous Array, XOR = K, and Single Number III.
 3. [03_tree_lca_bitwise_palindrome_partition.md](03_tree_lca_bitwise_palindrome_partition.md) - Lowest Common Ancestor (LCA), Bitwise Equality Inversions ($A[i] \& A[j] == A[i] \oplus A[j]$), and Palindromic Partitioning Min Cuts.
+4. [04_graph_bipartite_course_schedule_islands.md](04_graph_bipartite_course_schedule_islands.md) - Is Graph Bipartite (2-Coloring BFS, Odd Cycle Theorem, 5-Turn Dialog), Course Schedule (Kahn's In-Degree), Number of Islands (In-Place Sinking), and 0/1 Matrix (Multi-Source BFS).
+
