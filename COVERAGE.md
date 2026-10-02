@@ -38,34 +38,34 @@
 | static recursion fun(3) | [CHAT] | 02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md | [x] |
 | n&(-n) | [CHAT] | 02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md | [x] |
 | **Debugging** | | | |
-| Strategy and 10-point scanner | [CHAT] | 03-code-debugging/README.md | [ ] |
-| Height-balanced tree | [CHAT] | 03-code-debugging/README.md | [ ] |
-| Level order | [CHAT] | 03-code-debugging/README.md | [ ] |
-| Zigzag | [CHAT] | 03-code-debugging/README.md | [ ] |
-| Matrix max row sum | [CHAT] | 03-code-debugging/README.md | [ ] |
-| Sorted matrix search | [CHAT] | 03-code-debugging/README.md | [ ] |
-| Jump Game I | [VIDEO] | 03-code-debugging/README.md | [ ] |
-| Jump Game II | [CHAT] | 03-code-debugging/README.md | [ ] |
-| Gas Station | [CHAT] | 03-code-debugging/README.md | [ ] |
-| Merge Intervals | [CHAT] | 03-code-debugging/README.md | [ ] |
-| Linked list cycle | [CHAT] | 03-code-debugging/README.md | [ ] |
-| Next greater element | [CHAT] | 03-code-debugging/README.md | [ ] |
-| Subsets backtracking | [CHAT] | 03-code-debugging/README.md | [ ] |
-| Linked list reversal order | [CHAT] | 03-code-debugging/README.md | [ ] |
-| Valid parentheses empty-stack | [CHAT] | 03-code-debugging/README.md | [ ] |
-| N-Queens undo | [CHAT] | 03-code-debugging/README.md | [ ] |
+| Strategy and 10-point scanner | [CHAT] | 03-code-debugging/README.md | [x] |
+| Height-balanced tree | [CHAT] | 03-code-debugging/01_trees.md | [x] |
+| Level order | [CHAT] | 03-code-debugging/01_trees.md | [x] |
+| Zigzag | [CHAT] | 03-code-debugging/01_trees.md | [x] |
+| Matrix max row sum | [CHAT] | 03-code-debugging/02_matrix.md | [x] |
+| Sorted matrix search | [CHAT] | 03-code-debugging/02_matrix.md | [x] |
+| Jump Game I | [VIDEO] | 03-code-debugging/03_greedy_and_intervals.md | [x] |
+| Jump Game II | [CHAT] | 03-code-debugging/03_greedy_and_intervals.md | [x] |
+| Gas Station | [CHAT] | 03-code-debugging/03_greedy_and_intervals.md | [x] |
+| Merge Intervals | [CHAT] | 03-code-debugging/03_greedy_and_intervals.md | [x] |
+| Linked list cycle | [CHAT] | 03-code-debugging/04_linkedlist_stack_backtracking.md | [x] |
+| Next greater element | [CHAT] | 03-code-debugging/04_linkedlist_stack_backtracking.md | [x] |
+| Subsets backtracking | [CHAT] | 03-code-debugging/04_linkedlist_stack_backtracking.md | [x] |
+| Linked list reversal order | [CHAT] | 03-code-debugging/04_linkedlist_stack_backtracking.md | [x] |
+| Valid parentheses empty-stack | [CHAT] | 03-code-debugging/04_linkedlist_stack_backtracking.md | [x] |
+| N-Queens undo | [CHAT] | 03-code-debugging/04_linkedlist_stack_backtracking.md | [x] |
 | **AI Coding** | | | |
-| Decision flowchart | [CHAT] | 04-ai-assisted-coding/README.md | [ ] |
-| Token-saving prompts | [CHAT] | 04-ai-assisted-coding/README.md | [ ] |
-| Harmonic subarray | [CHAT] | 04-ai-assisted-coding/README.md | [ ] |
-| Sliding window maximum | [CHAT] | 04-ai-assisted-coding/README.md | [ ] |
-| Subarray sum = K | [CHAT] | 04-ai-assisted-coding/README.md | [ ] |
-| Continuous subarray sum | [CHAT] | 04-ai-assisted-coding/README.md | [ ] |
-| Subarrays divisible by K | [CHAT] | 04-ai-assisted-coding/README.md | [ ] |
-| Contiguous array | [CHAT] | 04-ai-assisted-coding/README.md | [ ] |
-| XOR = K | [CHAT] | 04-ai-assisted-coding/README.md | [ ] |
-| Single Number III | [CHAT] | 04-ai-assisted-coding/README.md | [ ] |
-| long for prefix sums | [CHAT] | 04-ai-assisted-coding/README.md | [ ] |
+| Decision flowchart | [CHAT] | 04-ai-assisted-coding/README.md | [x] |
+| Token-saving prompts | [CHAT] | 04-ai-assisted-coding/README.md | [x] |
+| Harmonic subarray | [CHAT] | 04-ai-assisted-coding/01_sliding_window.md | [x] |
+| Sliding window maximum | [CHAT] | 04-ai-assisted-coding/01_sliding_window.md | [x] |
+| Subarray sum = K | [CHAT] | 04-ai-assisted-coding/02_prefix_sum_hashmap.md | [x] |
+| Continuous subarray sum | [CHAT] | 04-ai-assisted-coding/02_prefix_sum_hashmap.md | [x] |
+| Subarrays divisible by K | [CHAT] | 04-ai-assisted-coding/02_prefix_sum_hashmap.md | [x] |
+| Contiguous array | [CHAT] | 04-ai-assisted-coding/02_prefix_sum_hashmap.md | [x] |
+| XOR = K | [CHAT] | 04-ai-assisted-coding/02_prefix_sum_hashmap.md | [x] |
+| Single Number III | [CHAT] | 04-ai-assisted-coding/02_prefix_sum_hashmap.md | [x] |
+| long for prefix sums | [CHAT] | 04-ai-assisted-coding/README.md | [x] |
 | **Cognitive** | | | |
 | Motion challenge (rules, 3 levels, 3 tricks) | [VIDEO] | 05-cognitive-and-behavioral/README.md | [ ] |
 | Bubble memory (rules, 3 tricks) | [VIDEO] | 05-cognitive-and-behavioral/README.md | [ ] |
