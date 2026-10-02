@@ -67,22 +67,22 @@
 | Single Number III | [CHAT] | 04-ai-assisted-coding/02_prefix_sum_hashmap.md | [x] |
 | long for prefix sums | [CHAT] | 04-ai-assisted-coding/README.md | [x] |
 | **Cognitive** | | | |
-| Motion challenge (rules, 3 levels, 3 tricks) | [VIDEO] | 05-cognitive-and-behavioral/README.md | [ ] |
-| Bubble memory (rules, 3 tricks) | [VIDEO] | 05-cognitive-and-behavioral/README.md | [ ] |
-| Digit challenge | [ADDED] | 05-cognitive-and-behavioral/README.md | [ ] |
-| Grid challenge | [ADDED] | 05-cognitive-and-behavioral/README.md | [ ] |
-| Deductive Q1 | [VIDEO] | 05-cognitive-and-behavioral/README.md | [ ] |
-| Deductive Q2 | [VIDEO] | 05-cognitive-and-behavioral/README.md | [ ] |
-| Deductive cheat table | [VIDEO] | 05-cognitive-and-behavioral/README.md | [ ] |
-| Behavioral format | [VIDEO] | 05-cognitive-and-behavioral/README.md | [ ] |
-| Consistency rules | [VIDEO] | 05-cognitive-and-behavioral/README.md | [ ] |
-| Priority matrix | [VIDEO] | 05-cognitive-and-behavioral/README.md | [ ] |
-| Dilemmas 1 to 3 | [CHAT] | 05-cognitive-and-behavioral/README.md | [ ] |
+| Motion challenge (rules, 3 levels, 3 tricks) | [VIDEO] | 05-cognitive-and-behavioral/01_motion_and_bubble.md | [x] |
+| Bubble memory (rules, 3 tricks) | [VIDEO] | 05-cognitive-and-behavioral/01_motion_and_bubble.md | [x] |
+| Digit challenge | [ADDED] | 05-cognitive-and-behavioral/02_digit_and_grid.md | [x] |
+| Grid challenge | [ADDED] | 05-cognitive-and-behavioral/02_digit_and_grid.md | [x] |
+| Deductive Q1 | [VIDEO] | 05-cognitive-and-behavioral/03_deductive_reasoning.md | [x] |
+| Deductive Q2 | [VIDEO] | 05-cognitive-and-behavioral/03_deductive_reasoning.md | [x] |
+| Deductive cheat table | [VIDEO] | 05-cognitive-and-behavioral/03_deductive_reasoning.md | [x] |
+| Behavioral format | [VIDEO] | 05-cognitive-and-behavioral/04_behavioral.md | [x] |
+| Consistency rules | [VIDEO] | 05-cognitive-and-behavioral/04_behavioral.md | [x] |
+| Priority matrix | [VIDEO] | 05-cognitive-and-behavioral/04_behavioral.md | [x] |
+| Dilemmas 1 to 3 | [CHAT] | 05-cognitive-and-behavioral/04_behavioral.md | [x] |
 | **Communication** | | | |
-| 4 parts | [CHAT] | 06-communication/README.md | [ ] |
-| golden rules | [CHAT] | 06-communication/README.md | [ ] |
-| mic tip | [CHAT] | 06-communication/README.md | [ ] |
-| extempore formula | [CHAT] | 06-communication/README.md | [ ] |
-| 3 topics | [CHAT] | 06-communication/README.md | [ ] |
+| 4 parts | [CHAT] | 06-communication/README.md | [x] |
+| golden rules | [CHAT] | 06-communication/README.md | [x] |
+| mic tip | [CHAT] | 06-communication/README.md | [x] |
+| extempore formula | [CHAT] | 06-communication/README.md | [x] |
+| 3 topics | [CHAT] | 06-communication/README.md | [x] |
 | **Cheatsheet** | | | |
-| 1-page master box | [CHAT] | CHEATSHEET.md | [ ] |
+| 1-page master box | [CHAT] | CHEATSHEET.md | [x] |
