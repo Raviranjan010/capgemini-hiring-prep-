@@ -351,3 +351,25 @@ Frequent preemption whenever a shorter process arrives causes high context-switc
 
 **5-Second Shortcut**: SRTF drawback = High context switches + Starvation of long processes.  
 **Trap**: Thinking SRTF causes deadlocks.
+
+---
+
+### Question 13: Virtual Memory Operating Systems - Thrashing
+**Tag**: [MOCK-EXAM]
+
+**Question**:  
+What causes thrashing in a virtual memory operating system?
+
+- **A)** Deadlock occurring inside high-priority driver threads.
+- **B)** The operating system spending substantially more time swapping pages in and out of secondary storage than executing process instructions.
+- **C)** High CPU temperature triggering clock frequency scaling.
+- **D)** Fragmented disk sectors during sequential I/O requests.
+
+**Correct Answer**: Option B
+
+**Why**:  
+Thrashing occurs when the aggregate working sets of all active processes exceed the physical memory (RAM) frames available. This triggers a cascading chain of page faults where pages are continuously evicted to disk and immediately faulted back in, causing near-zero CPU throughput and high disk I/O queuing.
+
+**5-Second Shortcut**: Thrashing = System spends more time page swapping than executing code.  
+**Trap**: Confusing thrashing with process deadlock or CPU throttling.
+
