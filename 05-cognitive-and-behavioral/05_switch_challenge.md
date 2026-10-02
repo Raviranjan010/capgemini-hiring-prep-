@@ -64,6 +64,34 @@ Compare target positions to $L_1$ positions:
 
 ---
 
+### Problem Walkthrough 2 (Video Problem: Operator 2 Deduction)
+**Tag**: [VIDEO]
+
+**Problem Setup**:
+- **Initial Layer ($L_0$)**:  
+  $$\text{Index 1: } \bigcirc \quad \vert{} \quad \text{Index 2: } \boldsymbol{+} \quad \vert{} \quad \text{Index 3: } \diamondsuit \quad \vert{} \quad \text{Index 4: } \blacktriangle$$
+  $$L_0 = [1:\bigcirc, \ 2:\boldsymbol{+}, \ 3:\diamondsuit, \ 4:\blacktriangle]$$
+- **First Operation**: Fixed permutation operator `2 4 1 3` is applied.
+- **Target Output ($L_2$)**: $[\blacktriangle, \bigcirc, \diamondsuit, \boldsymbol{+}]$
+- **Question**: What second operator sequence $d_1 \, d_2 \, d_3 \, d_4$ transforms Intermediate Layer $L_1$ into Target Output $L_2$?
+
+**Step-by-Step Execution Trace**:
+1. **Deriving Intermediate State ($L_1$) using `2 4 1 3`**:
+   - New Pos 1 pulls from old Pos 2: $\boldsymbol{+}$
+   - New Pos 2 pulls from old Pos 4: $\blacktriangle$
+   - New Pos 3 pulls from old Pos 1: $\bigcirc$
+   - New Pos 4 pulls from old Pos 3: $\diamondsuit$  
+   $$\mathbf{L_1 = [1:\boldsymbol{+}, \ 2:\blacktriangle, \ 3:\bigcirc, \ 4:\diamondsuit]}$$
+2. **Deducing Operator 2 to produce Target $L_2 = [\blacktriangle, \bigcirc, \diamondsuit, \boldsymbol{+}]$**:
+   - Output Pos 1 is $\blacktriangle$, found at $L_1$ Index 2 $\to \mathbf{2}$
+   - Output Pos 2 is $\bigcirc$, found at $L_1$ Index 3 $\to \mathbf{3}$
+   - Output Pos 3 is $\diamondsuit$, found at $L_1$ Index 4 $\to \mathbf{4}$
+   - Output Pos 4 is $\boldsymbol{+}$, found at $L_1$ Index 1 $\to \mathbf{1}$
+
+**Answer**: `2 3 4 1`
+
+---
+
 ## 3. High-Speed Shortcuts & Heuristics
 
 1. **Anchor Element Strategy**:
@@ -112,6 +140,62 @@ What is the final symbol order after Level 2?
    - Pos 3 takes $L_1$ Pos 1 ($\heartsuit$)
    - Pos 4 takes $L_1$ Pos 3 ($\clubsuit$)  
    $\implies L_2 = [\spadesuit, \blacklozenge, \heartsuit, \clubsuit]$.
+
+---
+
+### Practice Question Q1A (Single Layer Forward Deduction)
+**Tag**: [MOCK-EXAM]
+
+**Problem**:  
+Input Layer ($L_0$): $[1:\clubsuit, \ 2:\spadesuit, \ 3:\diamondsuit, \ 4:\heartsuit]$  
+Target Output ($L_1$): $[\heartsuit, \diamondsuit, \clubsuit, \spadesuit]$  
+
+Which operator sequence achieves this transformation?
+- **A)** `4 3 1 2`
+- **B)** `3 4 2 1`
+- **C)** `4 1 3 2`
+- **D)** `2 4 1 3`
+
+**Correct Answer**: **A (`4 3 1 2`)**
+
+**Derivation**:
+- Output Pos 1 is $\heartsuit$ ($L_0$ Index 4) $\rightarrow$ Digit 1 = `4`.
+- Output Pos 2 is $\diamondsuit$ ($L_0$ Index 3) $\rightarrow$ Digit 2 = `3`.
+- Output Pos 3 is $\clubsuit$ ($L_0$ Index 1) $\rightarrow$ Digit 3 = `1`.
+- Output Pos 4 is $\spadesuit$ ($L_0$ Index 2) $\rightarrow$ Digit 4 = `2`.  
+**Resulting sequence**: `4 3 1 2`.
+
+---
+
+### Practice Question Q2A (Two-Layer Composite Operator)
+**Tag**: [MOCK-EXAM]
+
+**Problem**:  
+Input Layer ($L_0$): $[A, B, C, D]$  
+- Operator 1: `3 1 4 2`  
+- Operator 2: `2 4 1 3`  
+
+What is the final sequence after applying Operator 1 followed by Operator 2?
+- **A)** $[A, B, C, D]$
+- **B)** $[A, B, D, C]$
+- **C)** $[D, B, A, C]$
+- **D)** $[B, C, A, D]$
+
+**Correct Answer**: **A ($[A, B, C, D]$)** *(Note: If Operator 2 is `2 4 3 1`, the result is **B** $[A, B, D, C]$)*
+
+**Derivation**:
+1. Apply Operator 1 (`3 1 4 2`) on $[A, B, C, D]$:
+   - $L_1[1] = L_0[3] = C$
+   - $L_1[2] = L_0[1] = A$
+   - $L_1[3] = L_0[4] = D$
+   - $L_1[4] = L_0[2] = B$  
+   $\implies L_1 = [C, A, D, B]$
+2. Apply Operator 2 (`2 4 1 3`) on $L_1$:
+   - $L_2[1] = L_1[2] = A$
+   - $L_2[2] = L_1[4] = B$
+   - $L_2[3] = L_1[1] = C$
+   - $L_2[4] = L_1[3] = D$  
+   $\implies L_2 = [A, B, C, D]$.
 
 ---
 

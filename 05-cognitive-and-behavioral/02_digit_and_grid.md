@@ -31,12 +31,28 @@
   4. Hand check: $8 \times 5 = 40$, then $40 + 2 = 42$. (BODMAS valid).
 - **Final Answer**: `8 * 5 + 2 = 42`
 
+### Video Walkthrough Problem 4: Equation Balancing (Mental Math & BODMAS)
+**Tag**: [VIDEO]
+
+**Problem Statement**:  
+Fill in the blanks with single unique digits ($1 \le d \le 9$) to satisfy:
+$$\underline{\hspace{0.8cm}} \ \times \ \underline{\hspace{0.8cm}} \ + \ \underline{\hspace{0.8cm}} = 45$$
+
+**Mathematical Derivation (BODMAS Rule)**:
+1. Multiplication precedes addition: $(\text{Digit}_1 \times \text{Digit}_2) + \text{Digit}_3 = 45$.
+2. Testing single-digit combinations:
+   - If $\text{Digit}_1 = 7, \text{Digit}_2 = 5 \implies 35 + 10 = 45$ (Invalid: $10$ is not a single digit).
+   - If $\text{Digit}_1 = 6, \text{Digit}_2 = 7 \implies 6 \times 7 = 42$.
+   - Then $\text{Digit}_3 = 45 - 42 = 3$.
+3. All digits are unique single digits: $\{6, 7, 3\}$.  
+**Final Equation**: $6 \times 7 + 3 = 45$.
+
 ---
 
 ## 2. Grid / Missing Symbol Challenge (Mini-Sudoku Constraint Satisfaction)
 
 ### Core Rules
-- **Grid Dimensions**: Typically played on a $4 \times 4$ or $5 \times 5$ grid using a fixed alphabet of symbols (e.g., $\{\boldsymbol{+}, \bigcirc, \blacktriangle, \blacksquare\}$).
+- **Grid Dimensions**: Typically played on a $4 \times 4$ or $5 \times 5$ grid using a fixed alphabet of symbols (e.g., $\{\boldsymbol{+}, \bigcirc, \blacktriangle, \blacksquare, \bigstar\}$).
 - **Exact Constraint (Latin Square Property)**: Every row and every column must contain each symbol **exactly once**. No symbol may repeat within any row or column.
 - **Target Cell**: One or more cells are masked with a question mark `?`.
 
@@ -44,6 +60,28 @@
 1. **Find Maximum Density**: Identify the row or column containing $N - 1$ out of $N$ symbols first (e.g., 3 out of 4 symbols filled); the remaining cell is immediately deterministic.
 2. **Intersection Cross-Check**: For the target cell marked `?`, eliminate all symbols present across its entire row **AND** its entire column.
 3. **Hypothesis / Backtracking**: If two candidates remain, pick one candidate tentatively and verify whether it forces an immediate row/column clash in an adjacent intersected cell.
+
+### Video Walkthrough Problem 3: Deductive Logic 5×5 Grid (Mini-Sudoku Elimination)
+**Tag**: [VIDEO]
+
+**Setup & Rule**:  
+A $5 \times 5$ grid where each row and column must contain every symbol exactly once from the set: $\{\boldsymbol{+}, \blacksquare, \blacktriangle, \bigcirc, \bigstar\}$. Find the symbol for the cell marked `?`.
+
+**Elimination Steps**:
+1. **Target Cell Constraints**:
+   - In target row: $\blacksquare$ and $\bigcirc$ are already present $\implies$ cannot be $\blacksquare$ or $\bigcirc$.
+   - In target column: $\bigstar$ is already present $\implies$ cannot be $\bigstar$.
+   - Remaining candidate set for `?`: $\{\boldsymbol{+}, \blacktriangle\}$.
+2. **Intermediate Cell Deduction**:
+   - Identify an adjacent cell in the intersecting column/row that currently has high symbol density.
+   - That intersecting cell's row and column already contain $\{\bigstar, \boldsymbol{+}, \blacksquare, \bigcirc\}$.
+   - By pure process of elimination, that intermediate cell must strictly be $\blacktriangle$.
+3. **Resolving the Target Cell**:
+   - Since $\blacktriangle$ is now locked into the target row/column path, the target cell cannot be $\blacktriangle$ without causing an immediate duplicate clash.
+   - This uniquely leaves only one valid candidate: $\boldsymbol{+}$ (Plus).  
+**Answer**: $\boldsymbol{+}$ (Plus)
+
+---
 
 ### 3 Core Deductive Rules
 1. **Row & Column Exclusivity (Shapes)**: Each distinct primary shape appears exactly once in each row and column (Sudoku Latin-square principle).
