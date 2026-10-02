@@ -124,9 +124,13 @@
 | long for prefix sums | [CHAT] | 04-ai-assisted-coding/README.md | [x] |
 | **Cognitive** | | | |
 | Motion challenge (rules, 3 levels, 3 tricks) | [VIDEO] | 05-cognitive-and-behavioral/01_motion_and_bubble.md | [x] |
+| Motion challenge (Level 4: 2-step clearing, shortest path Q2) | [VIDEO] | 05-cognitive-and-behavioral/01_motion_and_bubble.md | [x] |
 | Bubble memory (rules, 3 tricks) | [VIDEO] | 05-cognitive-and-behavioral/01_motion_and_bubble.md | [x] |
 | Digit challenge | [ADDED] | 05-cognitive-and-behavioral/02_digit_and_grid.md | [x] |
-| Grid challenge | [ADDED] | 05-cognitive-and-behavioral/02_digit_and_grid.md | [x] |
+| Grid / Mini-Sudoku (Latin Square, Max Density, Cross-Check) | [MOCK-EXAM] | 05-cognitive-and-behavioral/02_digit_and_grid.md | [x] |
+| Pattern Recognition (Match Challenge symmetry, counts, rotation) | [MOCK-EXAM] | 05-cognitive-and-behavioral/02_digit_and_grid.md | [x] |
+| Switch Challenge (Pull semantics, Anchor element strategy) | [VIDEO] | 05-cognitive-and-behavioral/05_switch_challenge.md | [x] |
+| Switch Challenge 10 Practice Puzzles (P1 to P10 + Q1) | [MOCK-EXAM] | 05-cognitive-and-behavioral/05_switch_challenge.md | [x] |
 | Deductive Q1 | [VIDEO] | 05-cognitive-and-behavioral/03_deductive_reasoning.md | [x] |
 | Deductive Q2 | [VIDEO] | 05-cognitive-and-behavioral/03_deductive_reasoning.md | [x] |
 | Deductive cheat table | [VIDEO] | 05-cognitive-and-behavioral/03_deductive_reasoning.md | [x] |
@@ -134,6 +138,18 @@
 | Consistency rules | [VIDEO] | 05-cognitive-and-behavioral/04_behavioral.md | [x] |
 | Priority matrix | [VIDEO] | 05-cognitive-and-behavioral/04_behavioral.md | [x] |
 | Dilemmas 1 to 3 | [CHAT] | 05-cognitive-and-behavioral/04_behavioral.md | [x] |
+| **Technical Assessment & DSA Additions** | | | |
+| Binary Tree Traversals visual paths (Pre/In/Post/Level) | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md | [x] |
+| Pre-order & In-order step-by-step traces | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md | [x] |
+| Bubble Sort Pass-1 Invariant & step trace ([5, 3, 8, 4]) | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/03_oops_os.md | [x] |
+| Sorting Algorithms Complexity & Stability reference table | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/03_oops_os.md | [x] |
+| Hash Map key invariance & overwrite semantics | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/03_oops_os.md | [x] |
+| Factorial recursion call stack unwinding (solve(4) = 24) | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md | [x] |
+| Full vs Complete Binary Tree Properties MCQ (Q3) | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/03_oops_os.md | [x] |
+| Selection Sort two-pass invariant MCQ (Q4) | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/03_oops_os.md | [x] |
+| Hash Map linear probing open addressing collision MCQ (Q5) | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md | [x] |
+| Mirrored recursion compute(3) output MCQ (Q6) | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md | [x] |
+| Exam-Day Strategic Checklist | [MOCK-EXAM] | CHEATSHEET.md | [x] |
 | **Communication** | | | |
 | 4 parts | [CHAT] | 06-communication/README.md | [x] |
 | golden rules | [CHAT] | 06-communication/README.md | [x] |
@@ -142,3 +158,4 @@
 | 3 topics | [CHAT] | 06-communication/README.md | [x] |
 | **Cheatsheet** | | | |
 | 1-page master box | [CHAT] | CHEATSHEET.md | [x] |
+

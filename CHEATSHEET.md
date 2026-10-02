@@ -29,12 +29,26 @@ A concise, high-yield master reference summarizing core strategies, formulas, tr
   $$\text{Relational } (<,\, <=) \ > \ \text{Equality } (==,\, !=) \ > \ \text{Bitwise } \& \ > \ \text{Bitwise } \oplus \ > \ \text{Bitwise } \mid \ > \ \text{Logical } \&\& \ > \ \text{Logical } \mid\mid \ > \ \text{Assignment } =$$
 - **Stack Postfix**: Push operands; on operator, pop right operand first, then left operand; evaluate and push result back.
 - **Tree & Graph Properties**:
-  - BST Inorder traversal ($Left \to Root \to Right$) visits keys in sorted, non-decreasing order.
+  - **Visual Traversal Paths**:
+    - **Pre-order** ($\text{Root} \to L \to R$): Left-perimeter outline ("Pant-shape" / top-to-bottom scan).
+    - **In-order** ($L \to \text{Root} \to R$): Orthogonal projection onto horizontal axis (sorted order in BSTs).
+    - **Post-order** ($L \to R \to \text{Root}$): Bottom-up leaf elimination up to root.
+    - **Level-order**: Horizontal layer-by-layer scanning using Queue (BFS).
+  - **Full vs Complete Binary Tree**: Full = strictly degree 0 or 2 children; Complete = all levels full except last (filled left-to-right; contiguous array friendly).
   - Circular Queue full condition: `(rear + 1) % N == front` (reserving 1 empty slot).
   - Comparison-based sorting theoretical lower bound: $\Omega(N \log N)$ (decision tree $N!$ leaves).
+- **Sorting Algorithms & Invariants**:
+  - **Bubble Sort**: Pass $k$ locks $k$ largest elements at `arr[n-k ... n-1]`. Pass 1 puts max element at `arr[n-1]`. Stable: **Yes** ($O(N)$ best, $O(N^2)$ worst, $O(1)$ space).
+  - **Selection Sort**: Pass $k$ locks $k$ smallest elements at `arr[0 ... k-1]`. Stable: **No** ($O(N^2)$ all cases, $O(1)$ space).
+  - **Insertion Sort**: Inserts into sorted prefix; optimal for nearly sorted arrays. Stable: **Yes** ($O(N)$ best, $O(N^2)$ worst, $O(1)$ space).
+  - **Merge Sort**: Stable: **Yes** ($O(N \log N)$ all cases, $O(N)$ space).
+  - **Quick Sort**: In-place partitioning. Stable: **No** ($O(N \log N)$ avg, $O(N^2)$ worst, $O(\log N)$ space).
+  - **Heap Sort**: Binary max-heap. Stable: **No** ($O(N \log N)$ all cases, $O(1)$ space).
 - **OS & DBMS Fundamentals**:
   - **2NF**: No partial dependencies (no non-prime attribute depends on a proper subset of any candidate key).
   - **Thrashing**: Total working sets exceed RAM frames, causing continuous page swapping and near-zero CPU execution.
+  - **Hash Map Overwrite**: Inserting an existing key updates value in-place without altering map size or creating duplicates.
+  - **Open Addressing (Linear Probing)**: $h(k, i) = (h(k) + i) \pmod M$. First empty slot receives the key after collision.
 - **Bitwise Formulas**:
   - Lowest set bit: `n & (-n)`
   - Clear lowest set bit / Power of 2: `(n & (n - 1)) == 0`
@@ -67,11 +81,39 @@ A concise, high-yield master reference summarizing core strategies, formulas, tr
 
 ---
 
-## 5. Cognitive & Behavioral
-- **Motion Challenge**: Trace paths backwards from the target goal hole; position all sliding blocks before moving the ball; use boundary walls as anchors.
+## 5. Cognitive & Behavioral Assessment
+- **Switch Challenge**:
+  - **Operator Mechanics**: Digit at index $i$ means *"pull from previous index $d_i$ into position $i$"*.
+  - **Anchor Element Strategy**: Track a single unique symbol (e.g. $\bigstar$) to eliminate 2–3 options in 5–10 seconds.
+  - **Inverse Operator**: $P^{-1}$ maps elements back to original indices. Self-inverse permutations (e.g., `3 4 1 2`) invert to themselves.
+- **Digit / Symbol Grid Challenge (Mini-Sudoku)**:
+  - **Latin Square Property**: Every row and column must contain each symbol exactly once.
+  - **Solving Priority**: Solve Maximum Density rows/columns (3 of 4 filled) first $\to$ Intersection Cross-Check $\to$ Hypothesis backtracking.
+- **Pattern Recognition (Match Challenge)**:
+  - Check row/column symmetry mirrors, total filled symbol counts, and $90^\circ / 180^\circ$ rotational invariance.
+- **Motion Challenge**:
+  - Reverse path planning: work backward from the target goal hole (*"Which obstacle directly blocks the goal? Move it first"*).
+  - Move all obstacles into clearance pockets first before executing uninterrupted ball slides.
 - **Bubble Memory**: Encode coordinates verbally as clock hours or compass directions; trace paths with your finger; chunk sequences into groups of 3.
 - **Deductive Logic**: *"Some A are B"* converts symmetrically to *"Some B are A"* (never infer *"Some A are not B"*). Conditional $P \implies Q$ guarantees only the contrapositive $\neg Q \implies \neg P$.
 - **Behavioral Profiling**: Prioritize collaboration over solitary heroics, deadline execution over unconstrained experimentation, and adaptability over complaints. Maintain consistency across disguised questions.
+
+---
+
+## 6. Exam-Day Strategic Checklist
+
+### Cognitive Games (Keep Calm & Track Singular Elements)
+- [ ] **Switch Challenge**: Do not attempt to map all 4 symbols simultaneously. Track the path of a single symbol (Anchor Element) to eliminate wrong multiple-choice options in seconds.
+- [ ] **Motion Challenge**: Work backward from the target goal. Ask: *"Which obstacle is directly blocking the target hole?"* Move that obstacle first.
+- [ ] **Grid / Sudoku**: Scan for rows or columns with only one missing slot before trying to resolve cells with multiple candidate symbols.
+- [ ] **Bubble Memory**: Use the 3-item chunking technique and physical cursor tracing during rapid flashes.
+
+### Technical Traversals & Algorithms
+- [ ] **Pre-order**: Check if the very first printed value matches the root node.
+- [ ] **In-order**: Check if values from a Binary Search Tree appear in sorted ascending order.
+- [ ] **Bubble Sort**: Remember that each pass locks the next largest value into the rightmost position ($k$ largest at end).
+- [ ] **Hash Maps**: Inserting an existing key updates the value in place; it never creates a duplicate entry or changes size.
+- [ ] **Open Addressing**: On collision at $h(k)$, probe sequentially $(h(k) + i) \pmod M$ to find the first free index.
 
 ---
 
