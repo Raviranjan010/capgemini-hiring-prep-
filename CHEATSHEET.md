@@ -17,12 +17,24 @@ A concise, high-yield master reference summarizing core strategies, formulas, tr
 
 ---
 
-## 2. Technical MCQs & Operator Precedence
+## 2. Technical MCQs & Pseudo-code Tracing
+- **Pseudo-code Rules**:
+  - **Inclusive Bounds**: `for i = a to b` includes both $a$ and $b$ (e.g., `0 to 4` = 5 iterations).
+  - **Block Closures**: Structured statements must formally terminate (`end if`, `end for`); omission = **Syntax Error**.
+  - **Scope Trap**: Re-declaring an accumulator (e.g., `sum = 0`) inside a loop resets its state on every iteration.
+  - **Digital Root**: $1 + ((n - 1) \pmod 9)$ computes repeated sum of digits instantly in $O(1)$.
+  - **Short-Circuit**: In `x && y`, if $x$ evaluates to $0$, $y$ never executes. In `x || y`, if $x$ is non-zero, $y$ never executes.
 - **Master Precedence Rank**:
   $$\text{Grouping } () \ > \ \text{Unary } (++,\, !,\, \sim) \ > \ \text{Multiplicative } (*,\, /,\, \%) \ > \ \text{Additive } (+,\, -) \ > \ \text{Shifts } (\ll,\, \gg)$$
   $$\text{Relational } (<,\, <=) \ > \ \text{Equality } (==,\, !=) \ > \ \text{Bitwise } \& \ > \ \text{Bitwise } \oplus \ > \ \text{Bitwise } \mid \ > \ \text{Logical } \&\& \ > \ \text{Logical } \mid\mid \ > \ \text{Assignment } =$$
 - **Stack Postfix**: Push operands; on operator, pop right operand first, then left operand; evaluate and push result back.
-- **Tree Traversal Reconstruction**: Preorder first element is Root; locate Root in Inorder to partition Left and Right subtrees; recurse to derive Postorder.
+- **Tree & Graph Properties**:
+  - BST Inorder traversal ($Left \to Root \to Right$) visits keys in sorted, non-decreasing order.
+  - Circular Queue full condition: `(rear + 1) % N == front` (reserving 1 empty slot).
+  - Comparison-based sorting theoretical lower bound: $\Omega(N \log N)$ (decision tree $N!$ leaves).
+- **OS & DBMS Fundamentals**:
+  - **2NF**: No partial dependencies (no non-prime attribute depends on a proper subset of any candidate key).
+  - **Thrashing**: Total working sets exceed RAM frames, causing continuous page swapping and near-zero CPU execution.
 - **Bitwise Formulas**:
   - Lowest set bit: `n & (-n)`
   - Clear lowest set bit / Power of 2: `(n & (n - 1)) == 0`

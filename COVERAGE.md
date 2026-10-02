@@ -39,12 +39,14 @@
 | Enterprise RBAC at retrieval time (Q28) | [ADDED] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
 | RLHF & reward model objective (Q29) | [CHAT] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
 | **Networking / SQL / DBMS** | | | |
-| Subnet 255.255.255.192 | [CHAT] | 02-ai-literacy-and-cs-mcqs/02_networking_sql_dbms.md | [x] |
+| Subnet 255.255.255.192 usable hosts | [CHAT] | 02-ai-literacy-and-cs-mcqs/02_networking_sql_dbms.md | [x] |
 | NULL comparison | [CHAT] | 02-ai-literacy-and-cs-mcqs/02_networking_sql_dbms.md | [x] |
 | WHERE vs HAVING (query + MCQ) | [CHAT] | 02-ai-literacy-and-cs-mcqs/02_networking_sql_dbms.md | [x] |
 | Second highest salary (LIMIT/OFFSET and subquery) | [CHAT] | 02-ai-literacy-and-cs-mcqs/02_networking_sql_dbms.md | [x] |
 | Self join | [CHAT] | 02-ai-literacy-and-cs-mcqs/02_networking_sql_dbms.md | [x] |
 | NULL arithmetic | [CHAT] | 02-ai-literacy-and-cs-mcqs/02_networking_sql_dbms.md | [x] |
+| Database Normalization 2NF partial dependencies | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/02_networking_sql_dbms.md | [x] |
+| Subnetting network ID & broadcast (192.168.10.65/26) | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/02_networking_sql_dbms.md | [x] |
 | **OOPs / OS** | | | |
 | Diamond problem (scenario + MCQ) | [CHAT] | 02-ai-literacy-and-cs-mcqs/03_oops_os.md | [x] |
 | Shallow vs deep copy | [CHAT] | 02-ai-literacy-and-cs-mcqs/03_oops_os.md | [x] |
@@ -54,7 +56,23 @@
 | Coffman conditions | [CHAT] | 02-ai-literacy-and-cs-mcqs/03_oops_os.md | [x] |
 | Banker's algorithm | [CHAT] | 02-ai-literacy-and-cs-mcqs/03_oops_os.md | [x] |
 | Paging LRU/FIFO/Optimal | [CHAT] | 02-ai-literacy-and-cs-mcqs/03_oops_os.md | [x] |
+| Virtual Memory Thrashing | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/03_oops_os.md | [x] |
 | **Pseudocode / Bitwise & Technical MCQs** | | | |
+| Essential tracing rules (inclusive bounds, block closures, scope) | [VIDEO] | 02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md | [x] |
+| Video P1: Sum of even array elements (output trace) | [VIDEO] | 02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md | [x] |
+| Video P2: Missing loop terminator syntax error | [VIDEO] | 02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md | [x] |
+| Video P3: Second largest element detection | [VIDEO] | 02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md | [x] |
+| Video P4: Two-pointer palindrome check | [VIDEO] | 02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md | [x] |
+| Video P5: Digital root formula (repeated sum of digits) | [VIDEO] | 02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md | [x] |
+| Video P6: Fibonacci sequence stream generation | [VIDEO] | 02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md | [x] |
+| Curated Q1: Bitwise XOR swap & shift (4 + 14 = 18) | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md | [x] |
+| Curated Q2: Nested loop doubling counter (count = 31) | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md | [x] |
+| Curated Q3: Short-circuit logical operators (a++ && ++b) | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md | [x] |
+| Curated Q4: Recursive call stack tracing (solve(7) = 16) | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md | [x] |
+| Curated Q5: BST Inorder sorted traversal property | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md | [x] |
+| Curated Q6: Circular queue full condition ((rear+1)%N==front) | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md | [x] |
+| Curated Q7: Sorting theoretical lower bound Omega(N log N) | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md | [x] |
+| 15 Exam Practice Problems (P1 to P15 complete solutions) | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md | [x] |
 | Master 13-rank operator precedence table | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md | [x] |
 | a<<b+1 precedence | [CHAT] | 02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md | [x] |
 | static recursion fun(3) unwinding | [CHAT] | 02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md | [x] |
