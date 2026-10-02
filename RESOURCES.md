@@ -16,6 +16,7 @@
 | 2D Matrix Debugging (7 Bugs) | https://youtu.be/SjbedEKjacM | UNVERIFIED - open and confirm | [03-code-debugging/README.md](03-code-debugging/README.md) |
 | Harmonic Subarray (AI-Assisted Coding) | https://youtu.be/Myw7Po8fyWw | UNVERIFIED - open and confirm | [04-ai-assisted-coding/README.md](04-ai-assisted-coding/README.md) |
 | Capgemini AI Assist Coding Solution (Graph Bipartite & BFS) | http://www.youtube.com/watch?v=tqXkeM3D8D4 | Verified | [04-ai-assisted-coding/04_graph_bipartite_course_schedule_islands.md](04-ai-assisted-coding/04_graph_bipartite_course_schedule_islands.md) |
+| Capgemini AI Literacy & Prompt Engineering Master Walkthrough | http://www.youtube.com/watch?v=oq3FtGoPmCE | Verified | [02-ai-literacy-and-cs-mcqs/01_ai_literacy.md](02-ai-literacy-and-cs-mcqs/01_ai_literacy.md) |
 
 ## Allowed LeetCode Practice Links
 

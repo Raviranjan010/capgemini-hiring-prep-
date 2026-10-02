@@ -9,9 +9,13 @@ A concise, high-yield master reference summarizing core strategies, formulas, tr
 - **LLM Pipeline**: Raw Text $\to$ Tokenization (~100 words $\approx$ 130–135 tokens) $\to$ Vector Embeddings (semantic proximity) $\to$ Transformer Multi-Head Self-Attention $\to$ Probability Softmax $\to$ Next Token.
 - **Temperature ($T$) & Softmax**: $P(w_i) = \frac{e^{z_i / T}}{\sum_j e^{z_j / T}}$. Lower $T$ ($0.0 \le T \le 0.2$) for deterministic coding/SQL/compliance; Higher $T$ ($0.7 \le T \le 1.0$) for creativity / higher hallucination risk.
 - **Context Window & Eviction**: Hard upper token limit for prompt + history + output. Exceeding limit silently drops earliest tokens (FIFO buffer eviction).
+- **"Lost in the Middle" Effect**: Self-attention exhibits recency/primacy bias; middle/early tokens suffer attention dispersion in long contexts.
+- **Guided Decoding (Schema Enforcement)**: Masks out invalid vocabulary tokens (logits $= -\infty$) using BNF grammar/JSON schema, mathematically guaranteeing structured syntax.
 - **Prompt Formula ("Run To Catch Fast Cars")**: **R**ole • **T**ask • **C**ontext • **F**ormat • **C**onstraints (RTC-FC).
-- **Prompt Strategies**: Zero-Shot CoT (*"Let's think step by step"*); Few-Shot (2–5 exemplars); Self-Consistency (majority vote over sampled paths).
-- **RAG Architecture**: Ingestion (chunking + embeddings) $\to$ Retrieval (top-$k$ vector similarity) $\to$ Augmentation (grounding in prompt). Eliminates fine-tuning costs.
+- **Prompt Strategies**: Zero-Shot CoT (*"Let's think step by step"* distributes compute over scratchpad tokens); Few-Shot (2–5 exemplars); Self-Consistency (majority vote over sampled paths).
+- **BPE Tokenization Math Failure**: Numbers split into irregular subwords based on frequency, breaking decimal place value alignment (e.g., $9.11 > 9.9$).
+- **RAG Architecture & Re-ranking**: Ingestion (semantic chunking with 10–20% sliding window overlap) $\to$ Fast Bi-Encoder Retrieval (Dot Product on normalized vectors) $\to$ Cross-Encoder Re-ranking (full query-document cross-attention) $\to$ LLM generation.
+- **Evaluation Frameworks**: RAGAS / TruLens **Faithfulness** measures factual grounding in context; surface n-gram metrics (BLEU/ROUGE) cannot detect hallucination.
 - **Guardrails & Security**: Enforce RBAC filtering at retrieval time; sandbox untrusted external inputs in tags (prevents indirect injection); implement dual-context guards (prevents direct jailbreaks); scrub PII (GDPR/DPDP compliance).
 - **Fine-Tuning vs Prompting**: Fine-tuning modifies internal weights ($W, b$); prompt engineering operates in-context on frozen weights.
 

@@ -38,6 +38,18 @@
 | Prompt chaining vs monolithic prompt (Q27) | [ADDED] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
 | Enterprise RBAC at retrieval time (Q28) | [ADDED] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
 | RLHF & reward model objective (Q29) | [CHAT] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| Temperature vs Top-p for SQL aliases (Q30) | [VIDEO] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| BPE tokenization math failure 9.11 > 9.9 (Q31) | [VIDEO] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| Normalized vector Dot Product = Cosine Similarity (Q32) | [VIDEO] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| Bi-encoders vs Cross-Encoder Re-ranker (Q33) | [VIDEO] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| Website hidden cookie indirect prompt injection (Q34) | [VIDEO] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| RAGAS / TruLens Faithfulness metric vs BLEU/ROUGE (Q35) | [VIDEO] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| Video walkthrough: Lost in the middle attention decay | [VIDEO] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| Video walkthrough: Guided decoding BNF logit masking to -inf | [VIDEO] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| Video walkthrough: Persona hijacking & hierarchy inversion | [VIDEO] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| Video walkthrough: Fixed attention layers vs CoT scratchpad | [VIDEO] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| Video walkthrough: Semantic sliding window 80/20 rule | [VIDEO] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| AI Literacy Failure Mode / Root Cause / Fix Heuristics table | [VIDEO] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
 | **Networking / SQL / DBMS** | | | |
 | Subnet 255.255.255.192 usable hosts | [CHAT] | 02-ai-literacy-and-cs-mcqs/02_networking_sql_dbms.md | [x] |
 | NULL comparison | [CHAT] | 02-ai-literacy-and-cs-mcqs/02_networking_sql_dbms.md | [x] |
