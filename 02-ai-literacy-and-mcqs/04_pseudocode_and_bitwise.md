@@ -364,7 +364,104 @@ Sum: $7 + 5 + 3 + 1 = \mathbf{16}$.
 
 ---
 
+#### Question 4B: Recursion Call Stack Tracing: Factorial Function
+**Tag**: [MOCK-EXAM]
+
+**Pseudocode**:
+```text
+function solve(n)
+    if n == 0 then
+        return 1
+    end if
+    return n * solve(n - 1)
+end function
+
+print solve(4)
+```
+
+**Recursive Unwinding Trace**:
+- **Descent Phase (Pushing onto Call Stack)**:
+  $$\text{solve}(4) = 4 \times \text{solve}(3)$$
+  $$\text{solve}(3) = 3 \times \text{solve}(2)$$
+  $$\text{solve}(2) = 2 \times \text{solve}(1)$$
+  $$\text{solve}(1) = 1 \times \text{solve}(0)$$
+  $$\text{Base Case: } \text{solve}(0) = 1$$
+- **Return Phase (Popping and Bottom-Up Evaluation)**:
+  $$\text{solve}(1) = 1 \times 1 = 1$$
+  $$\text{solve}(2) = 2 \times 1 = 2$$
+  $$\text{solve}(3) = 3 \times 2 = 6$$
+  $$\text{solve}(4) = 4 \times 6 = 24$$
+- **Final Output**: `24`
+
+---
+
+#### Question 4C: Recursion: Mirrored Head-and-Tail Calls
+**Tag**: [MOCK-EXAM]
+
+**Question**:  
+What is the output of `compute(3)`?
+
+```text
+function compute(n)
+    if n <= 0 then
+        return
+    end if
+    print n
+    compute(n - 1)
+    print n
+end function
+```
+
+- **A)** `3 2 1`
+- **B)** `3 2 1 1 2 3`
+- **C)** `1 2 3 3 2 1`
+- **D)** `3 2 1 2 3`
+
+**Correct Answer**: **Option B (`3 2 1 1 2 3`)**
+
+**Derivation**:
+- `compute(3)` prints `3`, calls `compute(2)`, then pauses awaiting return to print `3`.
+- `compute(2)` prints `2`, calls `compute(1)`, then pauses awaiting return to print `2`.
+- `compute(1)` prints `1`, calls `compute(0)`, then pauses awaiting return to print `1`.
+- `compute(0)` hits base case `n <= 0` and returns immediately.
+- Return phase prints second batch of numbers in reverse order (`1`, then `2`, then `3`).
+- **Unwound output stream**: `3 2 1 1 2 3`.
+
+---
+
 ### Category B: Data Structures & Algorithms
+
+#### Binary Tree Traversals: Reference & Intuitive Visual Paths
+
+| Traversal Type | Structural Sequence | Intuitive Visual Path | Use Cases & Invariants |
+| :--- | :--- | :--- | :--- |
+| **Pre-order** | $\text{Root} \to \text{Left} \to \text{Right}$ | **Left-perimeter outline** ("Pant-shape" / top-to-bottom perimeter scan) | Cloning/serializing trees, prefix expressions |
+| **In-order** | $\text{Left} \to \text{Root} \to \text{Right}$ | **Orthogonal projection** onto the horizontal axis | Generates sorted sequence in BSTs |
+| **Post-order** | $\text{Left} \to \text{Right} \to \text{Root}$ | **Bottom-up leaf elimination** up to the root | Deleting tree nodes, postfix evaluation |
+| **Level-order** | Breadth-First Search (BFS) | **Horizontal scanning layer-by-layer** using a Queue | Finding shortest unweighted paths |
+
+```text
+       1
+      / \
+     2   3
+    / \   \
+   4   5   6
+```
+
+**Traversal Trace Examples**:
+- **Problem 1 (Pre-order Recognition)**:  
+  Given visitation sequence `10 -> 20 -> 40 -> 50 -> 30 -> 60 -> 70`.  
+  Because root `10` is visited first, followed by left child `20`, its left child `40`, backtracking to right sibling `50`, and then processing right subtree `30 -> 60 -> 70`, the order is strictly $\text{Root} \to \text{Left} \to \text{Right}$ (**Pre-order Traversal**).
+- **Problem 2 (In-order Step-by-Step Trace)**:  
+  For tree above (Root `1`, Left subtree `2` [children `4`, `5`], Right subtree `3` [right child `6`]):
+  1. Descend to leftmost leaf: `4`.
+  2. Visit parent: `2`.
+  3. Visit right child of subtree: `5`.
+  4. Left subtree of root is complete; visit main root: `1`.
+  5. Enter right subtree of `1`: Left of `3` is empty ($\emptyset$), visit root `3`, visit right leaf `6`.  
+  **Output**: `4, 2, 5, 1, 3, 6`.
+
+---
 
 #### Question 5: Binary Search Tree Inorder Traversal Property
 **Tag**: [MOCK-EXAM]
@@ -417,6 +514,32 @@ What is the theoretical lower bound on time complexity for any comparison-based 
 
 **Why**:  
 The decision-tree model for sorting $N$ elements requires at least $N!$ leaves. The tree height must be at least $\lceil \log_2(N!) \rceil = \Omega(N \log N)$.
+
+---
+
+#### Question 7B: Hash Map Collisions in Open Addressing (Linear Probing)
+**Tag**: [MOCK-EXAM]
+
+**Question**:  
+In a Hash Table of size $7$ using the hash function $h(k) = k \pmod 7$ and Linear Probing, where will key $23$ be placed if keys $9$ and $16$ are already inserted?
+
+- **A)** Index 2
+- **B)** Index 3
+- **C)** Index 4
+- **D)** Index 5
+
+**Correct Answer**: **Option C (Index 4)**
+
+**Derivation**:
+1. Insert key $9$:  
+   $$h(9) = 9 \pmod 7 = 2 \implies \text{Placed at Index 2}.$$
+2. Insert key $16$:  
+   $$h(16) = 16 \pmod 7 = 2 \implies \text{Collision at Index 2}.$$  
+   Linear probe checks $(2 + 1) \pmod 7 = 3$ (unoccupied) $\implies \text{Placed at Index 3}$.
+3. Insert key $23$:  
+   $$h(23) = 23 \pmod 7 = 2 \implies \text{Collision at Index 2}.$$  
+   Probe 1: check index $3$ $\implies$ Collision at Index 3 (occupied by 16).  
+   Probe 2: check index $(3 + 1) \pmod 7 = 4$ (unoccupied) $\implies \text{Placed at Index 4}$.
 
 ---
 

@@ -6,7 +6,9 @@
 | :--- | :--- | :--- | :--- |
 | Capgemini Exceller Exam Analysis (Mock & Interface) | http://www.youtube.com/watch?v=7USJXlHXaiw | Verified | [01-exam-format/README.md](01-exam-format/README.md), [03-code-debugging/README.md](03-code-debugging/README.md) |
 | Capgemini Technical Assessment Tutorial (Pseudo-code & MCQs) | http://www.youtube.com/watch?v=bjnVDOvgSLk | Verified | [02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md](02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md) |
-| Cognitive Assessment & Behavioral Profiling | https://youtu.be/o5TbT3kzEnA | Verified | [05-cognitive-and-behavioral/README.md](05-cognitive-and-behavioral/README.md) |
+| Capgemini Cognitive Assessment Live Gameplay & Walkthrough | https://youtu.be/o5TbT3kzEnA | Verified | [05-cognitive-and-behavioral/README.md](05-cognitive-and-behavioral/README.md) |
+| Capgemini Cognitive Assessment Breakdown (Switch, Motion, Grid) | http://www.youtube.com/watch?v=fdSNrH3PoBs | Verified | [05-cognitive-and-behavioral/05_switch_challenge.md](05-cognitive-and-behavioral/05_switch_challenge.md), [05-cognitive-and-behavioral/01_motion_and_bubble.md](05-cognitive-and-behavioral/01_motion_and_bubble.md) |
+| Capgemini Technical Assessment Part-2 Analysis (Trees, Sorting, Maps, Recursion) | http://www.youtube.com/watch?v=LqBSkF37FFg | Verified | [02-ai-literacy-and-cs-mcqs/03_oops_os.md](02-ai-literacy-and-cs-mcqs/03_oops_os.md), [02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md](02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md) |
 | 20-Minute Code Debugging (Jump Game I & Exam Portal) | https://www.youtube.com/watch?v=mLaYLknw4KU&list=PLGFjgYQtw1UjDBEkL2Edqej2kXbxGA1NO | Verified | [03-code-debugging/README.md](03-code-debugging/README.md) |
 | Common Debugging Bugs | https://youtu.be/f_9-TT2hGQ4 | UNVERIFIED - open and confirm | [03-code-debugging/README.md](03-code-debugging/README.md) |
 | Height-Balanced Tree Debugging | https://youtu.be/YEZy2e_PARE | UNVERIFIED - open and confirm | [03-code-debugging/README.md](03-code-debugging/README.md) |
