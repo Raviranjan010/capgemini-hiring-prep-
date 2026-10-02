@@ -17,6 +17,7 @@
 | Harmonic Subarray (AI-Assisted Coding) | https://youtu.be/Myw7Po8fyWw | UNVERIFIED - open and confirm | [04-ai-assisted-coding/README.md](04-ai-assisted-coding/README.md) |
 | Capgemini AI Assist Coding Solution (Graph Bipartite & BFS) | http://www.youtube.com/watch?v=tqXkeM3D8D4 | Verified | [04-ai-assisted-coding/04_graph_bipartite_course_schedule_islands.md](04-ai-assisted-coding/04_graph_bipartite_course_schedule_islands.md) |
 | Capgemini AI Literacy & Prompt Engineering Master Walkthrough | http://www.youtube.com/watch?v=oq3FtGoPmCE | Verified | [02-ai-literacy-and-cs-mcqs/01_ai_literacy.md](02-ai-literacy-and-cs-mcqs/01_ai_literacy.md) |
+| Complete Capgemini Master Preparation Video (1h 45m Walkthrough) | http://www.youtube.com/watch?v=q5giVVUApwM | Verified | [06-communication/01_comprehensive_english_modules.md](06-communication/01_comprehensive_english_modules.md), [03-code-debugging/05_graphs_and_dp.md](03-code-debugging/05_graphs_and_dp.md), [04-ai-assisted-coding/03_tree_lca_bitwise_palindrome_partition.md](04-ai-assisted-coding/03_tree_lca_bitwise_palindrome_partition.md) |
 
 ## Allowed LeetCode Practice Links
 
@@ -45,6 +46,7 @@
 | Number of Islands | https://leetcode.com/problems/number-of-islands/ | [04-ai-assisted-coding/04_graph_bipartite_course_schedule_islands.md](04-ai-assisted-coding/04_graph_bipartite_course_schedule_islands.md) |
 | 01 Matrix | https://leetcode.com/problems/01-matrix/ | [04-ai-assisted-coding/04_graph_bipartite_course_schedule_islands.md](04-ai-assisted-coding/04_graph_bipartite_course_schedule_islands.md) |
 | Lowest Common Ancestor of a Binary Tree | https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/ | [04-ai-assisted-coding/03_tree_lca_bitwise_palindrome_partition.md](04-ai-assisted-coding/03_tree_lca_bitwise_palindrome_partition.md) |
+| Palindrome Partitioning | https://leetcode.com/problems/palindrome-partitioning/ | [04-ai-assisted-coding/03_tree_lca_bitwise_palindrome_partition.md](04-ai-assisted-coding/03_tree_lca_bitwise_palindrome_partition.md) |
 | Palindrome Partitioning II | https://leetcode.com/problems/palindrome-partitioning-ii/ | [04-ai-assisted-coding/03_tree_lca_bitwise_palindrome_partition.md](04-ai-assisted-coding/03_tree_lca_bitwise_palindrome_partition.md) |
 | Sliding Window Maximum | https://leetcode.com/problems/sliding-window-maximum/ | [04-ai-assisted-coding/README.md](04-ai-assisted-coding/README.md) |
 | Subarray Sum Equals K | https://leetcode.com/problems/subarray-sum-equals-k/ | [04-ai-assisted-coding/README.md](04-ai-assisted-coding/README.md) |
@@ -52,4 +54,5 @@
 | Subarray Sums Divisible by K | https://leetcode.com/problems/subarray-sums-divisible-by-k/ | [04-ai-assisted-coding/README.md](04-ai-assisted-coding/README.md) |
 | Contiguous Array | https://leetcode.com/problems/contiguous-array/ | [04-ai-assisted-coding/README.md](04-ai-assisted-coding/README.md) |
 | Single Number III | https://leetcode.com/problems/single-number-iii/ | [04-ai-assisted-coding/README.md](04-ai-assisted-coding/README.md) |
+
 

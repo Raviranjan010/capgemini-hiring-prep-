@@ -278,3 +278,161 @@ public:
 - **Time Complexity**: $O(V + E)$ — Every vertex and edge is visited at most once.
 - **Space Complexity**: $O(V)$ — Visited and inStack arrays plus recursion stack depth.
 
+---
+
+## Problem 4: BFS Traversal of an Undirected Graph (Exam-Level Debugging)
+
+> **Source Analysis**: Walkthrough from the Capgemini assessment (*KN ACADEMY: Complete Capgemini One Shot Preparation | Capgemini Technical, Cognitive, English Test | Solution* — Video Reference: [Complete Capgemini Master Preparation Video](http://www.youtube.com/watch?v=q5giVVUApwM)).
+
+### Problem Statement
+Given an unweighted connected undirected graph with $V$ vertices labeled $0$ to $V-1$ represented as an adjacency list `adj`, return a vector containing the standard BFS traversal sequence starting from vertex $0$.
+
+```text
+Graph Structure (5 Vertices):
+      0 ──── 1
+     / \
+    2   3
+     \
+      4
+
+Adjacency List:
+0: [1, 2, 3]
+1: [0]
+2: [0, 4]
+3: [0]
+4: [2]
+```
+
+### The Buggy Code (Provided in Exam Interface)
+```cpp
+// BUGGY SOURCE CODE (Contains multiple logical and compiler flaws)
+#include <vector>
+#include <queue>
+using namespace std;
+
+class Solution {
+public:
+    // BUG 1: Passed by value (creates expensive copy and drops pointer modifications)
+    vector<int> bfsOfGraph(int V, vector<vector<int>> adj) {
+        vector<int> bfs;
+        vector<bool> vis(V, false);
+        queue<int> q;
+
+        q.push(0);
+        // BUG 2: Vertex 0 was pushed into queue, but NEVER marked as visited!
+
+        while (!q.empty()) {
+            int node = q.front();
+            // BUG 3: q.front() read, but node is NEVER popped! Causes infinite loop!
+
+            bfs.push_back(node);
+
+            for (auto neighbor : adj[node]) {
+                if (!vis[neighbor]) {
+                    q.push(neighbor);
+                    // BUG 4: Pushed neighbor to queue without setting vis[neighbor] = true!
+                    // Causes duplicate entries when multiple nodes share neighbors!
+                }
+            }
+        }
+        return bfs;
+    }
+};
+```
+
+### Bugs Breakdown & Step-by-Step Fixes
+
+1. **Bug 1: Adjacency List Passed by Value (`vector<vector<int>> adj`)**:
+   - *Why it fails*: Passing large nested containers by value creates an expensive deep copy of the entire graph on every call, leading to memory bloat and performance degradation.
+   - *Fix*: Pass by constant reference: `const vector<vector<int>>& adj`.
+
+2. **Bug 2: Missing Root Visited Mark (`vis[0] = true;`)**:
+   - *Why it fails*: Node $0$ is enqueued with `q.push(0);` but `vis[0]` remains `false`. When node $1$ (a neighbor of $0$) is later expanded, it sees $0$ marked unvisited and pushes $0$ back into the queue, producing an infinite cycle.
+   - *Fix*: Add `vis[0] = true;` immediately after `q.push(0);`.
+
+3. **Bug 3: Missing Queue Pop (`q.pop();`)**:
+   - *Why it fails*: The code reads `int node = q.front();` but never removes the element. Because `q.empty()` remains permanently `false` and `q.front()` always returns `0`, the loop spins infinitely until the platform times out (TLE).
+   - *Fix*: Add `q.pop();` right after extracting `q.front()`.
+
+4. **Bug 4: Delayed Visited Marking (Duplicate Enqueue Bug)**:
+   - *Why it fails*: Pushing a neighbor into the queue without marking `vis[neighbor] = true` allows another vertex that shares the same neighbor to push it a second time before the first instance is popped.
+   - *Example*: Node $0$ is connected to $2$ and $3$, and both $2$ and $3$ connect to $4$. Without immediate marking on push, node $4$ gets pushed twice into the queue!
+   - *Fix*: Set `vis[neighbor] = true;` **at the moment of enqueueing**, not at the moment of popping.
+
+---
+
+### Corrected, Production-Ready Solutions
+
+#### C++ Implementation
+```cpp
+#include <vector>
+#include <queue>
+using namespace std;
+
+class Solution {
+public:
+    vector<int> bfsOfGraph(int V, const vector<vector<int>>& adj) {
+        vector<int> bfs;
+        vector<bool> vis(V, false);
+        queue<int> q;
+
+        // Initialize BFS from node 0
+        q.push(0);
+        vis[0] = true; // FIX 2: Root marked visited immediately
+
+        while (!q.empty()) {
+            int node = q.front();
+            q.pop(); // FIX 3: Remove processed node to prevent infinite loop
+
+            bfs.push_back(node);
+
+            for (int neighbor : adj[node]) {
+                if (!vis[neighbor]) {
+                    vis[neighbor] = true; // FIX 4: Mark visited on push to prevent duplicates
+                    q.push(neighbor);
+                }
+            }
+        }
+        return bfs; // Returns [0, 1, 2, 3, 4]
+    }
+};
+```
+
+#### Java Implementation
+```java
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Queue;
+
+public class Solution {
+    public List<Integer> bfsOfGraph(int V, List<List<Integer>> adj) {
+        List<Integer> bfs = new ArrayList<>();
+        boolean[] vis = new boolean[V];
+        Queue<Integer> q = new ArrayDeque<>();
+
+        // Enqueue root and mark visited
+        q.offer(0);
+        vis[0] = true;
+
+        while (!q.isEmpty()) {
+            int node = q.poll(); // Reads and removes front element
+            bfs.add(node);
+
+            for (int neighbor : adj.get(node)) {
+                if (!vis[neighbor]) {
+                    vis[neighbor] = true; // Mark visited on push
+                    q.offer(neighbor);
+                }
+            }
+        }
+        return bfs;
+    }
+}
+```
+
+### Complexity
+- **Time Complexity**: $O(V + E)$ — Each vertex is pushed and popped exactly once, and each undirected edge is scanned twice.
+- **Space Complexity**: $O(V)$ — For the visited boolean array and the BFS queue.
+
+

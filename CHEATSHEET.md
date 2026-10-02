@@ -131,6 +131,12 @@ A concise, high-yield master reference summarizing core strategies, formulas, tr
 - [ ] **Digit Balancing**: Anchor the multiplication pair close to the target value first; check remaining difference fits in single digits.
 - [ ] **Bubble Memory**: Use the 3-item chunking technique and physical cursor tracing during rapid flashes.
 
+### English & Communication (6 Modules)
+- [ ] **Workplace Escalation Emails**: Address all prompt constraints (out-of-office lead, staging downtime, explicit update deadline by 3:00 PM). Never make unauthorized technical commitments.
+- [ ] **Spoken Technical Speech (90s)**: Structure strictly as 25s Productivity, 30s QA/Hallucination Risks, 35s Ethics/IP Governance.
+- [ ] **Listening Comprehension**: Distinguish event start time (Thursday 3:00 PM audit) from preparation deadline (Wednesday evening log scans).
+- [ ] **Grammar Correction**: Remember proximity rule for *Neither...nor* (verb agrees with closest subject) and verify introductory participial clauses modify the immediate subject (dangling modifiers).
+
 ### Technical Traversals & Algorithms
 - [ ] **Pre-order**: Check if the very first printed value matches the root node.
 - [ ] **In-order**: Check if values from a Binary Search Tree appear in sorted ascending order.
@@ -159,4 +165,7 @@ A concise, high-yield master reference summarizing core strategies, formulas, tr
 16. **Directed Graph Cycle**: Check for missing `inStack[u] = false;` on backtrack before returning `false`, falsely flagging subsequent paths as cycles.
 17. **Kadane's Algorithm**: Check if `maxSoFar` / `currMax` are initialized to `0`; returns 0 on all-negative arrays (must initialize to `nums[0]`).
 18. **Binary Search (Bounds)**: Check for `high = mid` (causes TLE / infinite loop when `low + 1 == high`) and `(low + high) / 2` (integer overflow); fix to `high = mid - 1` and `low + (high - low) / 2`.
+19. **Undirected Graph BFS**: Check if `q.pop()` is called immediately after `q.front()` (omission causes infinite loop TLE); verify `vis[0] = true` root initialization; ensure `vis[neighbor] = true` is marked on enqueue (not dequeue) to avoid duplicate pushes.
+20. **Palindrome Partitioning DP**: In 2D table `isPal[i][j] = (s[i] == s[j]) && (j - i <= 2 || isPal[i + 1][j - 1])`, check outer loop direction: `for (int i = 0; i < n; i++)` reads uncomputed row $i + 1$; must loop backwards `for (int i = n - 1; i >= 0; i--)`.
+
 

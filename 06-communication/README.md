@@ -84,3 +84,10 @@
 3. Test in a quiet, closed room with zero background chatter, family movement, or fan buffeting.
 4. Position the microphone 1 to 2 inches to the corner of your mouth and speak at a steady, conversational volume.
 5. Close all background audio, voice, or recording applications (Teams, Discord, Zoom, Spotify) to prevent sound driver interference.
+
+---
+
+## 6. Comprehensive 6-Module English Assessment Guide
+For full coverage of the updated 6-module English assessment—including Workplace Escalation emails, Reading & Listening comprehension scripts, 90-second Technical Spoken blueprints, Business Proposals, and Grammar correction rules—see:
+- **[01_comprehensive_english_modules.md](01_comprehensive_english_modules.md)**: Full transcripts, model escalation letters, proposal templates, and exam traps.
+

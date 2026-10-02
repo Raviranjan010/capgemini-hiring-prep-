@@ -44,6 +44,7 @@
 | **Linked List Fast/Slow**| Loop guard conditions & node equality | Dereferencing `fast.next.next` without checking `fast.next != null`; comparing `.val` instead of `==`. |
 | **Monotonic Stack** | Stack query order & empty guard | Calling `st.top()` without `!st.empty()`; forward iteration instead of reverse. |
 | **Undirected Graphs** | Adjacency list edge registration | Unidirectional push (`adj[u].push_back(v)` missing `adj[v].push_back(u)`); premature `return` inside loop. |
+| **Undirected Graph BFS**| Queue popping & visited marking timing | Missing `q.pop()` (infinite loop); missing `vis[0] = true`; delayed marking causing duplicate enqueues. |
 | **Directed Graphs Cycle** | Recursion call stack backtrack state | Missing `inStack[u] = false;` on backtrack, causing false cycle detections. |
 | **0/1 Knapsack DP** | Capacity traversal direction | Forward capacity loop (`w = wt[i]; w <= W`) converts 0/1 to Unbounded Knapsack; must loop backwards. |
 | **Kadane's Algorithm** | Tracker initializations with negative arrays | Setting `maxSoFar = 0` instead of `nums[0]`, returning 0 for all-negative arrays. |
@@ -71,7 +72,7 @@
 2. [02_matrix.md](02_matrix.md) - 2D Matrix Maximum Row Sum (7 bugs) and Staircase Search in Sorted Matrix.
 3. [03_greedy_and_intervals.md](03_greedy_and_intervals.md) - Jump Game I & II, Gas Station Circular Tour, and Merge Intervals.
 4. [04_linkedlist_stack_backtracking.md](04_linkedlist_stack_backtracking.md) - Linked List Cycle, Next Greater Element, and Subsets Backtracking.
-5. [05_graphs_and_dp.md](05_graphs_and_dp.md) - Connected Components in Undirected Graph, 0/1 Knapsack DP, and Cycle in Directed Graph (Missing Backtrack Reset).
+5. [05_graphs_and_dp.md](05_graphs_and_dp.md) - Connected Components in Undirected Graph, 0/1 Knapsack DP, Cycle in Directed Graph (Missing Backtrack Reset), and BFS Traversal of Undirected Graph (4 Exam Bugs).
 6. [06_kadane_and_binary_search.md](06_kadane_and_binary_search.md) - Kadane's Algorithm (All-Negative Array Bug) and Binary Search Lower Bound (Overflow & Infinite Loop).
 
 

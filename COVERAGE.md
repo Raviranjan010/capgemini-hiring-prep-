@@ -123,6 +123,7 @@
 | Kadane's algorithm all-negative array bug (maxSoFar = nums[0]) | [VIDEO] | 03-code-debugging/06_kadane_and_binary_search.md | [x] |
 | Binary search first occurrence (high = mid - 1 & overflow) | [VIDEO] | 03-code-debugging/06_kadane_and_binary_search.md | [x] |
 | Common bug categories reference table | [VIDEO] | 03-code-debugging/06_kadane_and_binary_search.md | [x] |
+| BFS traversal of undirected graph (4 exam bugs) | [VIDEO] | 03-code-debugging/05_graphs_and_dp.md | [x] |
 | **AI Coding** | | | |
 | Decision flowchart | [CHAT] | 04-ai-assisted-coding/README.md | [x] |
 | Token-saving prompts & RTC-FC framework | [CHAT] | 04-ai-assisted-coding/README.md | [x] |
@@ -144,7 +145,9 @@
 | Lowest Common Ancestor (LCA) in binary tree | [MOCK-EXAM] | 04-ai-assisted-coding/03_tree_lca_bitwise_palindrome_partition.md | [x] |
 | Bitwise equality inversions A[i] & A[j] == A[i] ^ A[j] | [MOCK-EXAM] | 04-ai-assisted-coding/03_tree_lca_bitwise_palindrome_partition.md | [x] |
 | Palindromic partitioning minimum cuts (DP) | [MOCK-EXAM] | 04-ai-assisted-coding/03_tree_lca_bitwise_palindrome_partition.md | [x] |
+| Palindrome Partitioning I all valid partitions (6-turn dialog) | [VIDEO] | 04-ai-assisted-coding/03_tree_lca_bitwise_palindrome_partition.md | [x] |
 | long for prefix sums | [CHAT] | 04-ai-assisted-coding/README.md | [x] |
+
 
 | **Cognitive** | | | |
 | Motion challenge (rules, 3 levels, 3 tricks) | [VIDEO] | 05-cognitive-and-behavioral/01_motion_and_bubble.md | [x] |
@@ -191,6 +194,13 @@
 | mic tip | [CHAT] | 06-communication/README.md | [x] |
 | extempore formula | [CHAT] | 06-communication/README.md | [x] |
 | 3 topics | [CHAT] | 06-communication/README.md | [x] |
+| English Module 1: Situational escalation email (48h downtime) | [VIDEO] | 06-communication/01_comprehensive_english_modules.md | [x] |
+| English Module 2: Reading comprehension (cloud-native microservices) | [VIDEO] | 06-communication/01_comprehensive_english_modules.md | [x] |
+| English Module 3: Listening comprehension (security audit deadline trap) | [VIDEO] | 06-communication/01_comprehensive_english_modules.md | [x] |
+| English Module 4: Spoken technical delivery (90s Generative AI blueprint) | [VIDEO] | 06-communication/01_comprehensive_english_modules.md | [x] |
+| English Module 5: Business proposal writing ($2,500 security scanner) | [VIDEO] | 06-communication/01_comprehensive_english_modules.md | [x] |
+| English Module 6: Grammar & correction (Neither...nor proximity, dangling modifiers) | [VIDEO] | 06-communication/01_comprehensive_english_modules.md | [x] |
 | **Cheatsheet** | | | |
 | 1-page master box | [CHAT] | CHEATSHEET.md | [x] |
+
 

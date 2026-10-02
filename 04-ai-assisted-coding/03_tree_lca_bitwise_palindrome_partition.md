@@ -212,3 +212,208 @@ public:
 ### Complexity
 - **Time Complexity**: $O(N^2)$ to build the 2D palindrome table and $O(N^2)$ to fill the 1D DP array. Total time: $O(N^2)$.
 - **Space Complexity**: $O(N^2)$ for the 2D boolean palindrome table and $O(N)$ for the 1D DP array.
+
+---
+
+## Problem 4: Palindrome Partitioning I — Return All Valid Partitions (Backtracking + 2D DP)
+
+> **Source Analysis**: Walkthrough from the Capgemini assessment (*KN ACADEMY: Complete Capgemini One Shot Preparation | Capgemini Technical, Cognitive, English Test | Solution* — Video Reference: [Complete Capgemini Master Preparation Video](http://www.youtube.com/watch?v=q5giVVUApwM)).
+
+### Problem Statement
+Given a string $S$, partition it such that every substring in the partition is a palindrome. Return all possible valid palindrome partitions.
+
+- **Example Input**: `s = "aab"`
+- **Expected Output**: `[["a", "a", "b"], ["aa", "b"]]`
+
+---
+
+### Complete Multi-Turn AI Dialog Transcript (Exact Exam Q&A)
+
+#### Turn 1: Problem Definition & Partition Constraints
+> **AI Question:**  
+> *"In your own words, what condition must every single substring in a valid partition satisfy, and how does this differ from simply finding a matching substring?"*
+
+**Candidate Response:**
+> "1. **Partitioning Rule**: Slicing the entire string from index 0 to $N$ with no dropped characters into contiguous segments.  
+> 2. **Palindrome Requirement**: Every sliced segment must read identically forwards and backwards.  
+> 3. **Difference from Search**: A search finds one isolated symmetric substring, whereas partitioning requires that all cut pieces are simultaneously valid palindromes."
+
+---
+
+#### Turn 2: Edge Cases & Combinatorial Bounds
+> **AI Question:**  
+> *"What are the guaranteed outputs for a single-character string versus a string where all characters are identical?"*
+
+**Candidate Response:**
+> "1. **Single-character string** (e.g., `'a'`): Exactly 1 partition `[['a']]`.  
+> 2. **All identical characters** (e.g., `'aaaa'`): Slicing at any cut point yields valid palindromes. For a string of length $N$, there are $N - 1$ potential cut points, producing $2^{N - 1}$ possible partitions."
+
+---
+
+#### Turn 3: Algorithmic Strategy & Paradigm Choice
+> **AI Question:**  
+> *"Which algorithmic paradigm—Backtracking/DFS, Greedy, or BFS—is appropriate here and why?"*
+
+**Candidate Response:**
+> "We use recursive Backtracking (DFS). Greedy fails because picking the largest local palindrome early can leave an invalid suffix with no palindromic breakdown. Backtracking allows us to systematically explore every valid palindromic prefix, recurse on the remaining suffix, and pop elements on backtrack to try all valid cut combinations."
+
+---
+
+#### Turn 4: State Variables & Base Termination
+> **AI Question:**  
+> *"What exact state variables do you pass through each function call, and what is your base condition for saving a complete answer?"*
+
+**Candidate Response:**
+> "State Variables: `start` index, original string `s`, `currentPath` (list of valid substrings), and `result` (master list of completed partitions).  
+> Base Condition: If `start == s.length()`, the entire string has been successfully sliced. We append a copy of `currentPath` to `result` and return."
+
+---
+
+#### Turn 5: Time Complexity & DP Optimization
+> **AI Question:**  
+> *"Checking palindromes on the fly takes $O(N)$ per substring, yielding an $O(N \cdot 2^N)$ complexity. How can we optimize this using DP?"*
+
+**Candidate Response:**
+> "We precompute an $N \times N$ boolean table `isPal[i][j]` using the transition:  
+> `isPal[i][j] = (s[i] == s[j]) && (j - i <= 2 || isPal[i + 1][j - 1])`.  
+> This reduces the palindrome check during backtracking from $O(N)$ to an $O(1)$ table lookup."
+
+---
+
+#### Turn 6: Code Audit & The Deliberate Outer Loop Bug
+> **The AI loads generated starter code containing this intentional bug:**  
+> ```cpp
+> for (int i = 0; i < n; i++) {
+>     for (int j = i; j < n; j++) {
+>         if (s[i] == s[j] && (j - i <= 2 || isPal[i + 1][j - 1])) ...
+> ```
+
+**Candidate Audit & Fix:**
+> *"The forward loop `for (int i = 0; i < n; i++)` is invalid because `isPal[i][j]` relies on `isPal[i + 1][j - 1]`, which has not been computed yet for row $i + 1$. Uncomputed entries default to `false`, causing valid palindromes to be incorrectly skipped.  
+> We must iterate row `i` in reverse: `for (int i = n - 1; i >= 0; i--)` to ensure subproblems are resolved before they are read."*
+
+---
+
+### Production-Ready Verified Solutions
+
+#### C++ Implementation
+```cpp
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+class Solution {
+private:
+    vector<vector<string>> result;
+    vector<string> currentPath;
+    vector<vector<bool>> isPal;
+
+    void backtrack(const string& s, int start, int n) {
+        // Base case: Entire string processed successfully
+        if (start == n) {
+            result.push_back(currentPath);
+            return;
+        }
+
+        // Try every possible cut boundary
+        for (int end = start; end < n; ++end) {
+            // O(1) lookup using the precomputed DP table
+            if (isPal[start][end]) {
+                // Include current palindrome prefix
+                currentPath.push_back(s.substr(start, end - start + 1));
+                // Recurse on remaining suffix
+                backtrack(s, end + 1, n);
+                // Backtrack: Remove choice to explore other cut points
+                currentPath.pop_back();
+            }
+        }
+    }
+
+public:
+    vector<vector<string>> partition(string s) {
+        int n = s.length();
+        result.clear();
+        currentPath.clear();
+        isPal.assign(n, vector<bool>(n, false));
+
+        // Precompute palindrome states
+        // Crucial fix: Iterate row i backwards to resolve subproblems before reading
+        for (int i = n - 1; i >= 0; --i) {
+            for (int j = i; j < n; ++j) {
+                if (s[i] == s[j] && (j - i <= 2 || isPal[i + 1][j - 1])) {
+                    isPal[i][j] = true;
+                }
+            }
+        }
+
+        backtrack(s, 0, n);
+        return result;
+    }
+};
+
+int main() {
+    Solution solver;
+    auto res = solver.partition("aab");
+    for (const auto& path : res) {
+        cout << "[";
+        for (int i = 0; i < path.size(); ++i) {
+            cout << "\"" << path[i] << "\"" << (i + 1 < path.size() ? ", " : "");
+        }
+        cout << "]\n";
+    }
+    return 0;
+}
+```
+
+#### Java Implementation
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+public class PalindromePartitioning {
+    private List<List<String>> result;
+    private List<String> currentPath;
+    private boolean[][] isPal;
+
+    public List<List<String>> partition(String s) {
+        int n = s.length();
+        result = new ArrayList<>();
+        currentPath = new ArrayList<>();
+        isPal = new boolean[n][n];
+
+        // Fill DP table from bottom to top
+        for (int i = n - 1; i >= 0; i--) {
+            for (int j = i; j < n; j++) {
+                if (s.charAt(i) == s.charAt(j) && (j - i <= 2 || isPal[i + 1][j - 1])) {
+                    isPal[i][j] = true;
+                }
+            }
+        }
+
+        backtrack(s, 0, n);
+        return result;
+    }
+
+    private void backtrack(String s, int start, int n) {
+        if (start == n) {
+            result.add(new ArrayList<>(currentPath));
+            return;
+        }
+
+        for (int end = start; end < n; end++) {
+            if (isPal[start][end]) {
+                currentPath.add(s.substring(start, end + 1));
+                backtrack(s, end + 1, n);
+                currentPath.remove(currentPath.size() - 1);
+            }
+        }
+    }
+}
+```
+
+### Complexity
+- **Time Complexity**: $O(N^2 + N \cdot 2^{N - 1})$ — $O(N^2)$ to precompute the palindrome DP table, and $O(N \cdot 2^{N - 1})$ worst-case to generate and copy all palindromic partitions.
+- **Space Complexity**: $O(N^2)$ for the 2D boolean palindrome table and $O(N)$ for recursion call stack depth.
+
