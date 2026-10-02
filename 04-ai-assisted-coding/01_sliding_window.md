@@ -11,7 +11,7 @@
 A harmonic subarray is defined as a contiguous subarray where the difference between the maximum value and the minimum value is strictly equal to 1 ($\max - \min == 1$), meaning the subarray contains exactly two distinct integers that differ by 1. Find the maximum possible sum among all contiguous harmonic subarrays. If no harmonic subarray exists, return 0.
 
 ### Idea in Easy Words
-1. Use an ordered map (or frequency table) tracking the elements currently inside the window `[left ... right]`.
+1. Use an ordered map (or frequency table) tracking the elements currently inside the window `[left to right]`.
 2. Expand `right` by adding `nums[right]`.
 3. If the spread $\max - \min > 1$, shrink from `left` until the condition $\max - \min \le 1$ is restored.
 4. When the window contains at least two distinct keys and $\max - \min == 1$, update `maxSum = max(maxSum, currentSum)`.

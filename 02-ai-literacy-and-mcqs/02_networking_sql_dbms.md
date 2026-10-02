@@ -118,7 +118,7 @@ Which query reliably retrieves the second highest unique salary across any ANSI 
 **Why**:  
 The inner subquery `(SELECT MAX(Salary) FROM Employees)` finds the absolute highest salary. The outer query filters out any salary equal to or greater than that maximum, and finds the maximum of the remaining salaries, which is guaranteed to be the second highest unique salary.
 
-**5-Second Shortcut**: Second max = `MAX(Salary) WHERE Salary < (SELECT MAX(Salary)...)`.  
+**5-Second Shortcut**: Second max = `MAX(Salary) WHERE Salary < (SELECT MAX(Salary) FROM Employees)`.  
 **Trap**: `LIMIT 1 OFFSET 1` without `DISTINCT` fails if two employees tie for the top salary.
 
 ---

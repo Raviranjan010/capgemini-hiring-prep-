@@ -164,7 +164,7 @@ An automated resume screening AI agent parses candidate portfolios from external
 **Correct Answer**: Option B
 
 **Why**:  
-The LLM treated untrusted data ingested from an external source as executable system control tokens. This is an Indirect Prompt Injection attack. Mitigating this requires separating data from instructions using delimiters (e.g., `<untrusted_content>...</untrusted_content>`) alongside a pre-execution guardrail filter.
+The LLM treated untrusted data ingested from an external source as executable system control tokens. This is an Indirect Prompt Injection attack. Mitigating this requires separating data from instructions using delimiters (e.g., `<untrusted_content>candidate text</untrusted_content>`) alongside a pre-execution guardrail filter.
 
 **5-Second Shortcut**: Malicious instructions hidden in ingested external text = Indirect Prompt Injection (fix with tag-sandboxing + guardrails).  
 **Trap**: Calling it data poisoning; prompt injection exploits inference context, not model training weights.

@@ -125,7 +125,7 @@ Tree Structure:
 *Result*: Root returns `3 != -1` $\implies \mathbf{true}$.
 
 ### Spot-It-Fast Rule
-Look for the return values in `checkHeight`: if `left == -1` returns `0`, or `Math.abs` checks `>= 1`, or `return Math.max(...) + 1` is missing, fix them immediately.
+Look for the return values in `checkHeight`: if `left == -1` returns `0`, or `Math.abs` checks `>= 1`, or `return Math.max(left, right) + 1` is missing, fix them immediately.
 
 ### Edge Cases
 - Empty tree (`root == null`): Returns `true` (height `0 != -1`).

@@ -22,7 +22,7 @@
 1. **Continuous Audio Flow (Never Pause Beyond 2.5–3 Seconds)**:  
    Automated AI speech evaluators use continuous silence detection. A silence exceeding 2.5 to 3 seconds is commonly advised to trigger an automated progression to the next question, scoring the unanswered segment as 0.
 2. **The No-Self-Correction Rule**:  
-   If you make a minor grammatical slip or mispronounce a word, **never stop to correct yourself** (*"She go... I mean, she went"*). Restarting or rephrasing a sentence is commonly advised to reduce fluency scores by up to 40%. Continue speaking smoothly with natural momentum.
+   If you make a minor grammatical slip or mispronounce a word, **never stop to correct yourself** (*"She go—I mean, she went"*). Restarting or rephrasing a sentence is commonly advised to reduce fluency scores by up to 40%. Continue speaking smoothly with natural momentum.
 3. **Microphone Placement**:  
    Do not position the microphone directly in front of your lips. Air bursts from plosive consonants ('P', 'B', 'T') cause audio clipping and static. Position the microphone 1 to 2 inches to the side of your mouth (near your cheek or chin).
 

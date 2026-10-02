@@ -409,7 +409,7 @@ To undo placement: `board[r][c] = '.'; cols.remove(c); diag1.remove(r - c); diag
 *Final Result*: `[[], [1], [1, 2], [2]]`.
 
 ### Spot-It-Fast Rule
-Look inside the recursive helper: if `result.add(current)` is used without `new ArrayList<>(current)`, or `backtrack(..., index + 1, ...)` uses `index` instead of `i`, or `current.remove(current.size() - 1);` is missing, fix them immediately.
+Look inside the recursive helper: if `result.add(current)` is used without `new ArrayList<>(current)`, or `backtrack(nums, index + 1, current, result)` uses `index` instead of `i`, or `current.remove(current.size() - 1);` is missing, fix them immediately.
 
 ### Time & Space Complexity
 - **Time**: $O(N \times 2^N)$ — Generating all $2^N$ subsets, each taking $O(N)$ copy time.
