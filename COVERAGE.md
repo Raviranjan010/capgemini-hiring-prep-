@@ -127,9 +127,14 @@
 | Motion challenge (Level 4: 2-step clearing, shortest path Q2) | [VIDEO] | 05-cognitive-and-behavioral/01_motion_and_bubble.md | [x] |
 | Bubble memory (rules, 3 tricks) | [VIDEO] | 05-cognitive-and-behavioral/01_motion_and_bubble.md | [x] |
 | Digit challenge | [ADDED] | 05-cognitive-and-behavioral/02_digit_and_grid.md | [x] |
+| Digit Equation Balancing (6 * 7 + 3 = 45, Video Problem 4 & Q5) | [VIDEO] | 05-cognitive-and-behavioral/02_digit_and_grid.md | [x] |
 | Grid / Mini-Sudoku (Latin Square, Max Density, Cross-Check) | [MOCK-EXAM] | 05-cognitive-and-behavioral/02_digit_and_grid.md | [x] |
+| Deductive Logic 5x5 Grid Elimination (Video Problem 3 & Q3) | [VIDEO] | 05-cognitive-and-behavioral/02_digit_and_grid.md | [x] |
 | Pattern Recognition (Match Challenge symmetry, counts, rotation) | [MOCK-EXAM] | 05-cognitive-and-behavioral/02_digit_and_grid.md | [x] |
+| Visual Reasoning / Odd-One-Out (Spatial Trajectory Video P1 & Q4) | [VIDEO] | 05-cognitive-and-behavioral/06_visual_reasoning_and_odd_one_out.md | [x] |
+| Visual Reasoning 10 Exam-Level Questions (P1 to P10 + heuristics) | [MOCK-EXAM] | 05-cognitive-and-behavioral/06_visual_reasoning_and_odd_one_out.md | [x] |
 | Switch Challenge (Pull semantics, Anchor element strategy) | [VIDEO] | 05-cognitive-and-behavioral/05_switch_challenge.md | [x] |
+| Switch Challenge Video Problem 2 & Q1A, Q2A | [VIDEO] | 05-cognitive-and-behavioral/05_switch_challenge.md | [x] |
 | Switch Challenge 10 Practice Puzzles (P1 to P10 + Q1) | [MOCK-EXAM] | 05-cognitive-and-behavioral/05_switch_challenge.md | [x] |
 | Deductive Q1 | [VIDEO] | 05-cognitive-and-behavioral/03_deductive_reasoning.md | [x] |
 | Deductive Q2 | [VIDEO] | 05-cognitive-and-behavioral/03_deductive_reasoning.md | [x] |
