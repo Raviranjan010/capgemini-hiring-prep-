@@ -33,19 +33,24 @@
 
 ---
 
-## 2. Grid Challenge (Inductive Symbol Matrix)
+## 2. Grid / Missing Symbol Challenge (Mini-Sudoku Constraint Satisfaction)
 
-> **Note**: Practice example (not from video)
+### Core Rules
+- **Grid Dimensions**: Typically played on a $4 \times 4$ or $5 \times 5$ grid using a fixed alphabet of symbols (e.g., $\{\boldsymbol{+}, \bigcirc, \blacktriangle, \blacksquare\}$).
+- **Exact Constraint (Latin Square Property)**: Every row and every column must contain each symbol **exactly once**. No symbol may repeat within any row or column.
+- **Target Cell**: One or more cells are masked with a question mark `?`.
 
-### Game UI & Rules
-A $3 \times 3$ grid of geometric symbols and markers is presented with the 9th bottom-right cell missing (marked with a question mark `?`). The candidate must deduce the pattern governing rows and columns to select the correct symbol.
+### Solving Strategy (Elimination Order)
+1. **Find Maximum Density**: Identify the row or column containing $N - 1$ out of $N$ symbols first (e.g., 3 out of 4 symbols filled); the remaining cell is immediately deterministic.
+2. **Intersection Cross-Check**: For the target cell marked `?`, eliminate all symbols present across its entire row **AND** its entire column.
+3. **Hypothesis / Backtracking**: If two candidates remain, pick one candidate tentatively and verify whether it forces an immediate row/column clash in an adjacent intersected cell.
 
-### 3 Core Solving Rules
-1. **Row Exclusivity (Shapes)**: Each distinct primary shape appears exactly once in each row and column (Sudoku Latin-square principle).
+### 3 Core Deductive Rules
+1. **Row & Column Exclusivity (Shapes)**: Each distinct primary shape appears exactly once in each row and column (Sudoku Latin-square principle).
 2. **Horizontal Consistency (Inner Markers)**: Sub-features (dots, crosses, stars) often remain uniform across an entire row while shapes permute.
 3. **Rotational Progression**: Lines, arrows, or shaded sectors rotate by fixed angular increments ($+45^\circ$, $+90^\circ$, or $-90^\circ$) across each step.
 
-### Worked Example from Chat
+### Worked Example: Latin Square Elimination
 ```text
             Column 1       Column 2       Column 3
 Row 1:    [Circle, •]    [Square, •]    [Triangle, •]   <-- Inner marker '•' uniform across row
@@ -53,7 +58,7 @@ Row 2:    [Triangle, +]  [Circle, +]    [Square, +]     <-- Inner marker '+' uni
 Row 3:    [Square, *]    [Triangle, *]  [    ?    ]     <-- Target Cell
 ```
 
-### Step-by-Step Deduction
+**Step-by-Step Deduction**:
 1. **Determine Shape**:
    - Row 3 already contains **Square** and **Triangle**.
    - By Row Exclusivity, the missing shape must strictly be a **Circle**.
@@ -64,7 +69,24 @@ Row 3:    [Square, *]    [Triangle, *]  [    ?    ]     <-- Target Cell
 
 ---
 
-## 3. Extra Practice Puzzles
+## 3. Pattern Recognition / Match Challenge (Spatial & Structural Invariance)
+
+### Core Concept
+In the Pattern Recognition (Match Challenge), candidates are shown reference patterns or small grid tiles and must locate identical, transformed, or invariant sub-patterns within a larger selection matrix.
+
+### Invariance Checks & Elimination Filters
+1. **Row / Column Symmetry**:
+   - Check if symmetric pairs exist (e.g., Row 1 and Row 4 are identical; Column 1 is a mirror of Column 4).
+2. **Fixed Symbol / Shading Counts**:
+   - Count the total number of filled vs. unfilled cells (e.g., exactly 6 filled cells and 3 unfilled cells). Eliminate options with mismatched densities.
+3. **Rotational Symmetry**:
+   - Verify whether the target pattern is simply the reference rotated by $90^\circ, 180^\circ,$ or $270^\circ$ clockwise.
+4. **Structural Alignment**:
+   - Inspect boundary edges: do corner cells have diagonal connections, L-shapes, or isolated single dots?
+
+---
+
+## 4. Extra Practice Puzzles
 
 ### Practice Puzzle 1: Digit Challenge
 **Tag**: [ADDED]  

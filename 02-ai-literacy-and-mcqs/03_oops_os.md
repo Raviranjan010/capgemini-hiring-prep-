@@ -373,3 +373,111 @@ Thrashing occurs when the aggregate working sets of all active processes exceed 
 **5-Second Shortcut**: Thrashing = System spends more time page swapping than executing code.  
 **Trap**: Confusing thrashing with process deadlock or CPU throttling.
 
+---
+
+## Data Structures & Sorting Algorithmic Analysis
+
+### Sorting Algorithms Complexity Reference Table
+
+| Algorithm | Best Case Time | Average Case Time | Worst Case Time | Space Complexity | Stable? | Key Characteristic |
+| :--- | :---: | :---: | :---: | :---: | :---: | :--- |
+| **Bubble Sort** | $O(N)$ *(optimized)* | $O(N^2)$ | $O(N^2)$ | $O(1)$ | **Yes** | Adjacent swaps; $k$-th pass locks $k$-th largest element at end. |
+| **Selection Sort** | $O(N^2)$ | $O(N^2)$ | $O(N^2)$ | $O(1)$ | **No** | Finds minimum in unsorted suffix and swaps into prefix. |
+| **Insertion Sort** | $O(N)$ | $O(N^2)$ | $O(N^2)$ | $O(1)$ | **Yes** | Inserts element into sorted prefix; optimal for nearly sorted arrays. |
+| **Merge Sort** | $O(N \log N)$ | $O(N \log N)$ | $O(N \log N)$ | $O(N)$ | **Yes** | Divide and conquer; guaranteed $O(N \log N)$ worst-case. |
+| **Quick Sort** | $O(N \log N)$ | $O(N \log N)$ | $O(N^2)$ | $O(\log N)$ | **No** | In-place partition; worst case occurs on already sorted array with naive pivot. |
+| **Heap Sort** | $O(N \log N)$ | $O(N \log N)$ | $O(N \log N)$ | $O(1)$ | **No** | Binary max-heap; guaranteed $O(N \log N)$ with $O(1)$ auxiliary space. |
+
+---
+
+### Bubble Sort: Mechanics & Pass-1 State
+
+**Problem Statement**:  
+Given array `arr = [5, 3, 8, 4]`, determine the state of the array after **exactly one pass** of standard Bubble Sort (ascending order).
+
+**Step-by-Step Swap Trace (Pass 1)**:
+- **Step 1**: Compare `arr[0]` (5) and `arr[1]` (3). Since $5 > 3$, swap $\to [3, 5, 8, 4]$.
+- **Step 2**: Compare `arr[1]` (5) and `arr[2]` (8). Since $5 < 8$, no swap $\to [3, 5, 8, 4]$.
+- **Step 3**: Compare `arr[2]` (8) and `arr[3]` (4). Since $8 > 4$, swap $\to [3, 5, 4, 8]$.
+
+**Array after Pass 1**: `[3, 5, 4, 8]`
+
+> [!IMPORTANT]
+> **Essential Bubble Sort Invariant**:  
+> After $k$ passes of Bubble Sort, the **$k$ largest elements** are guaranteed to be in their final sorted positions at the end of the array (`arr[n-k ... n-1]`).  
+> **Exam Shortcut**: After Pass 1, the maximum element ($8$) must reside at the final index `arr[n-1]`.
+
+---
+
+### Hash Map Key Invariance & Overwrite Semantics
+
+**Problem Statement**:  
+Given an empty key-value map, execute the following instructions:
+```java
+Map<Integer, String> map = new HashMap<>();
+map.put(1, "A");
+map.put(2, "B");
+map.put(1, "C");
+System.out.println(map.get(1));
+```
+
+**Execution Analysis**:
+1. `map.put(1, "A")`: Associates key `1` with value `"A"`.
+2. `map.put(2, "B")`: Associates key `2` with value `"B"`.
+3. `map.put(1, "C")`: In any standard Map/Dictionary implementation, keys are strictly unique. Inserting an existing key updates the value in-place and overwrites the old mapped value.
+   $$\text{Entry for key 1 changes from } "A" \longrightarrow "C"$$
+4. `map.get(1)` returns `"C"`.
+
+> [!TIP]
+> Inserting an existing key in a Hash Map **updates the value in-place**; it never creates a duplicate entry or alters map size.
+
+---
+
+### Question 14: Full vs Complete Binary Tree Properties
+**Tag**: [DSA-EXAM]
+
+**Question**:  
+Which statement is strictly correct regarding a **Full Binary Tree** and a **Complete Binary Tree**?
+
+- **A)** Every full binary tree is always a complete binary tree.
+- **B)** In a full binary tree, every node has either 0 or 2 children; in a complete binary tree, all levels are completely filled except possibly the last, which is filled strictly from left to right.
+- **C)** Complete binary trees cannot be implemented using contiguous 1D arrays.
+- **D)** A binary search tree is always complete.
+
+**Correct Answer**: **Option B**
+
+**Why**:  
+- By formal definition, a **Full Binary Tree** (strictly binary) enforces that every node has degree 0 (leaf) or 2 (internal node). No node can have exactly 1 child.
+- A **Complete Binary Tree** requires every level up to depth $h-1$ to be completely filled, and all leaf nodes at the maximum depth $h$ to be packed tightly to the left. Complete binary trees map directly to 1D arrays (used in Heaps: parent at $i$, left child at $2i+1$, right at $2i+2$).
+
+**5-Second Shortcut**: Full = 0 or 2 children; Complete = all levels full except last (filled left-to-right).  
+**Trap**: Assuming a full tree is complete (a full tree can be heavily unbalanced, e.g. root with 2 leaves vs deep branch).
+
+---
+
+### Question 15: Selection Sort Two-Pass Invariant
+**Tag**: [DSA-EXAM]
+
+**Question**:  
+What is the state of array `arr = [64, 25, 12, 22, 11]` after **two complete passes** of Selection Sort (ascending order)?
+
+- **A)** `[11, 12, 64, 25, 22]`
+- **B)** `[11, 12, 25, 22, 64]`
+- **C)** `[11, 25, 12, 22, 64]`
+- **D)** `[12, 11, 22, 25, 64]`
+
+**Correct Answer**: **Option B (`[11, 12, 25, 22, 64]`)**
+
+**Derivation**:
+- **Pass 1**:
+  - Scan unsorted subarray `[64, 25, 12, 22, 11]`.
+  - The minimum element is `11` (at index 4).
+  - Swap `arr[0]` (64) with `arr[4]` (11) $\implies [11, 25, 12, 22, 64]$.
+- **Pass 2**:
+  - Scan unsorted suffix starting at index 1: `[25, 12, 22, 64]`.
+  - The minimum element is `12` (at index 2).
+  - Swap `arr[1]` (25) with `arr[2]` (12) $\implies [11, 12, 25, 22, 64]$.
+
+**Result after 2 passes**: `[11, 12, 25, 22, 64]`.
+
+
