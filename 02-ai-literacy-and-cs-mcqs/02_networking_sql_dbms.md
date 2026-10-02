@@ -257,3 +257,55 @@ Disk reads are expensive. A B+ Tree has high branching factor (fan-out), keeping
 
 **5-Second Shortcut**: B+ Tree indexing = low disk I/O depth + linked leaf nodes for range scans.  
 **Trap**: Thinking B+ Trees are chosen for memory compression rather than disk I/O reduction.
+
+---
+
+### Question 11: Database Normalization - Second Normal Form (2NF)
+**Tag**: [MOCK-EXAM]
+
+**Question**:  
+A relation $R(A, B, C, D)$ has a composite candidate key $(A, B)$. Under which condition does the relation violate Second Normal Form (2NF)?
+
+- **A)** If there is a transitive dependency $C \to D$.
+- **B)** If a non-prime attribute (e.g., $C$) depends on a proper subset of the candidate key (e.g., $A \to C$).
+- **C)** If all functional dependencies have a candidate key on the left-hand side.
+- **D)** If multivalued dependencies exist between $A$ and $B$.
+
+**Correct Answer**: Option B
+
+**Why**:  
+Second Normal Form (2NF) requires the relation to be in 1NF and contain **no partial dependencies**. A partial dependency occurs when a non-prime attribute (an attribute not part of any candidate key) depends functionally on a proper subset of a composite candidate key (e.g., $A \to C$ when the key is $(A, B)$).
+
+**5-Second Shortcut**: 2NF violation = Partial dependency on subset of candidate key.  
+**Trap**: Confusing 2NF (no partial dependency) with 3NF (no transitive dependency $C \to D$).
+
+---
+
+### Question 12: Subnetting Network ID & Broadcast Address Calculation
+**Tag**: [MOCK-EXAM]
+
+**Question**:  
+Given the IP address `192.168.10.65` with subnet mask `/26` (`255.255.255.192`), what is the Network ID and the Broadcast Address for this subnet?
+
+- **A)** Network: 192.168.10.0, Broadcast: 192.168.10.63
+- **B)** Network: 192.168.10.64, Broadcast: 192.168.10.127
+- **C)** Network: 192.168.10.64, Broadcast: 192.168.10.255
+- **D)** Network: 192.168.10.32, Broadcast: 192.168.10.95
+
+**Correct Answer**: Option B
+
+**Calculation**:
+1. Subnet mask `/26` has $32 - 26 = 6$ host bits.
+2. Block size (subnet increment) $= 2^6 = 64$.
+3. Subnet ranges in the last octet:
+   - Subnet 0: `0` to `63` (Network: `.0`, Broadcast: `.63`)
+   - Subnet 1: `64` to `127` (Network: `.64`, Broadcast: `.127`)
+   - Subnet 2: `128` to `191`
+   - Subnet 3: `192` to `255`
+4. The host IP `192.168.10.65` falls in Subnet 1:
+   - **Network ID**: `192.168.10.64`
+   - **Broadcast Address**: `192.168.10.127`
+
+**5-Second Shortcut**: Block size $= 256 - 192 = 64$; $65$ lies in $[64, 127] \implies$ Net: `.64`, Broadcast: `.127`.  
+**Trap**: Picking `.255` as broadcast; subnetting divides the octet into smaller broadcast domains.
+
