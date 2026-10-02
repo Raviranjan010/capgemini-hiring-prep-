@@ -68,7 +68,7 @@ Transformers calculate self-attention across tokens present within their active 
 **Tag**: [CHAT]
 
 **Question**:  
-An enterprise backend integrates an LLM to extract entity parameters into JSON. Despite prompting *"Output strictly valid JSON"*, the model periodically prefixes responses with conversational markdown like `Here is your JSON:\n```json`, crashing the backend JSON parser. How should this be resolved reliably?
+An enterprise backend integrates an LLM to extract entity parameters into JSON. Despite prompting *"Output strictly valid JSON"*, the model periodically prefixes responses with conversational markdown like `Here is your JSON:\n` followed by raw JSON code fences, crashing the backend JSON parser. How should this be resolved reliably?
 
 - **A)** Increase the sampling temperature to 1.5.
 - **B)** Implement BNF grammar-based Guided Decoding / JSON Schema constraints at the inference engine level.
