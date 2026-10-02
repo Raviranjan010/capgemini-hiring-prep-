@@ -98,9 +98,17 @@ A concise, high-yield master reference summarizing core strategies, formulas, tr
   - Bound the multiplier first: in $A \times B \pm C = T$, approximate $A \times B$ close to $T$, then resolve $C$ with single digits ($1 \le d \le 9$).
 - **Motion Challenge**:
   - Reverse path planning: work backward from the target goal hole (*"Which obstacle directly blocks the goal? Move it first"*).
+  - Move count scoring: game scores total moves regardless of whether a block or ball is moved. A 5-step ball detour beats 3 block slides + 3 ball steps (6 moves).
   - Move all obstacles into clearance pockets first before executing uninterrupted ball slides.
-- **Bubble Memory**: Encode coordinates verbally as clock hours or compass directions; trace paths with your finger; chunk sequences into groups of 3.
-- **Deductive Logic**: *"Some A are B"* converts symmetrically to *"Some B are A"* (never infer *"Some A are not B"*). Conditional $P \implies Q$ guarantees only the contrapositive $\neg Q \implies \neg P$.
+- **Bubble Memory**:
+  - Cowan's working memory model ($4 \pm 1$ items): divide long sequences into two 4-item batches grouped by screen quadrant.
+  - Encode coordinates verbally as clock hours or compass directions; trace paths with your finger; chunk sequences into groups of 3.
+- **Deductive Logic & Syllogisms**:
+  - Conversion: *"Some A are B"* converts symmetrically to *"Some B are A"* (never infer *"Some A are not B"*).
+  - Contrapositive: $(P \implies Q) \equiv (\neg Q \implies \neg P)$.
+  - Modus Tollens: $(P \implies Q) \land \neg Q \implies \neg P$.
+  - Sub-alternation: *"All A are B"* unconditionally guarantees *"Some A are B"*.
+  - Disjoint Chain: $(F \subseteq P) \land (M \cap P = \emptyset) \implies F \cap M = \emptyset$.
 - **Behavioral Profiling**: Prioritize collaboration over solitary heroics, deadline execution over unconstrained experimentation, and adaptability over complaints. Maintain consistency across disguised questions.
 
 ---

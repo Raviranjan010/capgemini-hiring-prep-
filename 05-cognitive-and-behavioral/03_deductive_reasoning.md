@@ -163,3 +163,88 @@ Let $B$ be backend developers, $R$ be understand relational databases, and $C$ b
 
 **5-Second Shortcut**: "All $B$ are $R$" + "Some $B$ are $C$" $\implies$ "Some $R$ are $C$".  
 **Trap**: Generalizing to Option A ("All contributors").
+
+---
+
+### Question 6: Universal Negative Conversion (E-Proposition)
+**Tag**: [MOCK-EXAM]
+
+**Premise**:  
+*"No certified cloud architects in company $X$ are permitted to write production database migration scripts without peer review."*
+
+**Which statement must be strictly true?**
+- **A)** Some certified cloud architects write production migration scripts without peer review.
+- **B)** Anyone permitted to write production database migration scripts without peer review is not a certified cloud architect in company $X$.
+- **C)** All employees who undergo peer review are certified cloud architects.
+- **D)** Anyone who is not a certified cloud architect can write migration scripts without review.
+
+**Correct Answer**: **Option B**
+
+**Explanation**:  
+The premise is a **Universal Negative** ($\mathbf{E}$-proposition): $\text{No } A \text{ are } B$ ($A \cap B = \emptyset$).  
+Its contrapositive formulation ensures that if someone belongs to set $B$ (permitted to write scripts without review), they cannot belong to set $A$ (certified cloud architects in company $X$).
+
+---
+
+### Question 7: Transitive Disjoint Syllogism Chain
+**Tag**: [MOCK-EXAM]
+
+**Premises**:  
+1. *"All front-end repositories using framework $Z$ are subject to automated build pipelines."*  
+2. *"None of the legacy monolithic microservices use automated build pipelines."*  
+
+**Which statement is logically certain?**
+- **A)** Some legacy monolithic microservices use framework $Z$.
+- **B)** No front-end repository using framework $Z$ is a legacy monolithic microservice.
+- **C)** All applications subject to automated pipelines are front-end repositories.
+- **D)** Framework $Z$ cannot run on microservices.
+
+**Correct Answer**: **Option B**
+
+**Explanation**:  
+Let $F \subseteq P$ ("All $F$ are $P$") and $M \cap P = \emptyset$ ("No $M$ are $P$").  
+Since $F$ is a complete subset of $P$ and $M$ shares zero overlap with $P$, $F$ and $M$ are strictly disjoint:
+$$F \cap M = \emptyset \implies \text{"No front-end repository using framework } Z \text{ is a legacy monolithic microservice."}$$
+
+---
+
+### Question 8: Sub-alternation Trap: Universal vs. Particular (All vs. Some)
+**Tag**: [MOCK-EXAM]
+
+**Premise**:  
+*"Every consultant on project Alpha completed their sprint commitments early this quarter."*  
+
+**Assuming the premise is true, which of the following assertions must also be true?**
+- **A)** Only consultants on project Alpha finished early this quarter.
+- **B)** Some consultants on project Alpha completed their sprint commitments early this quarter.
+- **C)** Consultants on other projects failed to finish their sprints early.
+- **D)** Every consultant who finished early belongs to project Alpha.
+
+**Correct Answer**: **Option B**
+
+**Explanation**:  
+In formal logic, if a universal affirmative statement ($\mathbf{A}$: *"All $S$ are $P$"*) holds true for a non-empty set, the particular affirmative statement ($\mathbf{I}$: *"Some $S$ are $P$"*) is unconditionally true by **sub-alternation** ("All implies Some").  
+Options A, C, and D introduce extraneous unstated assumptions about outside consultants.
+
+---
+
+### Question 9: Complex Conditional Deduction (Modus Tollens)
+**Tag**: [MOCK-EXAM]
+
+**Premise**:  
+*"If an incident is designated as a Severity-1 event, then the incident commander must page the site reliability lead within five minutes."*  
+
+**Scenario**: During a post-mortem review, records show that the site reliability lead was **not** paged within five minutes. What is the guaranteed deduction?
+- **A)** The system encountered a network communication failure.
+- **B)** The incident was not designated as a Severity-1 event.
+- **C)** The site reliability lead was already active on the incident call.
+- **D)** The incident commander failed company operating procedures.
+
+**Correct Answer**: **Option B**
+
+**Explanation**:  
+This is classic **Modus Tollens**:
+$$\text{Given: } P \implies Q \quad \text{and} \quad \neg Q$$
+$$\text{Conclusion: } \neg P$$
+Since $Q$ (*paging the lead within five minutes*) was false, $P$ (*incident designated as Severity-1*) must also be false.
+

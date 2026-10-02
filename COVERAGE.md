@@ -124,8 +124,10 @@
 | long for prefix sums | [CHAT] | 04-ai-assisted-coding/README.md | [x] |
 | **Cognitive** | | | |
 | Motion challenge (rules, 3 levels, 3 tricks) | [VIDEO] | 05-cognitive-and-behavioral/01_motion_and_bubble.md | [x] |
-| Motion challenge (Level 4: 2-step clearing, shortest path Q2) | [VIDEO] | 05-cognitive-and-behavioral/01_motion_and_bubble.md | [x] |
+| Motion challenge (Level 4: 2-step clearing, shortest path Q2/Q5) | [VIDEO] | 05-cognitive-and-behavioral/01_motion_and_bubble.md | [x] |
+| Motion challenge (Q6 Path Optimization Trap - total moves) | [MOCK-EXAM] | 05-cognitive-and-behavioral/01_motion_and_bubble.md | [x] |
 | Bubble memory (rules, 3 tricks) | [VIDEO] | 05-cognitive-and-behavioral/01_motion_and_bubble.md | [x] |
+| Bubble memory (Q7 Cowan 4±1 cognitive chunking strategy) | [MOCK-EXAM] | 05-cognitive-and-behavioral/01_motion_and_bubble.md | [x] |
 | Digit challenge | [ADDED] | 05-cognitive-and-behavioral/02_digit_and_grid.md | [x] |
 | Digit Equation Balancing (6 * 7 + 3 = 45, Video Problem 4 & Q5) | [VIDEO] | 05-cognitive-and-behavioral/02_digit_and_grid.md | [x] |
 | Grid / Mini-Sudoku (Latin Square, Max Density, Cross-Check) | [MOCK-EXAM] | 05-cognitive-and-behavioral/02_digit_and_grid.md | [x] |
@@ -136,13 +138,17 @@
 | Switch Challenge (Pull semantics, Anchor element strategy) | [VIDEO] | 05-cognitive-and-behavioral/05_switch_challenge.md | [x] |
 | Switch Challenge Video Problem 2 & Q1A, Q2A | [VIDEO] | 05-cognitive-and-behavioral/05_switch_challenge.md | [x] |
 | Switch Challenge 10 Practice Puzzles (P1 to P10 + Q1) | [MOCK-EXAM] | 05-cognitive-and-behavioral/05_switch_challenge.md | [x] |
-| Deductive Q1 | [VIDEO] | 05-cognitive-and-behavioral/03_deductive_reasoning.md | [x] |
-| Deductive Q2 | [VIDEO] | 05-cognitive-and-behavioral/03_deductive_reasoning.md | [x] |
+| Deductive Q1 (Conversion Logic Some A are B) | [VIDEO] | 05-cognitive-and-behavioral/03_deductive_reasoning.md | [x] |
+| Deductive Q2 (Contrapositive Senior Manager) | [VIDEO] | 05-cognitive-and-behavioral/03_deductive_reasoning.md | [x] |
+| Deductive Q6 (Universal Negative E-Proposition Conversion) | [MOCK-EXAM] | 05-cognitive-and-behavioral/03_deductive_reasoning.md | [x] |
+| Deductive Q7 (Transitive Disjoint Chain F ⊆ P, M ∩ P = ∅) | [MOCK-EXAM] | 05-cognitive-and-behavioral/03_deductive_reasoning.md | [x] |
+| Deductive Q8 (Sub-alternation Trap: All implies Some) | [MOCK-EXAM] | 05-cognitive-and-behavioral/03_deductive_reasoning.md | [x] |
+| Deductive Q9 (Complex Conditional Modus Tollens Severity-1) | [MOCK-EXAM] | 05-cognitive-and-behavioral/03_deductive_reasoning.md | [x] |
 | Deductive cheat table | [VIDEO] | 05-cognitive-and-behavioral/03_deductive_reasoning.md | [x] |
-| Behavioral format | [VIDEO] | 05-cognitive-and-behavioral/04_behavioral.md | [x] |
-| Consistency rules | [VIDEO] | 05-cognitive-and-behavioral/04_behavioral.md | [x] |
-| Priority matrix | [VIDEO] | 05-cognitive-and-behavioral/04_behavioral.md | [x] |
-| Dilemmas 1 to 3 | [CHAT] | 05-cognitive-and-behavioral/04_behavioral.md | [x] |
+| Behavioral format (Forced-choice pairs, 3-level rating) | [VIDEO] | 05-cognitive-and-behavioral/04_behavioral.md | [x] |
+| Consistency rules (Lie Score detection engine) | [VIDEO] | 05-cognitive-and-behavioral/04_behavioral.md | [x] |
+| Priority matrix (Collaboration, deadlines, resilience) | [VIDEO] | 05-cognitive-and-behavioral/04_behavioral.md | [x] |
+| Dilemmas 1 to 3 (Innovation, autonomy, ambiguity) | [CHAT] | 05-cognitive-and-behavioral/04_behavioral.md | [x] |
 | **Technical Assessment & DSA Additions** | | | |
 | Binary Tree Traversals visual paths (Pre/In/Post/Level) | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md | [x] |
 | Pre-order & In-order step-by-step traces | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md | [x] |

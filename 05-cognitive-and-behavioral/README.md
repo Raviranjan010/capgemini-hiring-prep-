@@ -2,15 +2,56 @@
 
 This module covers the 4 gamified and psychometric assessment areas tested in Capgemini's cognitive evaluation stage.
 
+## Updated Cognitive Assessment Architecture & Section Timers
+
+The updated Capgemini Cognitive Assessment evaluates spatial planning, short-term visual working memory, formal deductive logic, and workplace behavioral alignment.
+
+```text
+Capgemini Cognitive Assessment Pipeline
+├── 1. Motion Challenge (Interactive Spatial Puzzle) ──────► 6 Minutes
+├── 2. Grid / Bubble Memory Challenge (Working Memory) ────► 12 Minutes
+├── 3. Deductive Logical Reasoning (Critical Syllogisms) ──► 25 Minutes
+└── 4. Behavioral Profile Assessment (Adaptive Forced-Choice) ► 25 Minutes
+```
+
+| Section | Duration | Format & Mechanics | Primary Competency Tested | Elimination Stage? |
+| :--- | :---: | :--- | :--- | :---: |
+| **Motion Challenge** | **6 Minutes** | Sliding block puzzle; clear obstacles to move a ball to an exit hole. | Spatial trajectory planning, shortest-path calculation under constraints. | **Yes** (Scores contribute to round cutoffs) |
+| **Bubble / Grid Memory** | **12 Minutes** | Observe flashing sequential bubbles/grid coordinates and reproduce them in exact order. | Visual-spatial working memory capacity and sequential recall. | **Yes** |
+| **Deductive Reasoning** | **25 Minutes** | Statement evaluation, categorical syllogisms, contrapositive logic. | Deductive logic, premise validity, conditional statement analysis. | **Yes** |
+| **Behavioral Module** | **25 Minutes** | Forced-choice personality pairs (select which statement best describes you and rate agreement). | Cultural alignment, consistency, leadership traits, collaboration. | **No** (Profiling & consistency validation) |
+
+---
+
 ## Cognitive Game Suite Overview
 ```text
-Cognitive Assessment Suite
+Cognitive Assessment Suite (All Interactive Games & Modules)
 ├── 1. Deductive Logic / Grid Challenge (4x4 or 5x5 Mini-Sudoku | ~6 Mins)
 ├── 2. Switch Challenge / Permutations (Deductive Symbol Shifts)
 ├── 3. Visual Reasoning / Odd-One-Out (Rotational & Spatial Trajectories)
 ├── 4. Numerical Operations / Digit Equations (Mental Math & BODMAS)
 └── 5. Motion Challenge (Sliding Obstacle Shortest Path Planning)
 ```
+
+### Cognitive Round Strategy Matrix
+```text
+Cognitive Round Strategy Matrix
+├── Motion Challenge:
+│   ├── Look at the exit hole first: Find which block directly seals the target.
+│   └── Count moves: Moving the ball through a detour is often cheaper than clearing two blocks.
+├── Bubble Memory:
+│   ├── Chunk patterns: Group nodes into triangles, lines, or quadrants (Cowan's 4±1 model).
+│   └── Anchor start & end: Misclicking the first node invalidates the entire trial immediately.
+├── Deductive Reasoning:
+│   ├── Convert sentences to formulas: Translate "All X are Y" into X ⊆ Y.
+│   ├── Use the contrapositive: (P → Q) ≡ (¬Q → ¬P).
+│   └── Watch conversion traps: "Some A are B" does NOT guarantee that "Some A are not B".
+└── Behavioral Module:
+    ├── Maintain consistency: Repeated questions check for contradictory answers.
+    └── Focus on core workplace traits: Prioritize collaboration, accountability, and delivery.
+```
+
+---
 
 ## Module Files
 1. [01_motion_and_bubble.md](01_motion_and_bubble.md) - Motion Challenge (ball & obstacle ice-sliding, 2-step clearing, shortest path planning) and Bubble Memory Challenge (sequential recall).

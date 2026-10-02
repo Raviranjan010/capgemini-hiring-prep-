@@ -62,22 +62,43 @@
 2. **Never Move the Ball Prematurely**: Do not slide the ball while obstacles are still blocking the path. Move all sliding blocks into their final resting positions first, then execute the ball's route in uninterrupted slides.
 3. **Use Static Walls as Anchors**: Since the ball slides until it hits an object, intentionally use immovable boundary walls to stop and redirect the ball at right angles.
 
-### Motion Challenge Practice Question (Q2)
+### Motion Challenge Practice Question 1 (Q5: Multi-Block Sliding Obstacle Optimization)
 **Problem**:  
 A $4 \times 4$ grid contains a destination hole at $(3, 3)$. A ball starts at $(0, 0)$. Two obstacles are present:
 - **Obstacle A** (size $1 \times 2$, horizontal) spans $(0, 1)$ and $(0, 2)$.
 - **Obstacle B** (size $2 \times 1$, vertical) spans $(1, 0)$ and $(2, 0)$.
 
 What is the minimum number of obstacle moves required to open at least one clear path for the ball?
-- A. 1
-- B. 2
-- C. 3
-- D. 4
+- **A)** 1 Move
+- **B)** 2 Moves
+- **C)** 3 Moves
+- **D)** 4 Moves
 
-**Correct Answer**: **A (1)**
+**Correct Answer**: **A (1 Move)**
 
 **Derivation**:  
 Moving horizontal obstacle A down or vertical obstacle B to the right takes only **1 sliding move** to open the path $(0, 0) \to (0, 1) \to (1, 1) \dots$ toward the destination $(3, 3)$.
+
+---
+
+### Motion Challenge Practice Question 2 (Q6: Path Optimization Trap)
+**Tag**: [MOCK-EXAM]
+
+**Problem**:  
+In a Motion Challenge grid, a direct path to the goal requires navigating around an obstacle that takes 3 moves to slide completely out of the way. Alternatively, the ball can take a longer detour through an already open corridor requiring 5 ball movements.
+- **Move Count Path A (Move Obstacle + Ball)**: 3 block slides + 3 ball steps = 6 total moves.
+- **Move Count Path B (Ball Detour through open corridor)**: 0 block slides + 5 ball steps = 5 total moves.
+
+Which strategy gives the optimal score?
+- **A)** Path A, because block movements score higher than ball movements.
+- **B)** Path B, because the game scores total moves regardless of whether a block or the ball is moved.
+- **C)** Path A, because shorter physical paths are always prioritized.
+- **D)** Both paths score identically.
+
+**Correct Answer**: **B (Path B, because the game scores total moves regardless of whether a block or the ball is moved)**
+
+**Explanation**:  
+The game engine move counter increments by 1 for **any entity movement** (ball step or block translation). Total moves strictly dictate the score; Path B produces an optimal cost of 5 vs. Path A's cost of 6.
 
 ---
 
@@ -100,3 +121,21 @@ Moving horizontal obstacle A down or vertical obstacle B to the right takes only
    - Chunk 1: `"Top, Right, Center"`
    - Chunk 2: `"Bottom-Left, Bottom-Right, Top-Left"`
    - Recall Chunk 1 first, pause, then execute Chunk 2.
+
+---
+
+### Bubble Memory Practice Question (Q7: Cognitive Chunking Strategy)
+**Tag**: [MOCK-EXAM]
+
+**Problem**:  
+During an 8-item sequential bubble memory prompt, what technique best protects against working memory decay under time pressure?
+- **A)** Verbal repetition of coordinates as numerical pairs (e.g., "1-3, 2-1, 4-2").
+- **B)** Tracing a continuous geometric path connecting the nodes visually.
+- **C)** Splitting the sequence into two chunks of 4 items each, grouping by relative screen quadrant.
+- **D)** Clicking as quickly as possible before the fade animation finishes.
+
+**Correct Answer**: **C (Splitting the sequence into two chunks of 4 items each, grouping by relative screen quadrant)**
+
+**Explanation**:  
+Working memory capacity limits accurate recall to $4 \pm 1$ items (Cowan's working memory model). Spatial chunking (grouping items by screen region or quadrant into two 4-node batches) reduces cognitive load and prevents sequence decay.
+
