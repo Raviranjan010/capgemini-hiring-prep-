@@ -89,8 +89,13 @@ A concise, high-yield master reference summarizing core strategies, formulas, tr
 - **Digit / Symbol Grid Challenge (Mini-Sudoku)**:
   - **Latin Square Property**: Every row and column must contain each symbol exactly once.
   - **Solving Priority**: Solve Maximum Density rows/columns (3 of 4 filled) first $\to$ Intersection Cross-Check $\to$ Hypothesis backtracking.
-- **Pattern Recognition (Match Challenge)**:
+- **Pattern Recognition & Visual Reasoning**:
+  - **Odd-One-Out Detection**: Calculate degree delta per jump ($+45^\circ, +90^\circ, +135^\circ$) to spot rotational violations.
+  - **Count Invariance**: Verify segment line counts match polygon sides ($n$-gon has $n$ lines).
+  - **Symmetry Checks**: Distinguish between $180^\circ$ point-rotational symmetry ($C_2$, e.g., letter N) and bilateral reflection line symmetry ($D_1/D_2$, e.g., H, I, X, O).
   - Check row/column symmetry mirrors, total filled symbol counts, and $90^\circ / 180^\circ$ rotational invariance.
+- **Digit Equation Balancing**:
+  - Bound the multiplier first: in $A \times B \pm C = T$, approximate $A \times B$ close to $T$, then resolve $C$ with single digits ($1 \le d \le 9$).
 - **Motion Challenge**:
   - Reverse path planning: work backward from the target goal hole (*"Which obstacle directly blocks the goal? Move it first"*).
   - Move all obstacles into clearance pockets first before executing uninterrupted ball slides.
@@ -104,8 +109,10 @@ A concise, high-yield master reference summarizing core strategies, formulas, tr
 
 ### Cognitive Games (Keep Calm & Track Singular Elements)
 - [ ] **Switch Challenge**: Do not attempt to map all 4 symbols simultaneously. Track the path of a single symbol (Anchor Element) to eliminate wrong multiple-choice options in seconds.
+- [ ] **Visual Reasoning**: Track degree change per step ($+45^\circ, +90^\circ$) and check internal element counts before checking rotation.
 - [ ] **Motion Challenge**: Work backward from the target goal. Ask: *"Which obstacle is directly blocking the target hole?"* Move that obstacle first.
 - [ ] **Grid / Sudoku**: Scan for rows or columns with only one missing slot before trying to resolve cells with multiple candidate symbols.
+- [ ] **Digit Balancing**: Anchor the multiplication pair close to the target value first; check remaining difference fits in single digits.
 - [ ] **Bubble Memory**: Use the 3-item chunking technique and physical cursor tracing during rapid flashes.
 
 ### Technical Traversals & Algorithms
