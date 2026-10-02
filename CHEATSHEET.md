@@ -5,10 +5,15 @@ A concise, high-yield master reference summarizing core strategies, formulas, tr
 ---
 
 ## 1. AI Literacy
+- **GenAI vs SQL ("Librarian vs Author")**: SQL DB is a *Librarian* (deterministic retrieval of existing rows); LLM is an *Author* (probabilistic next-token generation generalizing beyond training data).
+- **LLM Pipeline**: Raw Text $\to$ Tokenization (~100 words $\approx$ 130–135 tokens) $\to$ Vector Embeddings (semantic proximity) $\to$ Transformer Multi-Head Self-Attention $\to$ Probability Softmax $\to$ Next Token.
+- **Context Window & Eviction**: Hard upper token limit for prompt + history + output. Exceeding limit silently drops earliest tokens (FIFO buffer eviction).
+- **Prompt Formula ("Run To Catch Fast Cars")**: **R**ole • **T**ask • **C**ontext • **F**ormat • **C**onstraints (RTC-FC).
 - **Prompt Chaining**: Decompose complex multi-step reasoning tasks into discrete, sequential prompt calls with verifiable intermediate outputs.
 - **RAG Architecture**: Combine BM25/TF-IDF Sparse Keyword Search (exact token/code lookups) with Dense Vector Search (semantic similarity) via Hybrid Search.
 - **Guardrails & Security**: Enforce Role-Based Access Control (RBAC) metadata filtering deterministically at retrieval time; sandbox untrusted external inputs in tags to prevent indirect prompt injection.
 - **Prompt Strategies**: Use Zero-Shot Chain-of-Thought (*"Let's think step by step"*) for multi-step arithmetic; use Guided Decoding / JSON Schema constraints to guarantee valid JSON syntax.
+- **Fine-Tuning vs Prompting**: Fine-tuning modifies internal weights ($W, b$); prompt engineering operates in-context on frozen weights.
 
 ---
 

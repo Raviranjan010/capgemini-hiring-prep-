@@ -2,18 +2,34 @@
 
 | Item | Source tag | File | Done |
 | :--- | :---: | :--- | :---: |
-| **AI Literacy** | | | |
-| Context window Q | [CHAT] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
-| JSON parser Q | [CHAT] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
-| Chunking Q | [CHAT] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
-| Hybrid search Q | [CHAT] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
-| Zero-shot CoT Q | [CHAT] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| **AI Literacy & GenAI** | | | |
+| GenAI vs SQL ("Librarian vs Author") | [ADDED] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| LLM architecture pipeline (autoregressive, softmax) | [ADDED] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| Core terminology (Parameters, Context Window, Eviction, Cutoff) | [ADDED] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| RTC-FC prompt framework ("Run To Catch Fast Cars") | [ADDED] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| AI-assisted coding & debugging prompt pattern | [ADDED] | 04-ai-assisted-coding/README.md | [x] |
+| Q1: Core generation mechanism (conditional probabilities) | [ADDED] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| Q2: Self-attention purpose (dynamic context weighting) | [ADDED] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| Q3: Model parameters (learned weights & biases) | [ADDED] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| Q4: Context window definition (token budget) | [ADDED] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| Q5: Hallucination identification (Newton Python 1782) | [ADDED] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| Q6: Few-shot vs zero-shot prompting | [ADDED] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| Q7: Context window FIFO eviction | [ADDED] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| Q8: Prompt anatomy non-component (GPU allocation) | [ADDED] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| Q9: RAG definition & purpose | [ADDED] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| Q10: Fine-tuning vs prompt engineering (weight updates) | [ADDED] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| Q11: Vector embeddings in geometric space | [ADDED] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| Context window degradation scenario Q | [CHAT] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| JSON parser guided decoding Q | [CHAT] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| Chunking & sliding window overlap Q | [CHAT] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| Hybrid search alphanumeric code Q | [CHAT] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| Zero-shot CoT reasoning Q | [CHAT] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
 | Indirect prompt injection | [CHAT] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
 | Hallucination vs data poisoning | [CHAT] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
 | GenAI foundations | [CHAT] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
-| Transformers | [CHAT] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
-| Embeddings | [CHAT] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
-| RLHF | [CHAT] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| Transformers & self-attention | [CHAT] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| Embeddings similarity metrics | [CHAT] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| RLHF & reward model | [CHAT] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
 | Prompt engineering (CoT, chaining, self-consistency) | [CHAT] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
 | RAG (indexing, chunking, hybrid search, vector DBs) | [CHAT] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
 | Responsible AI (bias, guardrails, RBAC) | [CHAT] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |

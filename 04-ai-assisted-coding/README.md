@@ -24,16 +24,39 @@ When given an array or subarray problem, determine the approach using this decis
 
 ---
 
+---
+
+## Prompt Engineering & Coding Strategies
+
+In Capgemini's coding round, questions penalize trial-and-error prompting. Every API call consumes token limits and turn counts.
+
+### The "RTC-FC" Prompt Structure
+Use this five-part formula whenever drafting or analyzing prompt quality:
+- **Role (R)**: Sets expertise, perspective, and persona (*"Act as a Lead Java Backend Architect."*)
+- **Context (C)**: Operational environment and background (*"We are processing high-frequency UPI transactions."*)
+- **Task (T)**: Explicit command or deliverable (*"Refactor the provided payment validation method."*)
+- **Format (F)**: Output layout and schema (*"Output only Java code inside Markdown with inline comments."*)
+- **Constraints (C)**: Guardrails (*"Ensure O(N) time complexity and no external dependencies."*)
+
+> **Memory Trick**: *"Run To Catch Fast Cars"* (**R**ole • **T**ask • **C**ontext • **F**ormat • **C**onstraints)
+
+### Examination Coding Tactics
+1. **Pre-prompt Clarification**: Define constraints (language version, time/space targets, edge cases like empty arrays, negative numbers, or integer overflow) in the first turn.
+2. **Zero Trust Review**: LLMs frequently produce code that compiles cleanly but violates asymptotic bounds ($O(N^2)$ vs. $O(N)$) or silently fails edge cases. Always verify complexity and test zero/negative values before submitting.
+
+---
+
 ## Token-Saving Prompt Templates
 
 Use these concise prompt structures to get clean code from the exam AI chatbot without exhausting your token allowance:
 
 ### 1. Problem Clarification Prompt
 ```text
-Task: [Problem Name]. 
-Objective: [Target metric, e.g., max length, count subarrays]. 
-Constraints: [Array size N, negative values allowed or non-negative only]. 
-Complexity target: Time O(N), Space O(1) or O(N).
+Role: Senior Algorithm Engineer.
+Context: High-throughput array processing.
+Task: Solve [Problem Name]. 
+Format: Single Java method with inline comments, no explanatory fluff.
+Constraints: Time O(N), Space O(1) or O(N). Handle empty/single-element arrays and negatives.
 ```
 
 ### 2. Shrink-Left Pointer Correction Prompt
@@ -42,7 +65,22 @@ When the window condition invalidates, shrink left pointer:
 decrement map frequency, subtract nums[left] from currentSum, remove key if frequency is 0, then increment left++.
 ```
 
-### 3. Worked Example: Gas Station Single-Pass Prompt
+### 3. Debugging Prompt Pattern
+When code fails a test case or compiler check:
+```text
+Task: Fix the bug in the provided function.
+Target Function:
+[Paste full target function here]
+
+Failure Details:
+- Failing Test Input: [e.g., nums = [-3, -1, -2], k = 2]
+- Expected Output: [e.g., -1]
+- Actual Output / Compiler Error: [e.g., Output 0 / IndexOutOfBoundsException]
+
+Constraint: Only modify the inner logic of the target function; do not refactor unproblematic helper functions.
+```
+
+### 4. Worked Example: Gas Station Single-Pass Prompt
 ```text
 Task: Find starting gas station index for circular tour in Java.
 Approach: Single-pass Greedy. Track totalSurplus += gas[i] - cost[i] and currentTank += gas[i] - cost[i].

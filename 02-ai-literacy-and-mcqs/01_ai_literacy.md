@@ -1,49 +1,395 @@
-# AI Literacy: Core Concepts & Practice MCQs
+# AI Literacy & GenAI: Core Concepts & Practice MCQs
 
-## Concepts in Easy Words
+This comprehensive study guide covers all concepts, architectural diagrams, mnemonics, prompt engineering frameworks, AI-assisted coding strategies, and exam questions from the Capgemini AI Literacy / GenAI Assessment module.
 
-### GenAI Foundations
-**Tag**: [ADDED]  
-Generative AI refers to deep learning models that generate new text, images, code, or audio by predicting statistical patterns learned from vast training datasets. Unlike discriminative AI which classifies or predicts labels, GenAI produces synthetic content conditioned on prompt inputs. Foundation models serve as general-purpose base models adapted to specific tasks via fine-tuning.
+---
 
-### Transformers & Attention
-**Tag**: [ADDED]  
-The Transformer architecture relies on self-attention mechanisms rather than recurrence (RNNs) or convolutions. Self-attention enables the model to weigh the contextual importance of all tokens across a sequence simultaneously. This parallelized computation enables deep contextual understanding and long-range semantic dependency tracking.
+## 1. High-Level Concepts & Comparison
 
-### Vector Embeddings
-**Tag**: [ADDED]  
-Vector embeddings are high-dimensional numerical arrays (vectors) representing the semantic meaning of text chunks or queries. Sentences with similar meanings produce vectors that sit close together in vector space, measured via Cosine Similarity or Euclidean distance. Embeddings map concepts, but can blur exact alphanumeric strings.
+### Generative AI vs. Traditional Retrieval Systems (SQL)
 
-### RLHF (Reinforcement Learning from Human Feedback)
-**Tag**: [ADDED]  
-RLHF aligns base language models with human preferences, helpfulness, and safety. Human evaluators rank model responses, training a reward model to score outputs. Proximal Policy Optimization (PPO) then adjusts the LLM's weights to maximize reward while penalizing harmful, untruthful, or repetitive generations.
+- **Traditional Retrieval (SQL / Relational DBs)**: Operates on static queries (`SELECT`). It can only retrieve pre-existing rows from tables. It cannot synthesize novel structures or generate unseen outputs.
+- **Generative AI (LLMs)**: Discovers mathematical patterns, stylistic structures, and linguistic relationships in unstructured training data. It outputs novel sequences of text, code, images, audio, or video.
+- **Core Principle**: *Creates, does not just retrieve.*
 
-### Prompt Engineering
-**Tag**: [ADDED]  
-Techniques to guide LLMs toward accurate reasoning without weight updates.
-- **Zero-Shot Chain-of-Thought (CoT)**: Appending prompts like *"Let's think step by step"* forces the model to generate intermediate reasoning tokens before the final answer.
-- **Prompt Chaining**: Breaking a complex task into multiple discrete prompt calls where the output of one step feeds the next.
-- **Self-Consistency**: Sampling multiple reasoning paths and taking the majority vote for the final answer.
+| Feature | Traditional Database (SQL) | Generative AI (LLMs) |
+| :--- | :--- | :--- |
+| **Operation** | Deterministic search & lookup | Probabilistic next-token generation |
+| **Data Scope** | Fixed database records | Generalizes beyond exact training rows |
+| **Output Type** | Exact matches / structured rows | Unstructured text, syntactically novel code |
+| **Failure Mode** | Empty result set / Syntax error | Hallucination / Plausible falsehoods |
+
+> [!TIP]
+> **Memory Trick: The "Librarian vs. Author" Rule**
+> - A traditional DB is a **Librarian**: fetches an existing book from the shelf.
+> - A Generative Model is an **Author**: writes a fresh chapter based on everything read before.
+
+---
+
+## 2. The LLM Architecture Pipeline
+
+LLMs generate text **autoregressively**—predicting the next token conditionally based on all previous tokens.
+
+### Step-by-Step Processing Flow
+
+```text
+[Raw User Text]
+      │
+      ▼
+1. Tokenization       ──► Splitting text into tokens (Words / Subwords / Punctuation)
+      │
+      ▼
+2. Vector Embedding   ──► Mapping discrete tokens into high-dimensional vectors
+      │
+      ▼
+3. Transformer Blocks ──► Multi-Head Self-Attention dynamically weights token relations
+      │
+      ▼
+4. Probability Softmax──► Calculates likelihood across full vocabulary
+      │
+      ▼
+[Next Token Sampled]
+```
+
+```mermaid
+flowchart TD
+    A["Raw User Text"] --> B["1. Tokenization<br/>(Words / Subwords / Punctuation)"]
+    B --> C["2. Vector Embedding<br/>(Dense Numeric Vectors in High-D Space)"]
+    C --> D["3. Transformer Blocks<br/>(Multi-Head Self-Attention)"]
+    D --> E["4. Probability Softmax<br/>(Next-Token Distribution over Vocabulary)"]
+    E --> F["Next Token Sampled & Appended Autoregressively"]
+```
+
+### Detailed Pipeline Breakdown
+
+1. **Tokenization**: Breaks raw text into smaller computational units (subwords, words, or punctuation marks). Roughly 100 English words equal ~130–135 tokens.
+2. **Vector Embeddings**: Translates categorical tokens into dense numeric vectors in continuous vector space. Words sharing semantic similarity (e.g., `"king"` and `"queen"`, `"cat"` and `"kitten"`) cluster close to each other.
+3. **Transformer & Self-Attention**: Computes positional weight relationships between every word in the context window.
+   - *Example*: In *"The bank of the river"*, the attention mechanism gives higher weight to *"river"*, preventing the model from confusing *"bank"* with a financial institution.
+4. **Softmax & Next-Token Sampling**: Evaluates conditional probabilities across the entire dictionary and outputs the highest scoring or sampled token.
+
+---
+
+## 3. Core Terminology & Exam Reference
+
+- **Parameters**: Internal mathematical weights ($W$) and biases ($b$) learned during pre-training. Modern foundational LLMs scale from 7B to over 1T parameters.
+- **Context Window**: The upper hard limit on the total volume of tokens an LLM can parse and evaluate in a single request ($\text{Input Prompt} + \text{Conversation History} + \text{System Instructions} + \text{Output}$).
+- **Context Eviction / Dropping**: When conversation turns exceed the context window size, the earliest tokens are silently discarded (FIFO buffer), leading to context loss and forgotten instructions.
+- **Knowledge Cutoff**: The calendar date marking the end of the model's pre-training data corpus. The model cannot answer factual questions about events occurring after this date without external tools or RAG.
+- **Hallucination**: When an LLM outputs syntactically coherent and confident text that is factually false or entirely fabricated.
+
+---
+
+## 4. Prompt Engineering Frameworks
+
+The most tested skill in Capgemini's AI assessment is writing constrained, high-efficiency prompts.
+
+### The "RTC-FC" Prompt Structure
+
+Use this five-part formula whenever drafting or analyzing prompt quality:
+
+| Component | Purpose | Example |
+| :--- | :--- | :--- |
+| **Role (R)** | Sets expertise, perspective, and persona | *"Act as a Lead Java Backend Architect."* |
+| **Context (C)** | Provides operational environment and background | *"We are processing high-frequency UPI transactions."* |
+| **Task (T)** | States the explicit command or deliverable | *"Refactor the provided payment validation method."* |
+| **Format (F)** | Defines output layout and schema | *"Output only Java code inside Markdown with inline comments."* |
+| **Constraints (C)** | Sets guardrails (time/space complexity, length) | *"Ensure O(N) time complexity and no external dependencies."* |
+
+> [!TIP]
+> **Memory Trick: "Run To Catch Fast Cars" (R-T-C-F-C)**
+> **R**ole • **T**ask • **C**ontext • **F**ormat • **C**onstraints
+
+### Prompting Techniques
+
+- **Zero-Shot Prompting**: Providing a task instruction with zero demonstrations or examples.
+- **Few-Shot Prompting**: Providing 2–5 structured input-output exemplars inside the prompt before the target problem to condition the output style and structure.
+- **Chain-of-Thought (CoT)**: Adding *"Think step by step"* to force explicit intermediate reasoning tokens before the final answer, significantly reducing logical and mathematical errors.
+- **Prompt Chaining**: Decomposing a complex task into multiple discrete prompt calls where the output of one step feeds the next.
+- **Self-Consistency**: Sampling multiple diverse reasoning paths at temperature $> 0$ and taking the majority vote for the final answer.
+
+---
+
+## 5. Advanced System Architectures
 
 ### Retrieval-Augmented Generation (RAG)
-**Tag**: [ADDED]  
-RAG grounds LLM generation on external, verifiable knowledge sources.
-- **Indexing & Chunking**: Splitting raw documents into manageable chunks and indexing their embeddings in a vector database.
-- **Hybrid Search**: Combining Dense Vector Search (semantic similarity) with BM25 / TF-IDF Sparse Keyword Search (exact keyword/code match) via Reciprocal Rank Fusion.
+RAG grounds LLM generation on external, verifiable knowledge sources to mitigate hallucinations and overcome knowledge cutoff limits.
+- **Indexing & Chunking**: Splitting raw documents into manageable chunks (semantic chunking with 15–20% sliding window overlap) and indexing their embeddings in a vector database.
+- **Hybrid Search**: Combining Dense Vector Search (semantic similarity) with BM25 / TF-IDF Sparse Keyword Search (exact alphanumeric SKU/code match) via Reciprocal Rank Fusion.
 - **Vector DBs**: Specialized databases (e.g., Pinecone, Milvus, Chroma) optimized for fast approximate nearest neighbor (ANN) vector search.
 
+### Fine-Tuning vs. Prompt Engineering
+- **Prompt Engineering**: Operates strictly in-context on a **frozen** model without changing parameter weights ($W, b$). Fast, zero GPU training cost.
+- **Fine-Tuning**: Updates model parameter weights using gradient descent and backpropagation on a curated domain-specific dataset. High computational cost, but adapts domain style and specialized behavior.
+
+### RLHF (Reinforcement Learning from Human Feedback)
+Aligns base language models with human preferences, helpfulness, and safety.
+1. Pre-trained base model generates candidate completions.
+2. Human evaluators rank responses, training a **Reward Model** to output scalar evaluation scores.
+3. Proximal Policy Optimization (PPO) adjusts the LLM's weights to maximize reward while penalizing harmful or toxic outputs.
+
 ### Responsible AI & Guardrails
-**Tag**: [ADDED]  
-Practices ensuring fairness, safety, and data governance.
-- **Mitigating Bias**: Identifying and pruning biased or toxic training samples.
+- **Mitigating Bias**: Auditing, balancing, and pruning biased training corpora.
 - **Guardrails**: Input/output filters intercepting harmful content, PII leaks, or prompt injections.
 - **Role-Based Access Control (RBAC)**: Enforcing user authorization filters directly at retrieval time so confidential documents are not indexed into unauthorized query contexts.
 
 ---
 
-## High-Yield MCQs from Chat
+## 6. AI-Assisted Coding & Debugging Strategies
 
-### Question 1: Context Window Degradation & Token Truncation
+In Capgemini's coding round, questions penalize trial-and-error prompting. Every API call consumes token limits and turn counts.
+
+1. **Pre-prompt Clarification**: Define constraints (language version, time/space targets, edge cases like empty arrays, negative numbers, or integer overflow) in the first turn.
+2. **Zero Trust Review**: LLMs frequently produce code that compiles cleanly but violates asymptotic bounds ($O(N^2)$ vs. $O(N)$) or silently fails edge cases.
+3. **Debugging Prompt Pattern**:
+   - Paste the full target function.
+   - Include the exact compiler error message or failing test input and expected vs. actual output.
+   - Restrict the model from refactoring unproblematic helper functions.
+
+---
+
+## Capgemini Assessment Question Bank (Core Foundational MCQs)
+
+### Module 1: Foundational Architecture & LLMs
+
+#### Question 1: Core Generation Mechanism of LLMs
+**Tag**: [ADDED]
+
+**Question**:  
+Large Language Models generate text based on which core mechanism?
+
+- **A)** Direct table lookup in an embedded database
+- **B)** Conditional probability distributions predicting tokens sequentially
+- **C)** Deterministic finite automaton matching
+- **D)** Dynamic memory cache evaluation
+
+**Correct Answer**: Option B
+
+**Why**:  
+LLMs do not look up static answers or query pre-populated databases; they compute conditional probability distributions over their entire vocabulary and sample the next token sequentially (autoregressively) conditioned on all preceding tokens in the context window.
+
+**5-Second Shortcut**: LLM text generation = conditional probability next-token prediction.  
+**Trap**: Confusing probabilistic text generation with relational database lookup.
+
+---
+
+#### Question 2: Primary Purpose of Self-Attention
+**Tag**: [ADDED]
+
+**Question**:  
+What is the primary purpose of Self-Attention in Transformer models?
+
+- **A)** To reduce RAM usage on the host server
+- **B)** To prioritize and weigh the contextual relevance of tokens relative to each other
+- **C)** To encrypt vector representations against cyber attacks
+- **D)** To eliminate stopwords automatically during runtime
+
+**Correct Answer**: Option B
+
+**Why**:  
+Self-attention enables every token in an input sequence to dynamically compute relational weights with every other token in the context window simultaneously. This allows the model to resolve ambiguities (e.g., distinguishing between "river bank" and "financial bank" or mapping pronouns like "it" to the correct antecedent).
+
+**5-Second Shortcut**: Self-attention = dynamically weighting contextual relationships between tokens.  
+**Trap**: Thinking self-attention is an optimization to reduce memory/RAM (it actually scales quadratically $O(N^2)$ with sequence length).
+
+---
+
+#### Question 3: Definition of Model Parameters
+**Tag**: [ADDED]
+
+**Question**:  
+What constitutes a model's "Parameters"?
+
+- **A)** The network bandwidth consumed during inference
+- **B)** The learned weights and biases stored across neural network layers
+- **C)** The hardware GPUs used in data centers
+- **D)** The prompt character limit set by the frontend UI
+
+**Correct Answer**: Option B
+
+**Why**:  
+Parameters are the internal mathematical values—specifically weights ($W$) and biases ($b$)—adjusted via backpropagation and gradient descent during training. These weights encode the statistical patterns, world knowledge, and linguistic structures learned by the model.
+
+**5-Second Shortcut**: Parameters = learned weights and biases ($W$ and $b$).  
+**Trap**: Confusing parameters (internal model weights) with hyperparameters (configuration like learning rate or temperature) or hardware specs.
+
+---
+
+#### Question 4: Definition of Context Window
+**Tag**: [ADDED]
+
+**Question**:  
+What is a "Context Window"?
+
+- **A)** The physical display resolution of the chat interface
+- **B)** The total maximum token budget (prompt + response + history) handled simultaneously
+- **C)** The duration a web session stays alive before timeout
+- **D)** The window of time an AI company retains user chat logs
+
+**Correct Answer**: Option B
+
+**Why**:  
+The context window is the hard architectural upper limit on the total volume of tokens an LLM can evaluate in a single inference call. This budget encompasses system instructions, user prompts, multi-turn chat history, and the generated response tokens.
+
+**5-Second Shortcut**: Context window = maximum simultaneous token budget (input + history + output).  
+**Trap**: Believing the context window refers to session timeout duration or UI chat display size.
+
+---
+
+### Module 2: Prompt Engineering & Model Behavior
+
+#### Question 5: Model Hallucination Identification
+**Tag**: [ADDED]
+
+**Question**:  
+When an LLM confidently claims that *"Python was invented in 1782 by Isaac Newton"*, this failure is categorized as:
+
+- **A)** Catastrophic Forgetting
+- **B)** Gradient Explosion
+- **C)** Hallucination
+- **D)** Context Thrashing
+
+**Correct Answer**: Option C
+
+**Why**:  
+Hallucination occurs when an LLM produces plausible-sounding, syntactically coherent text that is factually false, ungrounded, or entirely fabricated.
+
+**5-Second Shortcut**: Confidently asserting fabricated or false facts = Hallucination.  
+**Trap**: Mistaking inference-time factual hallucination for training-time failures like gradient explosion or catastrophic forgetting.
+
+---
+
+#### Question 6: Few-Shot vs. Zero-Shot Prompting
+**Tag**: [ADDED]
+
+**Question**:  
+What distinguishes Few-Shot prompting from Zero-Shot prompting?
+
+- **A)** Few-shot prompting uses fewer tokens overall
+- **B)** Few-shot prompting provides 2 or more demonstrations/examples in the input
+- **C)** Few-shot prompts update the foundational model's weights permanently
+- **D)** Zero-shot prompting is supported only by small models
+
+**Correct Answer**: Option B
+
+**Why**:  
+Zero-shot prompting provides only the task instructions with zero demonstrations. Few-shot prompting prepends 2 to 5 concrete input-output exemplars inside the prompt context to guide the model on output formatting, reasoning style, and task expectations.
+
+**5-Second Shortcut**: Few-shot = provides 2+ input-output examples in the prompt.  
+**Trap**: Assuming "few-shot" means fewer prompt tokens or fine-tuning weights.
+
+---
+
+#### Question 7: Token Overflow & Context Eviction
+**Tag**: [ADDED]
+
+**Question**:  
+What occurs when a conversation exceeds the maximum token context window?
+
+- **A)** The model throws a Fatal Kernel Error
+- **B)** The earliest conversation tokens are dropped (evicted) from context
+- **C)** The model automatically fine-tunes itself
+- **D)** Generation speed doubles automatically
+
+**Correct Answer**: Option B
+
+**Why**:  
+Context windows operate as FIFO (First-In, First-Out) buffers. When the total conversation tokens exceed the model's context capacity, the inference engine drops the earliest tokens from the context buffer, causing the model to lose earlier context and instructions.
+
+**5-Second Shortcut**: Exceeding context window = oldest tokens evicted (FIFO drop).  
+**Trap**: Thinking the model crashes or retrains itself when context limits are reached.
+
+---
+
+#### Question 8: Anatomy of an Effective Prompt
+**Tag**: [ADDED]
+
+**Question**:  
+Which component is NOT part of standard effective prompt anatomy?
+
+- **A)** Persona / Role assignment
+- **B)** Task clarification
+- **C)** GPU memory allocation flags
+- **D)** Output constraints and formats
+
+**Correct Answer**: Option C
+
+**Why**:  
+The standard prompt engineering anatomy follows the **RTC-FC** formula: **Role**, **Task**, **Context**, **Format**, and **Constraints**. Hardware parameters like GPU memory allocation, batch size, and CUDA device configurations are handled at the infrastructure/inference engine level, not within the text prompt.
+
+**5-Second Shortcut**: Not in prompt anatomy = GPU memory allocation flags.  
+**Trap**: Forgetting the "RTC-FC" mnemonic (Run To Catch Fast Cars).
+
+---
+
+### Module 3: Advanced Concepts (RAG, Fine-Tuning & Embeddings)
+
+#### Question 9: RAG Definition & Purpose
+**Tag**: [ADDED]
+
+**Question**:  
+What does RAG stand for, and what primary problem does it resolve?
+
+- **A)** Real-time Array Generation; handles binary search
+- **B)** Retrieval-Augmented Generation; grounds responses in verified external sources
+- **C)** Recursive Attention Gradient; optimizes backpropagation
+- **D)** Randomized Automated Generation; increases model creativity
+
+**Correct Answer**: Option B
+
+**Why**:  
+RAG stands for **Retrieval-Augmented Generation**. It resolves hallucination and the knowledge cutoff problem by dynamically fetching relevant external document chunks from a vector database and injecting them into the prompt as verified grounding context before generation.
+
+**5-Second Shortcut**: RAG = Retrieval-Augmented Generation (grounds output in verified external data).  
+**Trap**: Confusing RAG with model fine-tuning or backpropagation algorithms.
+
+---
+
+#### Question 10: Fine-Tuning vs. Prompt Engineering
+**Tag**: [ADDED]
+
+**Question**:  
+How does Fine-Tuning differ from Prompt Engineering?
+
+- **A)** Fine-tuning modifies internal parameter weights; prompt engineering leaves weights unchanged
+- **B)** Prompt engineering requires multi-GPU clusters; fine-tuning only needs a browser
+- **C)** Fine-tuning cannot change model formatting or style
+- **D)** They are completely synonymous terms
+
+**Correct Answer**: Option A
+
+**Why**:  
+Prompt engineering conditions a **frozen** foundation model at inference time using in-context instructions and examples, leaving model weights completely untouched. Fine-tuning uses backpropagation to update the internal numerical weights ($W, b$) on a domain-specific dataset.
+
+**5-Second Shortcut**: Fine-tuning modifies internal weights; prompt engineering leaves weights frozen.  
+**Trap**: Believing prompt engineering alters the underlying model weights permanently.
+
+---
+
+#### Question 11: Vector Embeddings in Generative Architectures
+**Tag**: [ADDED]
+
+**Question**:  
+What is a Vector Embedding in modern generative architectures?
+
+- **A)** A rasterized SVG image file
+- **B)** An array of numerical floats placing semantic concepts into geometric space
+- **C)** A database record primary key
+- **D)** A compressed bytecode file
+
+**Correct Answer**: Option B
+
+**Why**:  
+A vector embedding is a high-dimensional array of floating-point numbers (e.g., 768 or 1536 dimensions) generated by an embedding model. It maps words, sentences, or documents into continuous geometric space such that semantic similarity corresponds to geometric proximity (measured via Cosine Similarity or Dot Product).
+
+**5-Second Shortcut**: Vector embedding = array of numeric floats capturing semantic concepts in geometric space.  
+**Trap**: Confusing vector embeddings with rasterized graphics or relational database keys.
+
+---
+
+## High-Yield Scenario-Based & Technical MCQs
+
+### Question 12: Context Window Degradation & Token Truncation
 **Tag**: [CHAT]
 
 **Question**:  
@@ -64,7 +410,7 @@ Transformers calculate self-attention across tokens present within their active 
 
 ---
 
-### Question 2: Downstream JSON Parser Crashes
+### Question 13: Downstream JSON Parser Crashes
 **Tag**: [CHAT]
 
 **Question**:  
@@ -85,7 +431,7 @@ Prompt-based instructions are probabilistic; the model can never guarantee 100% 
 
 ---
 
-### Question 3: Retrieval Pipeline Splitting Safety Warnings (Chunking Failure)
+### Question 14: Retrieval Pipeline Splitting Safety Warnings (Chunking Failure)
 **Tag**: [CHAT]
 
 **Question**:  
@@ -106,7 +452,7 @@ Fixed-size character chunking blindly severs sentences and adjacent context acro
 
 ---
 
-### Question 4: Alphanumeric Code Retrieval in Vector Databases
+### Question 15: Alphanumeric Code Retrieval in Vector Databases
 **Tag**: [CHAT]
 
 **Question**:  
@@ -127,7 +473,7 @@ Dense embeddings map semantic meaning into continuous vector space, which scatte
 
 ---
 
-### Question 5: Multi-Step Math Failure & Reasoning Chains
+### Question 16: Multi-Step Math Failure & Reasoning Chains
 **Tag**: [CHAT]
 
 **Question**:  
@@ -148,9 +494,7 @@ Standard prompting forces the transformer to jump directly from input to the fin
 
 ---
 
-## Adversarial AI & Model Integrity MCQs
-
-### Question 6: Indirect Prompt Injection via External Ingestion
+### Question 17: Indirect Prompt Injection via External Ingestion
 **Tag**: [CHAT]
 
 **Question**:  
@@ -171,7 +515,7 @@ The LLM treated untrusted data ingested from an external source as executable sy
 
 ---
 
-### Question 7: Hallucination vs Data Poisoning
+### Question 18: Hallucination vs. Data Poisoning
 **Tag**: [CHAT]
 
 **Question**:  
@@ -192,9 +536,7 @@ Hallucination is an inference-stage phenomenon where the model generates factual
 
 ---
 
-## Extra Practice (Added MCQs)
-
-### Question 8: Embeddings & Vector Similarity Metrics
+### Question 19: Embeddings & Vector Similarity Metrics
 **Tag**: [ADDED]
 
 **Question**:  
@@ -215,7 +557,7 @@ Cosine similarity measures the cosine of the angle between two vectors, evaluati
 
 ---
 
-### Question 9: Self-Consistency Decoding Strategy
+### Question 20: Self-Consistency Decoding Strategy
 **Tag**: [ADDED]
 
 **Question**:  
@@ -236,7 +578,7 @@ Self-consistency generates multiple independent reasoning chains using non-zero 
 
 ---
 
-### Question 10: Prompt Chaining vs Single Long Prompt
+### Question 21: Prompt Chaining vs. Single Long Prompt
 **Tag**: [ADDED]
 
 **Question**:  
@@ -257,7 +599,7 @@ Combining multiple complex instructions into one long prompt causes attention di
 
 ---
 
-### Question 11: Enterprise RAG & Role-Based Access Control (RBAC)
+### Question 22: Enterprise RAG & Role-Based Access Control (RBAC)
 **Tag**: [ADDED]
 
 **Question**:  
@@ -278,7 +620,7 @@ LLM prompt instructions cannot reliably guarantee confidentiality or prevent dat
 
 ---
 
-### Question 12: RLHF Reward Model Objective
+### Question 23: RLHF Reward Model Objective
 **Tag**: [ADDED]
 
 **Question**:  
