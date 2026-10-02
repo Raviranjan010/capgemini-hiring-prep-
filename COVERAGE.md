@@ -3,40 +3,40 @@
 | Item | Source tag | File | Done |
 | :--- | :---: | :--- | :---: |
 | **AI Literacy** | | | |
-| Context window Q | [CHAT] | 02-ai-literacy-and-cs-mcqs/README.md | [ ] |
-| JSON parser Q | [CHAT] | 02-ai-literacy-and-cs-mcqs/README.md | [ ] |
-| Chunking Q | [CHAT] | 02-ai-literacy-and-cs-mcqs/README.md | [ ] |
-| Hybrid search Q | [CHAT] | 02-ai-literacy-and-cs-mcqs/README.md | [ ] |
-| Zero-shot CoT Q | [CHAT] | 02-ai-literacy-and-cs-mcqs/README.md | [ ] |
-| Indirect prompt injection | [CHAT] | 02-ai-literacy-and-cs-mcqs/README.md | [ ] |
-| Hallucination vs data poisoning | [CHAT] | 02-ai-literacy-and-cs-mcqs/README.md | [ ] |
-| GenAI foundations | [CHAT] | 02-ai-literacy-and-cs-mcqs/README.md | [ ] |
-| Transformers | [CHAT] | 02-ai-literacy-and-cs-mcqs/README.md | [ ] |
-| Embeddings | [CHAT] | 02-ai-literacy-and-cs-mcqs/README.md | [ ] |
-| RLHF | [CHAT] | 02-ai-literacy-and-cs-mcqs/README.md | [ ] |
-| Prompt engineering (CoT, chaining, self-consistency) | [CHAT] | 02-ai-literacy-and-cs-mcqs/README.md | [ ] |
-| RAG (indexing, chunking, hybrid search, vector DBs) | [CHAT] | 02-ai-literacy-and-cs-mcqs/README.md | [ ] |
-| Responsible AI (bias, guardrails, RBAC) | [CHAT] | 02-ai-literacy-and-cs-mcqs/README.md | [ ] |
+| Context window Q | [CHAT] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| JSON parser Q | [CHAT] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| Chunking Q | [CHAT] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| Hybrid search Q | [CHAT] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| Zero-shot CoT Q | [CHAT] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| Indirect prompt injection | [CHAT] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| Hallucination vs data poisoning | [CHAT] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| GenAI foundations | [CHAT] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| Transformers | [CHAT] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| Embeddings | [CHAT] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| RLHF | [CHAT] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| Prompt engineering (CoT, chaining, self-consistency) | [CHAT] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| RAG (indexing, chunking, hybrid search, vector DBs) | [CHAT] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| Responsible AI (bias, guardrails, RBAC) | [CHAT] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
 | **Networking / SQL / DBMS** | | | |
-| Subnet 255.255.255.192 | [CHAT] | 02-ai-literacy-and-cs-mcqs/README.md | [ ] |
-| NULL comparison | [CHAT] | 02-ai-literacy-and-cs-mcqs/README.md | [ ] |
-| WHERE vs HAVING (query + MCQ) | [CHAT] | 02-ai-literacy-and-cs-mcqs/README.md | [ ] |
-| Second highest salary (LIMIT/OFFSET and subquery) | [CHAT] | 02-ai-literacy-and-cs-mcqs/README.md | [ ] |
-| Self join | [CHAT] | 02-ai-literacy-and-cs-mcqs/README.md | [ ] |
-| NULL arithmetic | [CHAT] | 02-ai-literacy-and-cs-mcqs/README.md | [ ] |
+| Subnet 255.255.255.192 | [CHAT] | 02-ai-literacy-and-cs-mcqs/02_networking_sql_dbms.md | [x] |
+| NULL comparison | [CHAT] | 02-ai-literacy-and-cs-mcqs/02_networking_sql_dbms.md | [x] |
+| WHERE vs HAVING (query + MCQ) | [CHAT] | 02-ai-literacy-and-cs-mcqs/02_networking_sql_dbms.md | [x] |
+| Second highest salary (LIMIT/OFFSET and subquery) | [CHAT] | 02-ai-literacy-and-cs-mcqs/02_networking_sql_dbms.md | [x] |
+| Self join | [CHAT] | 02-ai-literacy-and-cs-mcqs/02_networking_sql_dbms.md | [x] |
+| NULL arithmetic | [CHAT] | 02-ai-literacy-and-cs-mcqs/02_networking_sql_dbms.md | [x] |
 | **OOPs / OS** | | | |
-| Diamond problem (scenario + MCQ) | [CHAT] | 02-ai-literacy-and-cs-mcqs/README.md | [ ] |
-| Shallow vs deep copy | [CHAT] | 02-ai-literacy-and-cs-mcqs/README.md | [ ] |
-| Virtual functions/vtable | [CHAT] | 02-ai-literacy-and-cs-mcqs/README.md | [ ] |
-| Abstract class vs interface | [CHAT] | 02-ai-literacy-and-cs-mcqs/README.md | [ ] |
-| Semaphore binary vs counting | [CHAT] | 02-ai-literacy-and-cs-mcqs/README.md | [ ] |
-| Coffman conditions | [CHAT] | 02-ai-literacy-and-cs-mcqs/README.md | [ ] |
-| Banker's algorithm | [CHAT] | 02-ai-literacy-and-cs-mcqs/README.md | [ ] |
-| Paging LRU/FIFO/Optimal | [CHAT] | 02-ai-literacy-and-cs-mcqs/README.md | [ ] |
+| Diamond problem (scenario + MCQ) | [CHAT] | 02-ai-literacy-and-cs-mcqs/03_oops_os.md | [x] |
+| Shallow vs deep copy | [CHAT] | 02-ai-literacy-and-cs-mcqs/03_oops_os.md | [x] |
+| Virtual functions/vtable | [CHAT] | 02-ai-literacy-and-cs-mcqs/03_oops_os.md | [x] |
+| Abstract class vs interface | [CHAT] | 02-ai-literacy-and-cs-mcqs/03_oops_os.md | [x] |
+| Semaphore binary vs counting | [CHAT] | 02-ai-literacy-and-cs-mcqs/03_oops_os.md | [x] |
+| Coffman conditions | [CHAT] | 02-ai-literacy-and-cs-mcqs/03_oops_os.md | [x] |
+| Banker's algorithm | [CHAT] | 02-ai-literacy-and-cs-mcqs/03_oops_os.md | [x] |
+| Paging LRU/FIFO/Optimal | [CHAT] | 02-ai-literacy-and-cs-mcqs/03_oops_os.md | [x] |
 | **Pseudocode / Bitwise** | | | |
-| a<<b+1 | [CHAT] | 02-ai-literacy-and-cs-mcqs/README.md | [ ] |
-| static recursion fun(3) | [CHAT] | 02-ai-literacy-and-cs-mcqs/README.md | [ ] |
-| n&(-n) | [CHAT] | 02-ai-literacy-and-cs-mcqs/README.md | [ ] |
+| a<<b+1 | [CHAT] | 02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md | [x] |
+| static recursion fun(3) | [CHAT] | 02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md | [x] |
+| n&(-n) | [CHAT] | 02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md | [x] |
 | **Debugging** | | | |
 | Strategy and 10-point scanner | [CHAT] | 03-code-debugging/README.md | [ ] |
 | Height-balanced tree | [CHAT] | 03-code-debugging/README.md | [ ] |
