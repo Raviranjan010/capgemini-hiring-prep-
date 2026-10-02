@@ -43,10 +43,21 @@
 | **Interval Merging** | Sorting comparator & end updates | Sorting by end time; using `<` instead of `<=`; forgetting trailing interval after loop. |
 | **Linked List Fast/Slow**| Loop guard conditions & node equality | Dereferencing `fast.next.next` without checking `fast.next != null`; comparing `.val` instead of `==`. |
 | **Monotonic Stack** | Stack query order & empty guard | Calling `st.top()` without `!st.empty()`; forward iteration instead of reverse. |
+| **Undirected Graphs** | Adjacency list edge registration | Unidirectional push (`adj[u].push_back(v)` missing `adj[v].push_back(u)`); premature `return` inside loop. |
+| **0/1 Knapsack DP** | Capacity traversal direction | Forward capacity loop (`w = wt[i]; w <= W`) converts 0/1 to Unbounded Knapsack; must loop backwards. |
+
+---
+
+## 4 Primary Failure Modes in Capgemini Exceller Debugging
+1. **Unidirectional vs. Bidirectional Edges**: In undirected graphs, failing to push edges in both directions fragments connected components.
+2. **Premature Loop Returns**: Placing `return result;` inside a `for` loop body terminates the algorithm prematurely.
+3. **0-Indexed vs. 1-Indexed Allocation**: Allocating size $n$ instead of $n + 1$ or accessing out-of-bounds indices in DP tables.
+4. **Forward vs. Backward Capacity Traversal**: Using forward loop instead of reverse traversal in space-optimized 0/1 Knapsack arrays.
 
 ---
 
 ## Video References
+- Capgemini Exceller Exam Analysis: See [RESOURCES.md](../RESOURCES.md#video-references) (verified link: http://www.youtube.com/watch?v=7USJXlHXaiw).
 - Common Debugging Bugs Walkthrough: See [RESOURCES.md](../RESOURCES.md#video-references) (unverified link: https://youtu.be/f_9-TT2hGQ4).
 - Height-Balanced Tree Debugging: See [RESOURCES.md](../RESOURCES.md#video-references) (unverified link: https://youtu.be/YEZy2e_PARE).
 - 2D Matrix Debugging (7 Bugs): See [RESOURCES.md](../RESOURCES.md#video-references) (unverified link: https://youtu.be/SjbedEKjacM).
@@ -57,3 +68,5 @@
 2. [02_matrix.md](02_matrix.md) - 2D Matrix Maximum Row Sum (7 bugs) and Staircase Search in Sorted Matrix.
 3. [03_greedy_and_intervals.md](03_greedy_and_intervals.md) - Jump Game I & II, Gas Station Circular Tour, and Merge Intervals.
 4. [04_linkedlist_stack_backtracking.md](04_linkedlist_stack_backtracking.md) - Linked List Cycle, Next Greater Element, and Subsets Backtracking.
+5. [05_graphs_and_dp.md](05_graphs_and_dp.md) - Connected Components in Undirected Graph (bidirectional edges, premature loop return) and 0/1 Knapsack DP (reverse traversal).
+
