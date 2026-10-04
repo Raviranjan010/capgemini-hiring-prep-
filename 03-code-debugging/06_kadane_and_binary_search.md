@@ -361,6 +361,110 @@ void printFrequencies(const vector<int>& arr) {
 
 ---
 
+## Problem 5: Alternating Odd-Even Subarray Sequence (Index Out-of-Bounds & Negative Modulo Bug)
+
+**Tag**: [CODE-DEBUGGING] [VIDEO]  
+**Timestamp**: `[00:15:28]` - `[00:17:35]`  
+**Exam Source**: Capgemini Exceller Code Debugging Section
+
+### Problem Statement
+Given an integer array `arr[]` of size `n`, verify whether the sequence forms a contiguous alternating parity pattern starting from index 0:
+$$\text{Odd} \longrightarrow \text{Even} \longrightarrow \text{Odd} \dots \quad \text{or} \quad \text{Even} \longrightarrow \text{Odd} \longrightarrow \text{Even} \dots$$
+Count the total number of valid elements in the unbroken alternating sequence starting from index 0.
+
+### Buggy Exam Code
+```java
+// Faulty snippet given to candidates in Capgemini assessment
+public static int countAlternating(int[] arr, int n) {
+    if (n == 0) return 0;
+    int count = 1;
+    for (int i = 0; i < n; i++) {              // BUG 1: Out of bounds check & wrong offset
+        if (arr[i] % 2 != arr[i + 1] % 2) {     // BUG 2: Negative number modulo bug
+            count++;
+        } else {
+            break;
+        }
+    }
+    return count;
+}
+```
+
+### Bugs Found & Root Cause Analysis
+
+1. **Loop Index Out-of-Bounds (`i < n`)**:
+   - *Why wrong*: The loop checks `arr[i + 1]`. When `i = n - 1` (the last valid index), accessing `arr[n]` triggers a runtime crash:
+     $$\text{ArrayIndexOutOfBoundsException: Index } n \text{ out of bounds for length } n$$
+   - *Fix*: Terminate the loop strictly at `i < n - 1`.
+2. **Negative Number Modulo Bug (`arr[i] % 2 != arr[i + 1] % 2`)**:
+   - *Why wrong*: In Java, C++, and C#, the remainder operator retains the sign of the dividend. For example, `-3 % 2 == -1`, but `3 % 2 == 1`. If an array contains `[-3, 1]`, both are odd, but `-1 != 1` evaluates to `true`, erroneously treating them as alternating parity!
+   - *Fix*: Use bitwise parity testing: `((arr[i] ^ arr[i + 1]) & 1) == 1` or `(arr[i] & 1) != (arr[i + 1] & 1)`.
+
+### Fixed Production Code
+
+#### Java
+```java
+public class AlternatingSequence {
+    public static int countAlternating(int[] arr, int n) {
+        if (arr == null || n == 0) return 0;
+        int count = 1;
+
+        for (int i = 0; i < n - 1; i++) {
+            // Bitwise parity check: immune to negative number modulo issues
+            if (((arr[i] ^ arr[i + 1]) & 1) == 1) {
+                count++;
+            } else {
+                break; // Stop at first parity violation
+            }
+        }
+        return count;
+    }
+
+    public static void main(String[] args) {
+        int[] arr1 = {1, 2, 3, 4, 6};
+        System.out.println(countAlternating(arr1, arr1.length)); // Output: 4 ([1,2,3,4])
+
+        int[] arr2 = {-3, 2, -5, 4};
+        System.out.println(countAlternating(arr2, arr2.length)); // Output: 4 (handles negatives)
+    }
+}
+```
+
+#### C++
+```cpp
+#include <vector>
+#include <iostream>
+using namespace std;
+
+int countAlternating(const vector<int>& arr) {
+    int n = arr.size();
+    if (n == 0) return 0;
+    int count = 1;
+
+    for (int i = 0; i < n - 1; i++) {
+        // Bitwise XOR of lowest bits: 1 if different parity, 0 if same parity
+        if (((arr[i] ^ arr[i + 1]) & 1) == 1) {
+            count++;
+        } else {
+            break;
+        }
+    }
+    return count;
+}
+```
+
+### Dry-Run Table (`arr = [1, 2, 4, 5]`, $n = 4$)
+| Loop Index $i$ | Pair Checked (`arr[i]`, `arr[i+1]`) | Bitwise Parity `((arr[i]^arr[i+1]) & 1)` | Action Taken | `count` Value |
+| :---: | :---: | :---: | :---: | :---: |
+| - | - | - | Initialized | `1` |
+| `i = 0` | `(1, 2)` (Odd, Even) | `(1 ^ 0) & 1 = 1` (Alternating) | `count++` | `2` |
+| `i = 1` | `(2, 4)` (Even, Even) | `(0 ^ 0) & 1 = 0` (Violation) | `break;` | `2` (Final) |
+
+> **Spot-It-Fast Rule (10 Seconds)**: In any question testing adjacent element parity, immediately look for:
+> 1. `i < n` accessing `arr[i + 1]` $\implies$ change to `i < n - 1`.
+> 2. `x % 2` on signed integers $\implies$ replace with `(x & 1)` or `((x ^ y) & 1)`.
+
+---
+
 ## 5. Common Bug Categories in Capgemini Assessments
 
 | Bug Category | Common Manifestation | Quick Fix |

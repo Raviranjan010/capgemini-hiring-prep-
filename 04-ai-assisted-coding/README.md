@@ -110,5 +110,8 @@ Complexity: Time O(N), Space O(1).
 3. [03_tree_lca_bitwise_palindrome_partition.md](03_tree_lca_bitwise_palindrome_partition.md) - Lowest Common Ancestor (LCA), Bitwise Equality Inversions ($A[i] \& A[j] == A[i] \oplus A[j]$), Palindromic Partitioning Min Cuts (DP), and Palindrome Partitioning I (All Partitions with 6-Turn Dialog & Loop Direction Audit).
 4. [04_graph_bipartite_course_schedule_islands.md](04_graph_bipartite_course_schedule_islands.md) - Is Graph Bipartite (2-Coloring BFS, Odd Cycle Theorem, 5-Turn Dialog), Course Schedule (Kahn's In-Degree), Number of Islands (In-Place Sinking), and 0/1 Matrix (Multi-Source BFS).
 5. [05_dp_decode_ways_and_frequent_patterns.md](05_dp_decode_ways_and_frequent_patterns.md) - Capgemini AI Assist Platform Deep Dive, Decode Ways (LeetCode #91 with 6-Turn Bot Dialog & O(1) space), Coin Change (amount+1 overflow defense), Strict Alternating Parity, Move Hashes to Front, and Run-Length Compression.
+6. [06_grid_bfs_shortest_path_obstacles.md](06_grid_bfs_shortest_path_obstacles.md) - Shortest Path in 2D Grid with Obstacles Elimination (LeetCode #1293: BFS with Pruned State Space, Manhattan distance shortcut, one-shot prompt template to save tokens).
+7. [07_binary_tree_boundary_traversal.md](07_binary_tree_boundary_traversal.md) - Anti-Clockwise Binary Tree Boundary Traversal (3-phase protocol: left boundary, leaves left-to-right, right boundary bottom-to-top).
+
 
 
