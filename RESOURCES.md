@@ -14,7 +14,7 @@
 | Common Debugging Bugs | https://youtu.be/f_9-TT2hGQ4 | UNVERIFIED - open and confirm | [03-code-debugging/README.md](03-code-debugging/README.md) |
 | Height-Balanced Tree Debugging | http://www.youtube.com/watch?v=YEZy2e_PARE | Verified | [03-code-debugging/01_trees.md](03-code-debugging/01_trees.md), [03-code-debugging/README.md](03-code-debugging/README.md) |
 | 2D Matrix Debugging (7 Bugs) | https://youtu.be/SjbedEKjacM | UNVERIFIED - open and confirm | [03-code-debugging/README.md](03-code-debugging/README.md) |
-| Harmonic Subarray (AI-Assisted Coding) | https://youtu.be/Myw7Po8fyWw | UNVERIFIED - open and confirm | [04-ai-assisted-coding/README.md](04-ai-assisted-coding/README.md) |
+| Harmonic Subarray (AI-Assisted Coding) | https://youtu.be/Myw7Po8fyWw?si=Pr__NPIRqG0akkMt | Verified | [04-ai-assisted-coding/01_sliding_window.md](04-ai-assisted-coding/01_sliding_window.md) |
 | Capgemini AI Assist Coding Solution (Graph Bipartite & BFS) | http://www.youtube.com/watch?v=tqXkeM3D8D4 | Verified | [04-ai-assisted-coding/04_graph_bipartite_course_schedule_islands.md](04-ai-assisted-coding/04_graph_bipartite_course_schedule_islands.md) |
 | Capgemini AI Literacy & Prompt Engineering Master Walkthrough | http://www.youtube.com/watch?v=oq3FtGoPmCE | Verified | [02-ai-literacy-and-cs-mcqs/01_ai_literacy.md](02-ai-literacy-and-cs-mcqs/01_ai_literacy.md) |
 | Complete Capgemini Master Preparation Video (1h 45m Walkthrough) | http://www.youtube.com/watch?v=q5giVVUApwM | Verified | [06-communication/01_comprehensive_english_modules.md](06-communication/01_comprehensive_english_modules.md), [03-code-debugging/05_graphs_and_dp.md](03-code-debugging/05_graphs_and_dp.md), [04-ai-assisted-coding/03_tree_lca_bitwise_palindrome_partition.md](04-ai-assisted-coding/03_tree_lca_bitwise_palindrome_partition.md) |
@@ -66,6 +66,8 @@
 | Find All Duplicates in an Array | https://leetcode.com/problems/find-all-duplicates-in-an-array/ | [03-code-debugging/06_kadane_and_binary_search.md](03-code-debugging/06_kadane_and_binary_search.md) |
 | Shortest Path in a Grid with Obstacles Elimination | https://leetcode.com/problems/shortest-path-in-a-grid-with-obstacles-elimination/ | [04-ai-assisted-coding/06_grid_bfs_shortest_path_obstacles.md](04-ai-assisted-coding/06_grid_bfs_shortest_path_obstacles.md) |
 | Boundary of Binary Tree | https://leetcode.com/problems/boundary-of-binary-tree/ | [04-ai-assisted-coding/07_binary_tree_boundary_traversal.md](04-ai-assisted-coding/07_binary_tree_boundary_traversal.md) |
+| Fruit Into Baskets | https://leetcode.com/problems/fruit-into-baskets/ | [04-ai-assisted-coding/01_sliding_window.md](04-ai-assisted-coding/01_sliding_window.md) |
+
 
 
 

@@ -1,55 +1,167 @@
-# Sliding Window Algorithmic Patterns
+# Sliding Window Algorithmic Patterns: Harmonic Subarrays & Extremes
+
+**Exam Reference**: Capgemini Exceller AI Assist Coding Round  
+**Video Reference**: [KN Academy 28 Sept Assessment Solution Video](https://youtu.be/Myw7Po8fyWw?si=Pr__NPIRqG0akkMt)
 
 ---
 
-## Problem 1: Maximum Sum Harmonic Subarray ($\max - \min == 1$)
+## Problem 1: Maximum Sum Harmonic Subarray (AI-Assisted Coding)
 
-**Tag**: [VIDEO]  
-*(Note: unverified link, see [RESOURCES.md](../RESOURCES.md#video-references); confirm exact problem wording in video)*
+**Tag**: [AI-ASSIST-CODING] [SLIDING-WINDOW] [VIDEO]  
+**Video Link**: [KN Academy 28 Sept Assessment Solution Video](https://youtu.be/Myw7Po8fyWw?si=Pr__NPIRqG0akkMt)
 
-### Problem Statement
-A harmonic subarray is defined as a contiguous subarray where the difference between the maximum value and the minimum value is strictly equal to 1 ($\max - \min == 1$), meaning the subarray contains exactly two distinct integers that differ by 1. Find the maximum possible sum among all contiguous harmonic subarrays. If no harmonic subarray exists, return 0.
+### 1. Assessment Blueprint & Problem Definition
 
-### Idea in Easy Words
-1. Use an ordered map (or frequency table) tracking the elements currently inside the window `[left to right]`.
-2. Expand `right` by adding `nums[right]`.
-3. If the spread $\max - \min > 1$, shrink from `left` until the condition $\max - \min \le 1$ is restored.
-4. When the window contains at least two distinct keys and $\max - \min == 1$, update `maxSum = max(maxSum, currentSum)`.
+In the Capgemini Exceller Technical Assessment, the AI Assist Coding section evaluates whether a candidate can define algorithmic constraints, maintain token economy (~2,000 token budget), and resolve edge cases with the platform AI conversational bot.
 
-### Production Code (C++)
+#### Problem Statement
+A continuous subarray is defined as **harmonic** if and only if the difference between its maximum element and minimum element is strictly equal to $1$:
+$$\max(\text{subarray}) - \min(\text{subarray}) = 1$$
+
+Given an array of non-negative integers `nums`, find and return the **maximum possible sum** across all valid continuous harmonic subarrays. If no valid harmonic subarray exists, return `0`.
+
+#### Key Constraints & Mathematical Properties
+1. **Contiguity**: Elements must be strictly contiguous (a continuous slice `nums[L...R]`), unlike the classic LeetCode problem *Longest Harmonious Subsequence*, which permits non-contiguous subsequences.
+2. **Exact Number of Distinct Elements**: A valid harmonic subarray must contain **exactly two distinct values** of the form $\{x, x+1\}$:
+   - If it contains only $1$ distinct element (e.g., `[2, 2, 2]`), then $\max - \min = 0 \ne 1$ (**Invalid**).
+   - If it contains $\ge 3$ distinct elements (e.g., `[1, 2, 3]`), then $\max - \min \ge 2 \ne 1$ (**Invalid**).
+3. **Return Zero on Failure**: If no slice satisfies the property, return `0`.
+
+---
+
+### 2. Test Case Breakdown & Execution Trace
+
+| Input Array (`nums`) | Valid Harmonic Subarrays | Individual Sums | Max Sum Output |
+| :--- | :--- | :---: | :---: |
+| `[1, 3, 2, 5, 2, 3, 7]` | `[3, 2]` (sum 5), `[2, 3]` (sum 5) | 5, 5 | **5** (or 7 for `[3, 2, 2]`) |
+| `[1, 2, 3, 4]` | `[1, 2]` (sum 3), `[2, 3]` (sum 5), `[3, 4]` (sum 7) | 3, 5, 7 | **7** (`[3, 4]`) |
+| `[1, 1, 1]` | None ($\max - \min = 0$) | None | **0** |
+| `[0, 1, 0, 1, 0]` | `[0, 1, 0, 1, 0]` ($\max=1, \min=0$) | $0+1+0+1+0 = 2$ | **2** |
+
+---
+
+### 3. Algorithmic Approaches: Naive vs. Optimal
+
+```text
+SLIDING WINDOW WORKFLOW
+L                 R
+▼                 ▼
+[ 3, 2, 2, 2 ] ──> Expand R: map = {3:1, 2:3}, diff = 1, size = 2 (VALID)
+[ 3, 2, 2, 5 ] ──> Expand R: element 5 makes diff = 3 > 1 (INVALID)
+  ▲
+  Shrink L until window contains elements with diff <= 1
+```
+
+#### Approach 1: Brute Force ($O(N^2)$ Time, $O(1)$ Space)
+- Iterate through all pairs $(i, j)$ where $0 \le i \le j < N$.
+- Track running $\min$, $\max$, and sum. If $\max - \min == 1$, update `maxSum`.
+- **Verdict**: Fails with Time Limit Exceeded (TLE) when $N \ge 10^5$ ($10^{10}$ operations).
+
+#### Approach 2: Optimal Variable-Size Sliding Window ($O(N)$ Time, $O(1)$ Space)
+- Maintain two pointers: `left = 0` and `right` iterating from $0$ to $N - 1$.
+- Use a frequency map / hash table to track distinct values in the current window `nums[left...right]`.
+- For each incoming `nums[right]`, add it to `currentSum` and increment its count in the frequency map.
+- **Shrink Condition**: While the window contains an invalid spread ($\max - \min > 1$):
+  - Decrement `nums[left]` from the map and `currentSum`.
+  - If its frequency reaches 0, remove the key from the map.
+  - Increment `left`.
+- **Update Condition**: If the window contains **exactly 2 distinct keys** and their absolute difference is $1$, update:
+  $$\text{maxSum} = \max(\text{maxSum}, \text{currentSum})$$
+
+---
+
+### 4. Production Source Code
+
+#### Java 17 Solution (Using `TreeMap` for Logarithmic Min/Max Access)
+```java
+import java.util.TreeMap;
+
+public class MaximumSumHarmonicSubarray {
+
+    public static long findMaxHarmonicSubarraySum(int[] nums) {
+        if (nums == null || nums.length < 2) {
+            return 0;
+        }
+
+        int n = nums.length;
+        int left = 0;
+        long currentSum = 0;
+        long maxSum = 0;
+
+        // TreeMap maintains keys in sorted order: firstKey() is min, lastKey() is max in O(log K)
+        TreeMap<Integer, Integer> freqMap = new TreeMap<>();
+
+        for (int right = 0; right < n; right++) {
+            int val = nums[right];
+            currentSum += val;
+            freqMap.put(val, freqMap.getOrDefault(val, 0) + 1);
+
+            // While the difference between max and min in current window exceeds 1, shrink from left
+            while (!freqMap.isEmpty() && (freqMap.lastKey() - freqMap.firstKey() > 1)) {
+                int leftVal = nums[left];
+                currentSum -= leftVal;
+                int count = freqMap.get(leftVal);
+                if (count == 1) {
+                    freqMap.remove(leftVal);
+                } else {
+                    freqMap.put(leftVal, count - 1);
+                }
+                left++;
+            }
+
+            // A valid harmonic subarray must contain exactly two distinct elements with difference == 1
+            if (freqMap.size() == 2 && (freqMap.lastKey() - freqMap.firstKey() == 1)) {
+                maxSum = Math.max(maxSum, currentSum);
+            }
+        }
+
+        return maxSum;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(findMaxHarmonicSubarraySum(new int[]{1, 3, 2, 5, 2, 3, 7})); // Output: 5
+        System.out.println(findMaxHarmonicSubarraySum(new int[]{1, 2, 3, 4}));             // Output: 7
+        System.out.println(findMaxHarmonicSubarraySum(new int[]{1, 1, 1}));                // Output: 0
+        System.out.println(findMaxHarmonicSubarraySum(new int[]{0, 1, 0, 1, 0}));          // Output: 2
+    }
+}
+```
+
+#### C++ Solution (Using `std::map`)
 ```cpp
 #include <vector>
 #include <map>
 #include <algorithm>
+#include <iostream>
 using namespace std;
 
-long long maxHarmonicSubarraySum(vector<int>& nums) {
+long long findMaxHarmonicSubarraySum(const vector<int>& nums) {
     int n = nums.size();
     if (n < 2) return 0;
 
-    map<int, int> windowMap; // Ordered map maintains sorted keys
+    map<int, int> freqMap; // Ordered map maintains sorted keys
     int left = 0;
     long long currentSum = 0;
     long long maxSum = 0;
 
     for (int right = 0; right < n; right++) {
         int val = nums[right];
-        windowMap[val]++;
+        freqMap[val]++;
         currentSum += val;
 
         // Shrink window if spread between max key and min key exceeds 1
-        while (!windowMap.empty() && (windowMap.rbegin()->first - windowMap.begin()->first > 1)) {
+        while (!freqMap.empty() && (freqMap.rbegin()->first - freqMap.begin()->first > 1)) {
             int leftVal = nums[left];
-            windowMap[leftVal]--;
-            if (windowMap[leftVal] == 0) {
-                windowMap.erase(leftVal);
+            freqMap[leftVal]--;
+            if (freqMap[leftVal] == 0) {
+                freqMap.erase(leftVal);
             }
             currentSum -= leftVal;
             left++;
         }
 
-        // Valid harmonic window requires strictly max - min == 1 and at least 2 distinct keys
-        if (windowMap.size() >= 2 && (windowMap.rbegin()->first - windowMap.begin()->first == 1)) {
+        // Valid harmonic window requires strictly max - min == 1 and exactly 2 distinct keys
+        if (freqMap.size() == 2 && (freqMap.rbegin()->first - freqMap.begin()->first == 1)) {
             maxSum = max(maxSum, currentSum);
         }
     }
@@ -58,44 +170,43 @@ long long maxHarmonicSubarraySum(vector<int>& nums) {
 }
 ```
 
-### Dry Run
-Input: `nums = [1, 2, 2, 3, 1]`, $n = 5$.
+#### Complexity Analysis
+- **Time Complexity**: $O(N)$ amortized. Since `freqMap` holds at most 3 distinct keys before triggering a shrink, `lastKey()` and `firstKey()` take $O(1)$ time. Each element enters and leaves the window at most once.
+- **Space Complexity**: $O(1)$ auxiliary memory (at most 3 keys stored at any time).
 
-| `right` | `nums[right]` | `windowMap` | $\max - \min$ | Action | `currentSum` | `maxSum` |
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| 0 | 1 | `{1: 1}` | $1 - 1 = 0$ | 1 distinct key $\implies$ invalid | 1 | 0 |
-| 1 | 2 | `{1: 1, 2: 1}` | $2 - 1 = 1$ | 2 keys, diff 1 $\implies$ valid | $1 + 2 = 3$ | **3** |
-| 2 | 2 | `{1: 1, 2: 2}` | $2 - 1 = 1$ | 2 keys, diff 1 $\implies$ valid | $3 + 2 = 5$ | **5** |
-| 3 | 3 | `{1: 1, 2: 2, 3: 1}` | $3 - 1 = 2 > 1$ | Shrink left: erase 1, `left = 1` | $7 - 1 = 6$ | 5 |
-| | | `{2: 2, 3: 1}` | $3 - 2 = 1$ | 2 keys, diff 1 $\implies$ valid | 6 | **6** |
-| 4 | 1 | `{2: 2, 3: 1, 1: 1}` | $3 - 1 = 2 > 1$ | Shrink until diff $\le 1$ | — | 6 |
+---
 
-*Output*: `6` (Subarray `[2, 2, 3]` with sum $2 + 2 + 3 = 6$).
+### 5. Token-Economical AI Prompting Scripts
 
-### 5-Second Shortcut
-Harmonic condition $\max - \min == 1$ requires an ordered map or min/max tracking: shrink `left` as soon as $\max - \min > 1$, and only record `maxSum` when exactly 2 keys exist with diff 1.
+The Capgemini environment grants approximately **2,000 tokens**. Use these structured prompt templates to direct the bot accurately without wasting budget:
 
-### Edge Cases
-- All identical elements `[2, 2, 2]`: $\max - \min = 0 \ne 1$, returns `0`.
-- Array length $< 2$: Returns `0` immediately.
-
-### Complexity
-- **Time**: $O(N \log K)$ where $K \le 3$ distinct keys in window $\implies O(N)$ effectively.
-- **Space**: $O(1)$ auxiliary memory (at most 3 keys stored in map).
-
-### Prompt to Give the Chatbot
+#### Prompt 1: Problem Definition & Constraints
 ```text
-Task: Maximum Sum Harmonic Subarray in C++.
-Constraints: Contiguous subarray where max - min == 1 strictly. Return maximum sum as long long.
-Approach: Two pointers sliding window with std::map. When map.rbegin()->first - map.begin()->first > 1, shrink left. If valid (size >= 2 and diff == 1), update maxSum.
-Complexity target: Time O(N), Space O(1).
+"I need to solve 'Maximum Sum Harmonic Subarray' in Java.
+- Definition: A contiguous subarray where max(subarray) - min(subarray) == 1 strictly.
+- Return: Maximum sum across all valid subarrays, or 0 if none exist.
+- Approach: Variable-size Sliding Window with two pointers (left, right).
+- State Tracking: TreeMap or HashMap to track frequency of window values and maintain currentSum.
+- Invalidation Rule: While (max - min > 1), decrement nums[left], remove if count == 0, and increment left.
+- Record Condition: Update maxSum only when map has exactly 2 distinct keys and (max - min == 1).
+- Complexity target: O(N) time, O(1) auxiliary space.
+Please provide the clean implementation."
+```
+
+#### Prompt 2: Edge-Case Verification
+```text
+"Verify these edge cases against the implementation:
+1. nums = [2, 2, 2]: Identical elements must yield 0 (map.size() == 1, difference is 0).
+2. nums = [1, 2, 3]: Adjacent harmonic pairs ([1, 2] and [2, 3]) must not merge into [1, 2, 3] (diff == 2).
+3. Non-negative zeroes: nums = [0, 1, 0, 1] must yield 2.
+Does the window properly shrink when a third distinct value enters?"
 ```
 
 ---
 
 ## Problem 2: Sliding Window Maximum ($O(N)$ Monotonic Deque)
 
-**Tag**: [CHAT]  
+**Tag**: [SLIDING-WINDOW] [DEQUE]  
 **Practice Link**: [LeetCode: sliding-window-maximum](https://leetcode.com/problems/sliding-window-maximum/)
 
 ### Problem Statement
@@ -148,41 +259,119 @@ class Solution {
 }
 ```
 
-### Dry Run
-Input: `nums = [1, 3, -1, -3, 5, 3, 6, 7]`, $k = 3$.
-
-| $i$ | `nums[i]` | Evict ($<= i - 3$) | Pop Smaller from Back | Deque (Indices) | Deque (Values) | $i \ge 2$? Window Max (`peekFirst`) |
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| 0 | 1 | None | None | `[0]` | `[1]` | No ($i = 0 < 2$) |
-| 1 | 3 | None | Pop 0 ($1 \le 3$) | `[1]` | `[3]` | No ($i = 1 < 2$) |
-| 2 | -1 | None | None ($-1 < 3$) | `[1, 2]` | `[3, -1]` | Yes $\implies \mathbf{3}$ |
-| 3 | -3 | None | None ($-3 < -1$) | `[1, 2, 3]` | `[3, -1, -3]` | Yes $\implies \mathbf{3}$ |
-| 4 | 5 | Evict 1 ($1 \le 4 - 3$) | Pop 3, 2 ($-3, -1 \le 5$) | `[4]` | `[5]` | Yes $\implies \mathbf{5}$ |
-| 5 | 3 | None | None ($3 < 5$) | `[4, 5]` | `[5, 3]` | Yes $\implies \mathbf{5}$ |
-| 6 | 6 | None | Pop 5, 4 ($3, 5 \le 6$) | `[6]` | `[6]` | Yes $\implies \mathbf{6}$ |
-| 7 | 7 | None | Pop 6 ($6 \le 7$) | `[7]` | `[7]` | Yes $\implies \mathbf{7}$ |
-
-*Output*: `[3, 3, 5, 5, 6, 7]`.
-
-### 5-Second Shortcut
-Sliding window maximum = Double-Ended Queue (Deque) storing indices in monotonic decreasing order. Front element is always the maximum.
-
-### Edge Cases
-- $k = 1$: Output is identical to `nums`.
-- Monotonically decreasing array `[5, 4, 3, 2, 1]`: No back elements popped; front elements cleanly evict one by one.
-
 ### Complexity
 - **Time**: $O(N)$ — Each index is pushed and popped from the deque at most once.
 - **Space**: $O(K)$ — Deque holds at most $K$ indices at any point.
 
-### Prompt to Give the Chatbot
-```text
-Task: Sliding Window Maximum in Java.
-Approach: Monotonic decreasing Deque storing indices.
-Steps: 
-1. Evict deque.peekFirst() <= i - k. 
-2. While nums[deque.peekLast()] <= nums[i], deque.pollLast(). 
-3. deque.offerLast(i). 
-4. If i >= k - 1, output nums[deque.peekFirst()].
-Complexity target: Time O(N), Space O(K).
+---
+
+## 3. High-Yield Practice Questions & Algorithmic Strategy
+
+### Practice Problem 1: Maximum Length of Subarray with At Most Two Distinct Elements
+**Tag**: [SLIDING-WINDOW]  
+**Practice Link**: [LeetCode 904: Fruit Into Baskets](https://leetcode.com/problems/fruit-into-baskets/)
+
+**Problem Statement**: Given an integer array `fruits`, return the length of the longest contiguous subarray that contains at most two distinct types of numbers.
+
+**Key Difference from Harmonic**: Elements do not need to satisfy $|x - y| = 1$; any two distinct numbers (e.g., `[4, 7, 4, 7, 7]`) are valid.
+
+#### Solution Template (Python 3)
+```python
+def totalFruit(fruits: list[int]) -> int:
+    from collections import defaultdict
+    count = defaultdict(int)
+    left = 0
+    max_len = 0
+
+    for right in range(len(fruits)):
+        count[fruits[right]] += 1
+
+        while len(count) > 2:
+            count[fruits[left]] -= 1
+            if count[fruits[left]] == 0:
+                del count[fruits[left]]
+            left += 1
+
+        max_len = max(max_len, right - left + 1)
+
+    return max_len
 ```
+
+---
+
+### Practice Problem 2: Consecutive Differences Condition Bug
+**Tag**: [CODE-DEBUGGING] [MOCK-EXAM]
+
+**Question**: An engineer implements the sliding window check for the harmonic subarray problem as follows:
+```java
+if (freqMap.lastKey() - freqMap.firstKey() == 1) {
+    maxSum = Math.max(maxSum, currentSum);
+}
+```
+For which of the following input arrays will this code produce an incorrect answer?
+- **A)** `[1, 2, 1, 2]`
+- **B)** `[5, 5, 5, 5]`
+- **C)** `[3, 4, 3, 4]`
+- **D)** `[10, 11]`
+
+**Correct Answer**: **Option B**
+
+**Deep Explanation**: For `[5, 5, 5, 5]`, `freqMap.lastKey()` is $5$ and `freqMap.firstKey()` is $5$. The difference is $5 - 5 = 0 \ne 1$. However, if the code omits `freqMap.size() == 2`, single-element arrays could pass depending on boundary configurations. More critically, if `freqMap` contains only 1 key or is misconfigured, evaluating differences without asserting `freqMap.size() == 2` permits false window states.
+
+---
+
+### Practice Problem 3: Sliding Window vs. Prefix Sum Array Selection
+**Tag**: [CS-FUNDAMENTALS] [ALGORITHM-STRATEGY]
+
+**Scenario**: You are asked to find the maximum sum contiguous subarray whose sum is divisible by $K$. The array can contain both positive and negative values. Why does a standard two-pointer sliding window fail here, and what technique should be used instead?
+
+- **A)** Sliding window works; sort the array first in $O(N \log N)$.
+- **B)** Sliding window fails because negative numbers break the monotonicity of the window sum (expanding does not guarantee increasing sum, and shrinking does not guarantee decreasing sum); use Prefix Sum with Hash Map storing remainder indices ($O(N)$).
+- **C)** Use a Max-Heap Priority Queue to reorder values dynamically.
+- **D)** Convert all negative numbers to positive numbers using absolute values.
+
+**Correct Answer**: **Option B**
+
+**Deep Explanation**: Two-pointer sliding windows require monotonic growth properties (expanding the right pointer increases the metric, and shrinking the left pointer decreases it). When negative numbers are present, this monotonicity breaks. The standard approach is to track prefix sums modulo $K$: $\text{prefixSum}[i] \pmod K = \text{prefixSum}[j] \pmod K$.
+
+---
+
+### Practice Problem 4: Bitwise Subarray Reduction Complexity
+**Tag**: [BITWISE] [PSEUDOCODE]
+
+**Pseudocode**:
+```text
+FUNCTION SubarrayBitwise(arr, N):
+    max_val = 0
+    FOR i FROM 0 TO N - 1:
+        current_or = 0
+        FOR j FROM i TO N - 1:
+            current_or = current_or | arr[j]
+            IF current_or > max_val THEN:
+                max_val = current_or
+            END IF
+        END FOR
+    END FOR
+    RETURN max_val
+```
+
+**Question**: Given `arr = [3, 8, 4, 2]`, what is the minimum time complexity to compute `max_val` across all subarrays?
+- **A)** $O(N^2)$ using the nested loop shown above.
+- **B)** $O(N)$ by taking the bitwise OR of all elements across the entire array in a single pass.
+- **C)** $O(N \log N)$ using merge sort divide-and-conquer.
+- **D)** $O(2^N)$ using subset generation.
+
+**Correct Answer**: **Option B**
+
+**Deep Explanation**: The bitwise OR operation is monotonic: $A \mid B \ge A$. The maximum bitwise OR of any contiguous subarray is simply the bitwise OR of the entire array (`arr[0] | arr[1] | ... | arr[N - 1]`). A single pass of length $N$ computes this value in $O(N)$ time, making the nested loop completely redundant.
+
+---
+
+## 4. High-Yield Exam Summary
+
+| Feature / Topic | Core Rule | Exam Pitfall to Avoid |
+| :--- | :--- | :--- |
+| **Harmonic Subarray** | $\max - \min == 1$ and contiguous. | Do not confuse with subsequences (which allow skipping elements). |
+| **Window Invalidation** | Shrink when $\max - \min > 1$. | Decrement the map count and delete the key when it reaches 0. |
+| **All-Identical Arrays** | `[3, 3, 3]` $\to$ Return 0. | Ensure you check `map.size() == 2` before updating `maxSum`. |
+| **Token Conservation** | Keep bot prompts concise and structured. | Do not paste the full problem statement; provide only constraints and edge cases. |
