@@ -309,3 +309,35 @@ Given the IP address `192.168.10.65` with subnet mask `/26` (`255.255.255.192`),
 **5-Second Shortcut**: Block size $= 256 - 192 = 64$; $65$ lies in $[64, 127] \implies$ Net: `.64`, Broadcast: `.127`.  
 **Trap**: Picking `.255` as broadcast; subnetting divides the octet into smaller broadcast domains.
 
+---
+
+### Question 13: Database Transaction Isolation Levels & Concurrency Phenomena
+**Tag**: [MOCK-EXAM]
+
+**Scenario**:  
+Transaction $T_1$ reads a row where `account_balance = 500`. Before $T_1$ finishes, Transaction $T_2$ updates the same row to `account_balance = 800` and commits. Transaction $T_1$ reads the exact same row again and observes `account_balance = 800`.  
+Which concurrency phenomenon occurred, and what minimum SQL isolation level is required to prevent it?
+
+- **A)** Dirty Read; Prevented by READ COMMITTED
+- **B)** Non-Repeatable Read; Prevented by REPEATABLE READ
+- **C)** Phantom Read; Prevented by READ UNCOMMITTED
+- **D)** Lost Update; Prevented by SERIALIZABLE only
+
+**Correct Answer**: **Option B**
+
+**Deep Explanation**:
+- **Non-Repeatable Read (Fuzzy Read)** occurs when a transaction reads the same row twice, but a concurrent transaction modifies that row and commits between the two reads, causing $T_1$ to see changed values.
+- **Minimum Isolation Level**: **REPEATABLE READ**. Under REPEATABLE READ, the DBMS maintains shared read locks until transaction completion (or uses multi-version concurrency control / MVCC snapshot isolation), guaranteeing that any row read by $T_1$ remains constant throughout $T_1$'s execution.
+
+#### SQL Isolation Levels vs. Phenomena Matrix
+
+| Isolation Level | Dirty Read | Non-Repeatable Read | Phantom Read |
+| :--- | :---: | :---: | :---: |
+| **READ UNCOMMITTED** | Allowed | Allowed | Allowed |
+| **READ COMMITTED** | **Prevented** | Allowed | Allowed |
+| **REPEATABLE READ** | **Prevented** | **Prevented** | Allowed |
+| **SERIALIZABLE** | **Prevented** | **Prevented** | **Prevented** |
+
+**5-Second Shortcut**: Same existing row modified and committed between two reads = **Non-Repeatable Read** $\implies$ Prevented by **REPEATABLE READ**.  
+**Trap**: Confusing with Dirty Read (which reads *uncommitted* changes) or Phantom Read (which adds/deletes *new rows* matching a range).
+

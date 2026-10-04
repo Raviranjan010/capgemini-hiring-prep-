@@ -5,21 +5,58 @@
 Capgemini has revamped its hiring framework from conventional syntax quizzes to AI workflows, algorithmic debugging, and collaborative system architecture.
 
 ```text
-Capgemini Exceller Test Pipeline
-├── 1. AI Literacy & GenAI           (20 Questions | 20 Mins)
-├── 2. Technical MCQs & Pseudo-code   (20 Questions | 20 Mins)
-├── 3. Code Debugging Assessment     (1 Complex Problem | 20 Mins)
-└── 4. AI-Assisted (Vibe) Coding     (1 Interactive Problem | 20 Mins)
+                     CAPGEMINI EXCELLER ASSESSMENT ARCHITECTURE
+                                         │
+        ┌────────────────────────────────┴────────────────────────────────┐
+        ▼                                                                 ▼
+[Section 1: Technical MCQs]                                    [Section 2: Practical Coding]
+- 40 Questions total (50 Mins)                                 - 1 Debugging Problem (15-20 Mins)
+  ├─ AI Literacy: 20 Questions (25 Mins)                         - 1 AI Assist Problem (30 Mins)
+  └─ CS Fundamentals: 20 Questions (25 Mins)
 ```
 
 | Stage | Section Name | Duration | Questions / Problem | Nature & Scoring Rules |
 | :---: | :--- | :---: | :---: | :--- |
-| **Section 1** | AI Literacy & GenAI | 20 min | 20 MCQs | Foundational LLM mechanics, embeddings, RAG vs fine-tuning, prompt design, temperature, and hallucinations. |
-| **Section 2** | Technical MCQs & Pseudo-code | 20 min | 20 MCQs | Operator precedence, bitwise logic, stack/queue tracing, tree reconstructions, recursion, and CS core. |
-| **Section 3** | Code Debugging Assessment | 20 min | 1 Complex Problem | Spotting logic flaws, edge cases, unidirectional graphs, premature returns, and DP loop bounds. All test cases must pass. |
-| **Section 4** | AI-Assisted (Vibe) Coding | 20 min | 1 Interactive Problem | Hard algorithmic problem solved via integrated AI chatbot under strict token budgets and hidden test cases. |
+| **Section 1A** | AI Literacy & GenAI | 25 min | 20 MCQs | Real-world 4-6 line scenarios: LLM runtimes, prompt injection, RAG architectures, chunking, vector indexing (HNSW/IVF), and RAGAS metrics. |
+| **Section 1B** | CS Fundamentals & Pseudocode | 25 min | 20 MCQs | Scenario-based OS (file loaders, deadlocks), DBMS isolation levels, networking, and bitwise/recursive pseudocode tracing. |
+| **Section 2A** | Code Debugging Assessment | 15–20 min | 1 Complex Problem | Finding and fixing subtle logic bugs: array index bounds (`i < n - 1`), negative number modulo traps (`-3 % 2`), binary search overflows, and duplicate counts. |
+| **Section 2B** | AI-Assisted (Vibe) Coding | 30 min | 1 Interactive Problem | Algorithmic challenges (Grid BFS with obstacle quotas, Binary Tree boundary traversal, 1D DP) solved via an AI conversational bot under a strict ~2,000 token budget. |
 | **Subsequent** | Cognitive & Behavioral Profiling | ~68 min total | 4 Modules | Motion Challenge (6m), Bubble/Grid Memory (12m), Deductive Logic (25m), Workplace Behavioral (25m). |
 | **Subsequent** | Spoken Communication | ~30 min | Automated Voice | SVAR / Versant audio evaluation (reading, repetition, sentence builds, extempore speech). |
+
+### Key Assessment Rules & Timing Dynamics
+
+1. **Time Allocation & Pacing**:
+   - Technical MCQs provide **50 minutes for 40 questions** (~1.15 minutes / 75 seconds per question).
+   - Questions use 4- to 6-line production engineering scenarios rather than simple 1-line definitions.
+2. **Relative Cutoffs & Scoring**:
+   - The technical MCQs are intentionally rigorous. A score of **6 to 8 questions correct out of 20 per section** (7–10 in AI Literacy, 8–10 in CS) is competitive enough to clear the threshold for standard packages (e.g., 4.25 LPA).
+3. **AI Assist Token Budget**:
+   - Candidates receive a finite pool of tokens (**~2,000 tokens**) to chat with the built-in AI bot. Every query typed and every response generated consumes tokens from this budget.
+4. **Intentional Bot Flaws**:
+   - The platform AI assistant is programmed to generate code with intentional edge-case bugs, off-by-one errors, or incorrect algorithmic complexity ($O(N \cdot M)$ standard DP instead of BFS for 4-directional obstacle paths) on the first or second iteration. Evaluation explicitly measures your ability to identify, critique, and correct these flaws.
+
+---
+
+## Master Strategy for Candidates
+
+```text
+               HOW TO APPROACH THE 4 EXAM SECTIONS
+                                │
+   ┌────────────────┬───────────┴───────────┬────────────────┐
+   ▼                ▼                       ▼                ▼
+[AI Literacy]   [CS MCQs]              [Debugging]     [AI Assist]
+Focus on RAG,   Skip long edge cases   Look for loop   Prompt explicitly;
+context limits, first; aim for 7-8     bounds and      manage your
+and embeddings  solid answers          negative %      2,000 tokens
+```
+
+| Component | Target Score / Strategy | Common Traps | High-Yield Concepts |
+| :--- | :--- | :--- | :--- |
+| **AI Literacy** | 7–10 / 20 correct answers | Don't assume natural language instructions guarantee output formats. | Context windows, RAG chunking, HNSW/IVF, Hybrid Search (BM25), RAGAS metrics, Lost-in-the-Middle. |
+| **CS Fundamentals** | 8–10 / 20 correct answers | Watch for 1.15-minute time limits on scenario questions. | Brian Kernighan's bit algorithm, recursion trees, Deadlock prevention formula, SQL transaction isolation. |
+| **Code Debugging** | 100% test case pass | Watch out for `-3 % 2 == -1` in parity checks. | `i < n - 1` vs `i < n`, binary search integer overflow (`low + (high - low) / 2`), duplicate prints. |
+| **AI Assist Coding** | Pass hidden test cases in <1,000 tokens | Don't just paste code; direct the AI's algorithm choices. | BFS with obstacle tracking, Boundary traversal, Decode Ways, Coin Change. |
 
 ---
 

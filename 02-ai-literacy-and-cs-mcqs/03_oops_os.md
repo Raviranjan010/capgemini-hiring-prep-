@@ -480,4 +480,59 @@ What is the state of array `arr = [64, 25, 12, 22, 11]` after **two complete pas
 
 **Result after 2 passes**: `[11, 12, 25, 22, 64]`.
 
+---
+
+### Question 16: OS File System Architecture & Program Loader
+**Timestamp**: `[00:11:03]` - `[00:11:32]`  
+**Tag**: [VIDEO]
+
+**Scenario**:  
+A user attempts to execute a binary program via the command line, but the Operating System returns an error: *"Program file is unrecognized / executable format not supported."* The user verifies that the file exists, has read/write/execute permissions, and is fully present on the physical disk. Which OS component is primarily responsible for inspecting the internal structure and header of the file to determine whether it is a valid executable format (such as ELF or PE)?
+
+- **A)** The Disk Device Driver
+- **B)** The OS Program Loader / File System Interpreter (`exec` subsystem)
+- **C)** The CPU Memory Management Unit (MMU)
+- **D)** The BIOS / UEFI Firmware
+
+**Correct Answer**: **Option B**
+
+**Deep Explanation**:
+- When a command like `./app` is invoked, the shell issues an `execve()` system call.
+- The **OS Program Loader** inspects the **magic bytes** in the file header:
+  - Linux: `0x7F 'E' 'L' 'F'` (Executable and Linkable Format).
+  - Windows: `0x4D 0x5A` (`'M' 'Z'` for Portable Executable).
+  - macOS: `0xFE 0xED 0xFA 0xCE` / `0xCF` (Mach-O).
+- If the magic number or target architecture (e.g., ARM64 vs. x86_64) does not match the kernel's supported binary formats, the loader rejects execution immediately before virtual address space allocation or MMU mapping occurs.
+
+**5-Second Shortcut**: *"Unrecognized binary format / executable format not supported"* = OS Program Loader (`execve` inspecting magic header bytes).  
+**Trap**: Confusing with MMU (which handles virtual-to-physical address translation at runtime, not binary parsing).
+
+---
+
+### Question 17: OS Deadlock Prevention & Resource Allocation Formula
+**Tag**: [MOCK-EXAM]
+
+**Scenario**:  
+In an operating system process environment, four processes ($P_0, P_1, P_2, P_3$) compete for instances of a single resource type $R$. Each process requires at most two instances of $R$ to finish execution. What is the minimum total number of resource units required to guarantee that the system **never** enters a deadlock state?
+
+- **A)** 4
+- **B)** 5
+- **C)** 8
+- **D)** 6
+
+**Correct Answer**: **Option B (5 units)**
+
+**Mathematical Derivation**:
+- **Deadlock Condition Formula**:
+  $$\text{Total Resources } R \ge \sum_{i=1}^{N} (\text{Max Demand}_i - 1) + 1$$
+- **Worst-Case Allocation (Maximum Hold without Completion)**:
+  - Each of the $N = 4$ processes holds $\text{Max Demand} - 1 = 2 - 1 = 1$ resource unit.
+  - Total resources held in deadlock: $4 \times 1 = 4$ units.
+  - In this state, every process is blocked waiting for 1 more unit to finish.
+- **Guaranteeing Progress (+1 Rule)**:
+  - Adding **1 additional unit** ($4 + 1 = 5$) ensures at least one process receives its full requirement ($1 + 1 = 2$), runs to completion, and releases both units back to the available pool for other processes.
+
+**5-Second Shortcut**: Minimum resources to prevent deadlock = $N \times (\text{Max} - 1) + 1 = 4 \times (2 - 1) + 1 = 5$.  
+**Trap**: Selecting 4 (which is the exact state where deadlock is guaranteed).
+
 
