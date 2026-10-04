@@ -18,6 +18,11 @@ A concise, high-yield master reference summarizing core strategies, formulas, tr
 - **Evaluation Frameworks**: RAGAS / TruLens **Faithfulness** measures factual grounding in context; surface n-gram metrics (BLEU/ROUGE) cannot detect hallucination.
 - **Guardrails & Security**: Enforce RBAC filtering at retrieval time; sandbox untrusted external inputs in tags (prevents indirect injection); implement dual-context guards (prevents direct jailbreaks); scrub PII (GDPR/DPDP compliance).
 - **Fine-Tuning vs Prompting**: Fine-tuning modifies internal weights ($W, b$); prompt engineering operates in-context on frozen weights.
+- **LoRA (Low-Rank Adaptation)**: Freezes foundation weights $W$ and trains low-rank decomposition matrices $A \times B$ ($W_{new} = W + A \times B$, rank $r \ll d$), slashing VRAM requirements without updating all parameters.
+- **Vector Indexing (HNSW / IVF vs Flat KNN)**: Exact KNN is exhaustive $O(N)$ (unusable at 1M+ vectors); ANN index structures like **HNSW** (multi-layer skip-graph) and **IVF** (Voronoi centroid partitioning) achieve $O(\log N)$ latency.
+- **Hybrid Search (Dense + BM25)**: Dense embeddings capture concepts but fail on rare alphanumeric codes/IDs (`"RX-9021-B"`); merge dense vector search with sparse lexical inverted index (BM25) using **Reciprocal Rank Fusion (RRF)**.
+- **Query Contextualization & Rewriting**: Upstream LLM resolves conversational pronouns (*"it"*, *"its battery life"*) into standalone queries using chat history before querying vector DB.
+- **RAGAS Metric Profile**: **High Context Recall + Low Faithfulness** indicates the retriever fetched all necessary documents, but the generator hallucinated ungrounded claims.
 
 ---
 

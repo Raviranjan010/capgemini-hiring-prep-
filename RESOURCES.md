@@ -19,6 +19,7 @@
 | Capgemini AI Literacy & Prompt Engineering Master Walkthrough | http://www.youtube.com/watch?v=oq3FtGoPmCE | Verified | [02-ai-literacy-and-cs-mcqs/01_ai_literacy.md](02-ai-literacy-and-cs-mcqs/01_ai_literacy.md) |
 | Complete Capgemini Master Preparation Video (1h 45m Walkthrough) | http://www.youtube.com/watch?v=q5giVVUApwM | Verified | [06-communication/01_comprehensive_english_modules.md](06-communication/01_comprehensive_english_modules.md), [03-code-debugging/05_graphs_and_dp.md](03-code-debugging/05_graphs_and_dp.md), [04-ai-assisted-coding/03_tree_lca_bitwise_palindrome_partition.md](04-ai-assisted-coding/03_tree_lca_bitwise_palindrome_partition.md) |
 | Capgemini AI Assist Preparation Video (Decode Ways & Test Structure) | https://youtu.be/Fn41k0hxcs0 | Verified | [01-exam-format/README.md](01-exam-format/README.md), [04-ai-assisted-coding/05_dp_decode_ways_and_frequent_patterns.md](04-ai-assisted-coding/05_dp_decode_ways_and_frequent_patterns.md) |
+| Capgemini AI Literacy MCQ Questions (One Shot) | https://youtu.be/-feEH6vuXUM | Verified | [02-ai-literacy-and-cs-mcqs/01_ai_literacy.md](02-ai-literacy-and-cs-mcqs/01_ai_literacy.md) |
 
 ## Allowed LeetCode Practice Links
 

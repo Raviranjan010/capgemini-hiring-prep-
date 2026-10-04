@@ -781,127 +781,441 @@ The reward model scores the LLM's candidate outputs based on human preference. T
 
 ---
 
-## 8. In-Depth Video Walkthrough: Core Concepts & Deep System Architecture
+## 8. KN Academy AI Literacy One-Shot Master Class: Complete Video Questions & Architectural Diagrams
 
-> **Source Analysis**: Based on the updated Capgemini Technical Assessment analysis (*KN ACADEMY: Updated Capgemini Technical Assessment Questions | AI Literacy | Capgemini Preparation* — Video Reference: [KN Academy Updated AI Literacy Walkthrough](http://www.youtube.com/watch?v=oq3FtGoPmCE)).
+**Source Video Reference**: [KN Academy Capgemini AI Literacy One Shot Video](https://youtu.be/-feEH6vuXUM)  
+**Scope**: All 10 core examination scenarios with exact timestamps, ASCII architectural diagrams, examination shortcuts, and the high-yield question bank.
 
-### Exam Relevance & Section Architecture
-In the updated Capgemini Technical Assessment, AI Literacy is a dedicated, high-weightage subsection:
+### 1. Exam Blueprint & Scoring Dynamics
+In the updated Capgemini Exceller pattern, the AI Literacy Section contains 20 Multiple Choice Questions. These are scenario-based questions that test systems-level reasoning around production AI rather than simple conversational trivia.
 
 ```text
-Capgemini AI Literacy Module Overview
-├── Total Questions: 20 MCQs
-├── Section Time: ~20 Minutes (Average ~60 seconds per question)
-├── Difficulty: Medium to Hard (Deep technical scenarios, not basic trivia)
-└── Core Competencies Evaluated:
-    ├── Context Window Management & Degradation
-    ├── Structured Output Enforcement & Guided Decoding
-    ├── Prompt Injection, Adversarial Jailbreaks & Role Separation
-    ├── Zero-Shot Chain-of-Thought (CoT) & Attention Mechanisms
-    └── Enterprise RAG Chunking Strategies & Semantic Sliding Windows
+                     CAPGEMINI EXCELLER AI LITERACY PILLARS
+                                        │
+        ┌───────────────────────────────┼───────────────────────────────┐
+        ▼                               ▼                               ▼
+[LLM Runtime & Prompts]        [Enterprise RAG Systems]        [Vector DB & Evaluation]
+- Context window overflow      - Chunking & sliding windows    - ANN (HNSW / IVF) scaling
+- Guided JSON decoding         - Hybrid search (BM25 + Dense)  - Cross-Encoder re-ranking
+- Jailbreaks & role safety     - Query rewriting / context     - RAGAS metrics (Faithfulness)
+- Zero-Shot Chain-of-Thought
 ```
 
 ---
 
-### Concept & Problem 1: Context Window Degradation in Long Interactions
+### 2. All 10 Video Questions: Scenarios, Options, Explanations & Diagrams
 
-#### Problem Statement (Video Question 1)
-Based on the system design and the observed pattern that reliability degrades mainly in long, document-heavy interactions, which explanation most accurately identifies the primary technical reason the assistant starts ignoring earlier policy details and producing inconsistent responses, even though the source documents and the model itself have not changed?
+#### Video Question 1: Context Window Drift & Instruction Forgetting
+**Timestamp**: `[00:05:31]` - `[00:08:21]`  
+**Tag**: [VIDEO]
 
-#### Options & Evaluation
-- **A)** The tokenizer silently converts older policy excerpts into compressed semantic summaries.  
-  *(Incorrect: Tokenizers do not summarize; they map subwords deterministically to vocabulary IDs).*
-- **B)** The total prompt is approaching or exceeding the model's effective context window, causing earlier tokens to be truncated or to have much weaker influence during answer generation.  
-  *(Correct Answer)*
-- **C)** The transformer self-attention layers permanently update model weights at runtime.  
-  *(Incorrect: Inference is strictly feed-forward; no gradient descent occurs at runtime).*
-- **D)** Hardware caches flush vector embeddings during prolonged multi-turn sessions.  
-  *(Incorrect: Memory caches do not alter context attention weights).*
+**Question**:  
+A user is interacting with an AI assistant in an extended multi-turn conversation. In the very first prompt, the user instructed the model: *"Keep all your answers strictly to a single sentence."* However, after 15 to 20 conversation turns, the assistant gradually starts generating lengthy, multi-paragraph responses—effectively ignoring or forgetting the initial constraint. The underlying model weights have not changed. What is the fundamental technical reason for this behavior?
 
-#### Deep Technical Mechanics
-1. **Limited Context Buffer ($N$ Tokens)**: Every Large Language Model operates over a finite context window length (e.g., 4k, 8k, 32k tokens).
-2. **First-In, First-Out (FIFO) Truncation**: When conversation history + input context exceeds the buffer, standard runtime systems drop the oldest tokens (truncation) or shift the attention window, causing earlier instructions to vanish.
-3. **The "Lost in the Middle" Effect**: Even within supported limits, transformer self-attention mechanisms exhibit strong recency and primacy bias. Information located in the middle or distant past of large prompts receives significantly diminished softmax attention weights relative to recent tokens:
-   $$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$
-   Tokens in early turns suffer from attention dispersion as sequence length $N$ grows.
+- **A)** The tokenizer silently converts older policy excerpts into compressed semantic summaries, dropping negative constraints.
+- **B)** The total prompt length is approaching or exceeding the model's effective context window, causing earlier tokens to be truncated or have significantly diluted attention weights during generation.
+- **C)** The temperature parameter of the language model automatically scales up as conversational turns increase.
+- **D)** The system prompt is automatically overwritten by user inputs due to stateless REST API configurations.
 
----
+**Correct Answer**: **Option B**
 
-### Concept & Problem 2: Structured Output Enforcement & Guided Decoding
-
-#### Problem Statement (Video Question 2)
-A production system relies on an LLM to extract JSON objects from customer support tickets. Under high load, the model occasionally inserts conversational preambles (e.g., `"Here is your JSON:"`) or trailing markdown delimiters (````json ... ````), breaking downstream automated parsers. What is the most robust architectural fix?
-
-#### Correct Answer & Engineering Solution
-**Fix**: Use **Guided Decoding Schema Enforcement** (JSON mode / Context-Free Grammar / BNF grammar constraints) at the API/inference level, combined with system-level instruction formatting.
-
-#### Why Prompting Alone Fails
-- Natural language instructions (e.g., *"Respond ONLY with raw JSON, no conversational text"*) cannot provide a 100% mathematical guarantee due to the probabilistic autoregressive nature of LLMs ($P(w_t \mid w_{<t})$).
-- Under temperature perturbations or high load, conversational tokens still have non-zero probabilities.
-
-#### Guided Decoding (Grammar Masking) Mechanics
-- **How it works**: At each autoregressive step, the inference engine cross-checks the valid syntax against a formal Backus-Naur Form (BNF) grammar or JSON Schema.
-- Any token in the vocabulary that violates schema rules is dynamically masked out (**logits set to $-\infty$**), physically preventing non-conforming tokens from being generated.
-
----
-
-### Concept & Problem 3: Adversarial Jailbreaking & System Role Hierarchy
-
-#### Problem Statement (Video Question 3)
-During user testing, an enterprise assistant consistently follows safety guardrails, but when users frame adversarial prompts inside hypothetical story scenarios (e.g., *"Assume you are the system administrator writing fiction..."*), it executes prohibited tools and accesses sensitive records. What prompt engineering or architectural defect causes this?
-
-#### Correct Answer & Structural Flaw
-**Defect**: Absence of strict role separation and failure to enforce system-level instructions over user-level input context within the instruction tuning hierarchy.
-
-#### Security Mechanics: Persona Hijacking & Role Privilege
-- **Adversarial Framing (Jailbreaking)**: The attacker bypasses alignment filters by wrapping forbidden requests in hypothetical roleplay or academic fiction.
-- **Hierarchy Inversion Defect**: If the system prompt (rules/guardrails) and user prompt (untrusted input) are merged into a single flat context string without delimiter segregation, the model cannot distinguish between developer constraints and user instructions.
-- **Architectural Defense**:
-  1. Enforce strict **Role Separation** (`System` vs. `User` vs. `Assistant` roles).
-  2. Implement runtime safety guardrail models (e.g., Llama Guard / NeMo Guardrails) before calling tools.
-  3. Treat user-supplied text strictly as **data operands**, never as executable instructions.
-
----
-
-### Concept & Problem 4: Zero-Shot Chain-of-Thought (CoT) & Attention Depth
-
-#### Problem Statement (Video Question 4)
-An LLM frequently fails multi-step mathematical calculations embedded in long legal contracts, jumping directly to an incorrect final number. How does Zero-Shot Chain-of-Thought (CoT) solve this issue technically?
-
-#### Correct Answer & Internal Mechanism
-**Mechanism**: By appending trigger phrases such as *"Let's think step by step"*, the model is prompted to generate intermediate reasoning tokens, giving the transformer self-attention layers additional computational capacity before producing the final answer.
-
-#### Why LLMs Struggle with Direct Multi-Step Computation
-- A standard transformer uses a fixed number of attention layers and compute steps per output token.
-- If forced to output the final answer immediately, the model must compress complex multi-step arithmetic into a single forward pass, leading to logic and arithmetic failures.
-- By generating scratchpad reasoning tokens (*"Step 1: ... Step 2: ..."*), each newly produced token becomes part of the attention context for subsequent tokens, effectively distributing the reasoning across multiple computation cycles.
-
----
-
-### Concept & Problem 5: Enterprise RAG Chunking & Semantic Sliding Windows
-
-#### Problem Statement (Video Question 5)
-An enterprise RAG system querying technical hardware manuals frequently retrieves partial sentences where code snippets or critical safety warnings are split across two adjacent chunks, leading to hallucinated context. Which chunking adjustment best resolves this issue?
-
-#### Correct Answer & Chunking Strategy
-**Solution**: Switch from naive character/word count chunking to **Semantic / Document-Structure Chunking** combined with a **Sliding Window Overlap** (e.g., 10–20% token overlap across adjacent chunks).
-
-#### Chunking Strategies Comparison
+**Detailed Technical Explanation**:
+- **Context Window Finite Boundary ($N_{max}$)**: Large Language Models do not possess persistent dynamic memory; they are stateless predictors. Every new request sends the concatenated history of prior exchanges.
+- **Attention Weight Dilution & "Lost in the Middle"**: As the token volume grows toward the context ceiling, self-attention scores between newly generated tokens and early instructions decay:
+  $$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$
+  The model prioritizes recent tokens over distant constraints at the beginning of the context.
+- **Sliding Window Eviction**: In production implementations, when total tokens exceed the context window, early tokens are discarded or truncated to make room for new inputs.
 
 ```text
-Naive Fixed-Size Chunking (Prone to Context Splitting)
-Chunk 1: [........................ "WARNING: NEVER CONNECT PIN 4 TO"]
-Chunk 2: ["GROUND WITHOUT A 10k RESISTOR" ..........................]
-──► Result: Retrieval pulls Chunk 1 without Chunk 2, causing hazardous output.
-
-Semantic Chunking with Sliding Window Overlap (80/20 Rule)
-Chunk 1: [80% Unique Body Tokens | 20% Trailing Window Overlap]
-Chunk 2: [20% Preceding Context Overlap | 80% Unique Body Tokens]
-──► Result: Sentence boundaries and safety warnings stay intact across chunk edges.
+Context Window: [ Token_0 (Instruction: "Be 1-line") ......... Token_N (Turn 20 Query) ]
+                      │
+                      └── Earlier instructions fall out of attention window or are evicted
 ```
 
-- **Semantic Chunking**: Splits documents at meaningful linguistic boundaries (headings, code blocks, paragraphs) rather than arbitrary token cutoffs.
-- **Sliding Window Overlap**: Maintaining an overlap (e.g., 80% new content, 20% shared context) ensures that clauses spanning chunk boundaries are not lost during retrieval.
+**Exam Shortcut**: If a question describes a model *"forgetting instructions after $N$ turns"*, look for **Context Window Limit / Token Eviction / Attention Dilution**.
+
+---
+
+#### Video Question 2: Structured Output & JSON Schema Enforcement
+**Timestamp**: `[00:08:28]` - `[00:11:56]`  
+**Tag**: [VIDEO]
+
+**Question**:  
+A production enterprise pipeline relies on an LLM to extract entity fields into strict JSON objects from unstructured customer tickets. Under high traffic and load, the model occasionally prepends conversational preambles (e.g., `"Here is your JSON:"`) or appends unclosed markdown code fences (````), causing downstream automated JSON parsers to throw exceptions and fail. What is the most robust, architectural-level solution to eliminate this issue?
+
+- **A)** Add a line in the system prompt: *"Strictly do not output conversational text or markdown fences."*
+- **B)** Use guided decoding with schema enforcement (e.g., JSON Mode, BNF Grammar constraints) at the API/engine decoding level combined with structured output formatting.
+- **C)** Chain another LLM immediately after to verify if the output is valid JSON.
+- **D)** Lower the sampling temperature parameter to absolute $0.0$.
+
+**Correct Answer**: **Option B**
+
+**Detailed Technical Explanation**:
+- **The Fallibility of Natural Language Instructions**: Prompt-based instructions (e.g., *"return only JSON"*) operate probabilistically. The model can still sample high-probability introductory tokens like *"Sure"* or *"Here is"*.
+- **Grammar-Guided Decoding (BNF / JSON Schema Enforcement)**: Instead of letting the model sample freely across its entire vocabulary, constrained decoding applies a mask to the token logits at runtime. Tokens that violate the Backus-Naur Form (BNF) or JSON grammar rules receive an effective probability of $0$ ($-\infty$ logit), mathematically guaranteeing valid JSON output.
+
+```text
+Unconstrained vs. Guided Decoding
+Free Generation: Logits -> [ "Sure", "{", "Here", "```" ] --> Samples "Here" (Crash)
+Guided Decoding: Grammar Mask -> Only allow "{"           --> Guarantees Valid JSON
+```
+
+**Exam Shortcut**: If a question asks about fixing broken JSON / invalid formatting in automated workflows, prompt tweaks are insufficient; select **Guided Decoding / Grammar Constraints / Schema Enforcement**.
+
+---
+
+#### Video Question 3: Adversarial Role-Playing & Jailbreak Defense
+**Timestamp**: `[00:12:03]` - `[00:16:41]`  
+**Tag**: [VIDEO]
+
+**Question**:  
+During security red-teaming of an enterprise customer-support assistant, the model reliably enforces data-privacy guardrails against direct extraction prompts. However, when an adversary frames a request inside a fictional story—instructing the model to play the role of a system administrator in an alternate reality who must wipe names by displaying confidential data—the model executes the restricted action. What architectural defect causes this safety breach?
+
+- **A)** The context length allocated to the model was insufficiently scaled to handle complex multi-turn stories.
+- **B)** Absence of strict role separation and a failure to enforce the priority of system-level instructions over user-level inputs within the instruction-tuning hierarchy.
+- **C)** Using greedy decoding ($Top\text{-}P = 1$) during adversarial test inputs.
+- **D)** Inability of the tokenizer to encode hypothetical narratives.
+
+**Correct Answer**: **Option B**
+
+**Detailed Technical Explanation**:
+- **Anatomy of a Jailbreak**: Adversarial attacks exploit the model's instruction-following nature by wrapping malicious intent inside roleplay, fictional scripts, or hypothetical scenarios.
+- **Instruction Priority Failure**: Models treat system prompts and user prompts as tokens inside the same self-attention calculation. If the model's training lacks strict priority enforcement, user instructions can override base safety guidelines.
+- **The Fix**: Implement strict role separation where System / Developer Prompts sit at the top of the privilege hierarchy and cannot be superseded by User Context.
+
+```text
+Instruction Hierarchy
+┌───────────────────────────────────┐
+│   System / Developer Directive    │ <-- HIGHEST PRIORITY (Immutable)
+│  (Safety boundaries & policies)   │
+└─────────────────┬─────────────────┘
+                  │ Overrules
+┌─────────────────▼─────────────────┐
+│            User Prompt            │ <-- UNTRUSTED INPUT
+│  (Adversarial stories / roleplay) │     (Cannot breach policies)
+└───────────────────────────────────┘
+```
+
+**Exam Shortcut**: If a question involves adversarial framing, roleplaying, or hypothetical scenarios, look for **System-over-User Priority / Instruction Hierarchy Failure**.
+
+---
+
+#### Video Question 4: Zero-Shot Chain-of-Thought (CoT) Prompting
+**Timestamp**: `[00:16:52]` - `[00:18:31]`  
+**Tag**: [VIDEO]
+
+**Question**:  
+An LLM frequently fails when evaluating multi-step mathematical calculations embedded inside long legal contracts, jumping directly to an incorrect final number. How does appending the phrase *"Let's think step by step"* (Zero-Shot CoT) technically fix this issue inside the transformer architecture?
+
+- **A)** It clears the model's hidden states, allowing fresh attention weights for each arithmetic token.
+- **B)** It causes the model to dynamically load an external Python calculator interpreter into the process.
+- **C)** It directs the model to generate intermediate reasoning tokens, giving the transformer's attention layers dedicated computation steps to process the problem before committing to a final answer.
+- **D)** It converts all downstream floating-point numbers into integer tokens to prevent calculation errors.
+
+**Correct Answer**: **Option C**
+
+**Detailed Technical Explanation**:
+- **Autoregressive Generation Mechanics**: Transformers generate text token by token. A forward pass applies a fixed number of operations per token. If asked for a final answer immediately, the model must predict that number in a single forward pass without intermediate scratchpad steps.
+- **The Power of Scratchpad Tokens**: Adding *"Let's think step by step"* triggers the generation of intermediate reasoning tokens. Each newly generated reasoning token is fed back into self-attention, providing additional computation steps before the final number is generated.
+
+```text
+Direct Output:
+Prompt: "Calculate: 3 + 4 * 2" ──> Direct Answer: "14" (Incorrect!)
+                                        ▲ Model guessed in a single forward pass
+
+Zero-Shot CoT:
+Prompt + "Let's think step by step"
+──> Token 1: "First, multiply 4 * 2 = 8"
+──> Token 2: "Next, add 3 + 8 = 11"
+──> Final Answer: "11" (Correct!)
+```
+
+**Exam Shortcut**: For multi-step math or logic errors, *"Let's think step by step"* works by generating **Intermediate Reasoning Tokens / Scratchpad Computation**.
+
+---
+
+#### Video Question 5: RAG Chunking: Boundary Truncation & Overlap
+**Timestamp**: `[00:18:37]` - `[00:24:31]`  
+**Tag**: [VIDEO]
+
+**Question**:  
+An enterprise RAG system querying technical hardware manuals frequently retrieves partial sentences where code snippets or critical safety warnings are split across two adjacent chunks. This leads to incomplete context and hallucinated answers. Which chunking adjustment best resolves this issue?
+
+- **A)** Increase the chunk size to maximum length without using an overlap buffer.
+- **B)** Switch from fixed character-count chunking to semantic chunking paired with a sliding window overlap (e.g., 10–20% token overlap).
+- **C)** Remove chunking entirely and feed the entire raw manual into the query prompt.
+- **D)** Convert all PDF technical manuals into unstructured raw text files.
+
+**Correct Answer**: **Option B**
+
+**Detailed Technical Explanation**:
+- **Naive Chunking**: Splitting documents strictly by character count (e.g., every 500 characters) often breaks text mid-sentence or separates related instructions.
+- **Semantic Chunking**: Splits text at natural linguistic boundaries like paragraphs, section headers, or semantic shifts.
+- **Sliding Window Overlap**: Setting an overlap (e.g., 20% of the chunk size) ensures that the boundary tokens of Chunk $K$ are repeated at the start of Chunk $K+1$. This keeps sentences, warnings, and code fragments intact across adjacent chunks.
+
+```text
+Naive Split:
+[Chunk 1: ...Do not touch the blue wire while] | [Chunk 2: power is on or shock occurs...]
+                                               ▲ Broken Context Boundary!
+
+With Overlap:
+[Chunk 1: ...Do not touch the blue wire while power is on...]
+                                 └── OVERLAP ──┘
+                   [Chunk 2: ...the blue wire while power is on or shock occurs...]
+```
+
+**Exam Shortcut**: For split sentences, cut code, or severed warnings, select **Semantic Chunking with Sliding Window Overlap**.
+
+---
+
+#### Video Question 6: Dense vs. Sparse (BM25) Retrieval in RAG
+**Timestamp**: `[00:26:04]` - `[00:29:13]`  
+**Tag**: [VIDEO]
+
+**Question**:  
+A medical RAG pipeline performs well on natural language queries like *"What are common side effects of beta-blockers?"*, but consistently fails when doctors search for specific alphanumeric drug codes or exact chemical formulas (e.g., `"RX-9021-B"`). What is the root cause, and what is the standard fix?
+
+- **A)** Vector embeddings excel at semantic similarity but struggle with exact alphanumeric token matching; the solution is to implement Hybrid Search combining dense vector retrieval with sparse keyword search (BM25).
+- **B)** The vector database dimension is too high; downscaling from 1536 to 256 dimensions fixes exact matching.
+- **C)** The chunking algorithm is too slow; reducing chunk size to 5 tokens resolves the issue.
+- **D)** The LLM context window is saturated; resetting conversation history fixes the search.
+
+**Correct Answer**: **Option A**
+
+**Detailed Technical Explanation**:
+- **Dense Vector Limitations**: Dense embedding models map text into a continuous semantic vector space. While effective for understanding synonyms and concepts, they often map rare alphanumeric codes (`"RX-9021-B"`) to generic or distant points in vector space.
+- **Sparse Lexical Search (BM25 / TF-IDF)**: BM25 matches exact keywords based on term frequency and inverted index lookups, making it well-suited for codes, IDs, and formulas.
+- **Hybrid Search Pipeline**: Combines dense retrieval (for broad conceptual matching) and sparse retrieval (for exact codes), merging their results using techniques like Reciprocal Rank Fusion (RRF).
+
+```text
+User Query: "Dosage protocol for RX-9021-B"
+              │
+    ┌─────────┴─────────┐
+    ▼                   ▼
+[Dense Vector]     [Sparse BM25]
+Understands:       Finds exact:
+"Dosage"           "RX-9021-B"
+    │                   │
+    └─────────┬─────────┘
+              ▼
+[Reciprocal Rank Fusion (RRF)]
+              ▼
+Accurate Combined Output Chunk
+```
+
+**Exam Shortcut**: For problems involving exact IDs, part numbers, or alphanumeric codes, choose **Hybrid Search (Dense + BM25/Sparse)**.
+
+---
+
+#### Video Question 7: Vector Indexing at Scale (HNSW / IVF vs. Flat KNN)
+**Timestamp**: `[00:29:21]` - `[00:32:02]`  
+**Tag**: [VIDEO]
+
+**Question**:  
+When scaling a vector database from 10,000 documents to 1,000,000 documents, exact nearest neighbor (Flat KNN) search latencies increase significantly, making real-time retrieval impractical. Which vector indexing strategy balances query latency and recall accuracy?
+
+- **A)** Use Approximate Nearest Neighbor (ANN) indexing methods, such as Hierarchical Navigable Small World (HNSW) or Inverted File Indexing (IVF).
+- **B)** Switch from Cosine Similarity to Euclidean (L2) distance on an unindexed flat array.
+- **C)** Store embedding vectors as plaintext strings inside a relational SQL database without indexes.
+- **D)** Use basic binary search over the raw multi-dimensional vectors.
+
+**Correct Answer**: **Option A**
+
+**Detailed Technical Explanation**:
+- **Exact KNN Bottleneck**: Exact KNN performs an exhaustive search by calculating vector distances across the entire dataset. At $N = 1,000,000$, comparing a 1536-dimension vector against every record requires significant computation, leading to high latency ($O(N)$).
+- **Approximate Nearest Neighbors (ANN)**: Trade a negligible amount of recall accuracy for logarithmic ($O(\log N)$) search speeds.
+- **HNSW (Hierarchical Navigable Small World)**: Builds a multi-layer graph where upper layers skip across distant clusters and lower layers navigate localized clusters.
+- **IVF (Inverted File Index)**: Partitions vector space into clusters using Voronoi cells (via k-means). Queries search only the nearest centroids rather than the full database.
+
+```text
+HNSW Graph Architecture
+Layer 2 (Express):   (●) ───────────────────────> (●)
+                      │                            │
+Layer 1 (Regional):  (●) ───────> (●) ───────────> (●)
+                      │            │               │
+Layer 0 (All Data):  (●)─(●)─(●)  (●)─(●)─(●)     (●)─(●)
+                     Fast traversal from top to targeted cluster
+```
+
+**Exam Shortcut**: When scaling vector search from thousands to millions of vectors, the answer is **ANN (HNSW / IVF Indexing)**.
+
+---
+
+#### Video Question 8: Retrieval Re-Ranking with Cross-Encoders
+**Timestamp**: `[00:32:09]` - `[00:34:29]`  
+**Tag**: [VIDEO]
+
+**Question**:  
+A RAG pipeline retrieves the top 20 candidate chunks using standard bi-encoder vector similarity. However, the 15th chunk contains the precise answer, while the top 3 chunks only share superficial keyword overlaps. Which optimization step resolves this ranking issue without slowing down initial retrieval?
+
+- **A)** Increase the top-k parameter to retrieve 100 chunks and pass all of them directly to the LLM.
+- **B)** Apply a Cross-Encoder Re-ranker model over the top 20 retrieved candidates before passing the top-ranked passages to the LLM.
+- **C)** Use a smaller bi-encoder embedding model.
+- **D)** Sort the retrieved chunks alphabetically by their file path names.
+
+**Correct Answer**: **Option B**
+
+**Detailed Technical Explanation**:
+- **Bi-Encoders (Fast, Approximate)**: Encode queries and documents separately into single vectors, comparing them via dot product or cosine distance. This enables sub-millisecond retrieval across millions of documents, but misses complex interactions between terms.
+- **Cross-Encoders (Accurate, Context-Aware)**: Feed the query and candidate passage together into cross-attention layers simultaneously. This evaluates deep semantic interactions, producing a more accurate relevance score.
+- **The Two-Stage Pipeline**: Use a bi-encoder first to quickly retrieve the top 20–50 candidates, then run a cross-encoder to re-rank those candidates so the most relevant chunk is placed at the top.
+
+```text
+Step 1: Rapid Retrieval                  Step 2: Deep Re-Ranking
+Million Documents                         Top 20 Chunks
+       │                                         │
+       ▼ [Bi-Encoder: Fast Dot-Product]          ▼ [Cross-Encoder: Joint Attention]
+Top 20 Candidates                        Top 3 Highest-Relevance Chunks -> Sent to LLM
+```
+
+**Exam Shortcut**: If the 15th chunk has the real answer while earlier chunks are superficial matches, the solution is a **Cross-Encoder Re-ranker**.
+
+---
+
+#### Video Question 9: Multi-Turn Query Rewriting & Contextualization
+**Timestamp**: `[00:34:34]` - `[00:37:34]`  
+**Tag**: [VIDEO]
+
+**Question**:  
+A user is chatting with an enterprise drone support assistant:
+- *Turn 1*: "I am troubleshooting the SkyPhantom 9905 drone model."
+- *Turn 2*: "What is its battery life?"  
+A naive vector search for *"What is its battery life?"* returns generic articles about lithium battery chemistry rather than specifications for the SkyPhantom 9905. What RAG design pattern fixes this problem?
+
+- **A)** Hardcode battery search strings directly in the front-end interface.
+- **B)** Query contextualization and query rewriting using conversation history before performing the vector search.
+- **C)** Increase model sampling temperature to $1.2$ during second-turn queries.
+- **D)** Clear conversation history between questions to reduce token usage.
+
+**Correct Answer**: **Option B**
+
+**Detailed Technical Explanation**:
+- **Pronoun & Anaphora Ambiguity**: In human conversation, queries often contain pronouns like *"it"*, *"its"*, or *"that"*. Vector databases have no memory of earlier chat turns; they evaluate the query text in isolation.
+- **Query Rewriting**: Before running vector search, a small, fast model evaluates the conversation history alongside the new query and rewrites it as a standalone search prompt:
+  - *Input*: "What is its battery life?" + Context: "SkyPhantom 9905"
+  - *Rewritten Query*: "What is the battery life specification of the SkyPhantom 9905 drone?".
+
+```text
+User Query: "What is its battery life?"
+Chat History: ["SkyPhantom 9905 troubleshooting"]
+       │
+       ▼ [Query Rewriting LLM Step]
+Rewritten Query: "What is the battery life of the SkyPhantom 9905 drone?"
+       │
+       ▼ [Vector Database Search] --> Returns accurate SkyPhantom 9905 manual!
+```
+
+**Exam Shortcut**: If a question involves pronouns (*"it"*, *"they"*) causing ambiguous search results, select **Query Rewriting / Query Contextualization**.
+
+---
+
+#### Video Question 10: RAGAS Metrics: Context Recall vs. Faithfulness
+**Timestamp**: `[00:37:39]` - `[00:40:48]`  
+**Tag**: [VIDEO]
+
+**Question**:  
+During automated evaluation of a RAG pipeline using the RAGAS framework, a system scores high on Context Recall ($0.95$) but low on Faithfulness ($0.30$). What does this specific metric profile signify about the system's performance?
+
+- **A)** The retrieval engine failed to find the correct documents in the database.
+- **B)** The generator model produced answers containing claims that were not supported by the retrieved context (hallucinations), despite the retriever fetching all necessary factual information.
+- **C)** The vector database indexes became corrupted during search operations.
+- **D)** The system prompt exceeded the context window limits.
+
+**Correct Answer**: **Option B**
+
+**Detailed Technical Explanation**:
+The RAGAS framework evaluates RAG systems across two independent components: the **Retriever** and the **Generator**.
+
+```text
+RAGAS TRIAD EVALUATION ARCHITECTURE
+             Query
+            /     \
+Context Recall   Context Relevance
+          /         \
+Retrieved Context ─── Generated Answer
+          \         /
+         Faithfulness
+```
+
+- **Context Recall (Measures Retriever)**: Checks whether all ground-truth facts required to answer the question were present in the retrieved passages. A high score ($0.95$) means the retriever successfully found the right information.
+- **Faithfulness (Measures Generator)**: Evaluates whether every claim in the generated answer can be directly inferred from the retrieved passages. A low score ($0.30$) means the LLM introduced outside claims, ignored the provided context, or hallucinated details.
+
+**Exam Shortcut**: **High Context Recall + Low Faithfulness** means **Good retrieval, but the LLM hallucinated / went off-script**.
+
+---
+
+### 3. High-Yield Exam Question Bank (Additional Capgemini Scenarios)
+
+#### Q11. Temperature and Top-P (Nucleus Sampling) Mechanics
+**Tag**: [MOCK-EXAM]  
+**Question**:  
+What happens when an engineer configures an LLM API call with `Temperature = 0.0` and `Top-P = 1.0` for automated code generation?
+- **A)** The model crashes due to a division-by-zero error in the softmax layer.
+- **B)** The output becomes deterministic (greedy decoding), selecting the highest-probability token at each step.
+- **C)** The model outputs completely random text.
+- **D)** The model doubles its context window size.
+
+**Correct Answer**: **Option B**  
+**Explanation**: Temperature scales the logits before the softmax calculation ($\frac{z_i}{T}$). As $T \to 0$, the probability distribution sharpens around the single highest-probability token, resulting in deterministic greedy decoding.
+
+---
+
+#### Q12. LoRA (Low-Rank Adaptation) Parameter-Efficient Fine-Tuning
+**Tag**: [MOCK-EXAM]  
+**Question**:  
+Why is LoRA widely preferred over full fine-tuning for adapting large foundation models in enterprise settings?
+- **A)** It converts all model parameters from 32-bit floating point into 1-bit integers.
+- **B)** It freezes the pre-trained weights and introduces small, trainable rank decomposition matrices ($A$ and $B$, where $W_{new} = W + A \times B$), drastically reducing trainable parameters and GPU memory needs.
+- **C)** It removes the need for training data entirely.
+- **D)** It allows the model to bypass standard safety filters.
+
+**Correct Answer**: **Option B**  
+**Explanation**: LoRA decomposes parameter updates into low-rank matrices ($d \times r$ and $r \times k$, where rank $r \ll d$). This enables fine-tuning using a fraction of the GPU memory needed for full-parameter training.
+
+---
+
+#### Q13. Vector Distance Metrics: Cosine vs. Dot Product
+**Tag**: [MOCK-EXAM]  
+**Question**:  
+Under what condition is the Inner Dot Product metric mathematically equivalent to Cosine Similarity?
+- **A)** When all embedding vectors are normalized to unit length ($L_2\text{-norm} = 1$).
+- **B)** When vectors contain only positive integer values.
+- **C)** When the vector dimensionality is less than 100.
+- **D)** When the temperature parameter is set to $1.0$.
+
+**Correct Answer**: **Option A**  
+**Explanation**: Cosine similarity is defined as $\frac{A \cdot B}{\Vert{}A\Vert{} \Vert{}B\Vert{}}$. If vectors are normalized such that $\Vert{}A\Vert{} = \Vert{}B\Vert{} = 1$, the denominator evaluates to $1$, making the dot product ($A \cdot B$) identical to cosine similarity while executing faster on hardware.
+
+---
+
+#### Q14. Direct Prompt Injection vs. Indirect Prompt Injection
+**Tag**: [MOCK-EXAM]  
+**Question**:  
+What distinguishes an Indirect Prompt Injection attack from a Direct Prompt Injection?
+- **A)** Indirect injection uses SQL syntax instead of natural language.
+- **B)** Indirect injection delivers the malicious instruction via untrusted third-party data retrieved at runtime (e.g., a website, email, or PDF) rather than directly through the user's prompt input.
+- **C)** Direct injection only works on vision models.
+- **D)** Indirect injection physically modifies the weights on the hosting server.
+
+**Correct Answer**: **Option B**  
+**Explanation**: Direct prompt injection happens when a user explicitly types adversarial commands into the chat bar. Indirect injection occurs when an LLM processes external content (like a webpage or email) that contains hidden adversarial instructions.
+
+---
+
+### 4. Master Architectural Cheat Sheet
+
+| Topic / Failure Symptom | Underlying Root Cause | Production Remediation | Shortcut Keyword |
+| :--- | :--- | :--- | :--- |
+| **Model forgets rules after 20 turns** | Context window token saturation and attention weight dilution. | Dynamic message pruning, sliding context, or re-injecting rules. | **Context Window Limits** |
+| **Malformed JSON outputs** | Autoregressive sampling allows non-syntax tokens. | Constrained grammar decoding (BNF / JSON Schema enforcement). | **Guided Decoding** |
+| **Adversarial roleplay leaks data** | Lack of instruction priority between system directives and user inputs. | Enforce strict role hierarchy (`System Prompt > User Input`). | **Role Hierarchy / Jailbreak** |
+| **Multi-step arithmetic errors** | Predicting answers in a single forward pass without intermediate reasoning. | Append *"Let's think step by step"* (Zero-Shot CoT). | **Chain-of-Thought (CoT)** |
+| **Broken sentences / cut-off code in RAG** | Fixed character-count chunking cuts across semantic boundaries. | Switch to semantic chunking with a 10–20% sliding window overlap. | **Sliding Window Overlap** |
+| **Exact alphanumeric code lookup fails** | Dense embeddings map rare codes poorly in semantic space. | Implement Hybrid Search combining Dense Embeddings with Sparse BM25. | **Hybrid Search (Dense + BM25)** |
+| **Vector DB slow at 1M+ documents** | Exact KNN requires exhaustive $O(N)$ comparisons. | Use Approximate Nearest Neighbor (ANN) index structures (HNSW / IVF). | **HNSW / IVF Indexing** |
+| **Superficial chunks rank above real answer** | Bi-encoders calculate similarity without deep cross-attention. | Add a Cross-Encoder Re-ranker over the top retrieved candidates. | **Cross-Encoder Re-Ranking** |
+| **Pronouns ("it", "its") cause generic search** | Vector databases evaluate single-turn queries without conversation context. | Rewrite and contextualize the query using chat history before search. | **Query Rewriting** |
+| **High Context Recall, Low Faithfulness** | The retriever found the right passages, but the generator hallucinated outside facts. | Constrain generation prompts and lower sampling temperature. | **Hallucination / Faithfulness** |
 
 ---
 
