@@ -224,6 +224,17 @@
 | Selection Sort two-pass invariant MCQ (Q4) | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/03_oops_os.md | [x] |
 | Hash Map linear probing open addressing collision MCQ (Q5) | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md | [x] |
 | Mirrored recursion compute(3) output MCQ (Q6) | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md | [x] |
+| AI Literacy Q40: RAG Coding Assistant Annotation Loss & Lost-in-the-Middle | [VIDEO] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| AI Literacy Q41: System-Level Prompt Injection Attack via Encapsulation | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| OS File System Architecture: Program Loader & Magic Bytes (Q16) | [VIDEO] | 02-ai-literacy-and-cs-mcqs/03_oops_os.md | [x] |
+| OS Deadlock Prevention & Resource Allocation Formula (Q17: 5 units) | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/03_oops_os.md | [x] |
+| Database Transaction Isolation Levels & Non-Repeatable Read (Q13) | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/02_networking_sql_dbms.md | [x] |
+| Code Debugging Problem 5: Alternating Odd-Even Subarray Sequence | [VIDEO] | 03-code-debugging/06_kadane_and_binary_search.md | [x] |
+| AI Assist Coding: Shortest Path in 2D Grid with Obstacles Elimination | [VIDEO] | 04-ai-assisted-coding/06_grid_bfs_shortest_path_obstacles.md | [x] |
+| AI Assist Coding: Binary Tree Boundary Traversal Anti-Clockwise | [VIDEO] | 04-ai-assisted-coding/07_binary_tree_boundary_traversal.md | [x] |
+| Pseudocode Problem 19: Brian Kernighan's Algorithm & Hamming Distance | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md | [x] |
+| Pseudocode Problem 20: Memory-Bounded Sliding Window Minimum via Deque | [DSA-EXAM] | 02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md | [x] |
+| Capgemini Exceller Updated Hybrid Architecture & Token Budget (~2,000) | [VIDEO] | 01-exam-format/README.md | [x] |
 | Exam-Day Strategic Checklist | [MOCK-EXAM] | CHEATSHEET.md | [x] |
 | **Communication** | | | |
 | 4 parts | [CHAT] | 06-communication/README.md | [x] |
@@ -239,5 +250,6 @@
 | English Module 6: Grammar & correction (Neither...nor proximity, dangling modifiers) | [VIDEO] | 06-communication/01_comprehensive_english_modules.md | [x] |
 | **Cheatsheet** | | | |
 | 1-page master box | [CHAT] | CHEATSHEET.md | [x] |
+
 
 
