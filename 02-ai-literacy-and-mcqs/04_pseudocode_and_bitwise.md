@@ -1028,11 +1028,115 @@ Print parse("4321", 0)
 
 ---
 
+#### Problem 16: Bitwise Equivalent Logic
+**Tag**: [MOCK-EXAM]
+
+**Pseudocode**:
+```text
+FUNCTION BitwiseTest():
+    A = 29      // Binary: 11101
+    B = 14      // Binary: 01110
+    result = (A & B) | (A ^ B)
+    RETURN result
+```
+**Question**: What integer value is returned?
+- **A)** 15
+- **B)** 27
+- **C)** 31
+- **D)** 43
+
+**Correct Answer**: Option C (31)
+
+**Mathematical Shortcut**:
+In Boolean algebra, $(A \land B) \lor (A \oplus B) \equiv A \lor B$.
+Calculating $A \lor B$:
+```text
+A  = 29 : 1 1 1 0 1
+B  = 14 : 0 1 1 1 0
+-------------------
+OR = 31 : 1 1 1 1 1  (= 31 in decimal)
+```
+
+**5-Second Shortcut**: Use the Boolean identity $(A \ \& \ B) \mid (A \wedge B) = A \mid B$. Immediate bitwise OR of 29 and 14 yields 31.  
+**Trap**: Manually computing intermediate AND and XOR masks under time pressure and making an off-by-one bit error.
+
+---
+
+#### Problem 17: Recursive Tree Calculation
+**Tag**: [MOCK-EXAM]
+
+**Pseudocode**:
+```text
+FUNCTION Calculate(n):
+    IF n <= 1 THEN:
+        RETURN 2
+    ELSE:
+        RETURN Calculate(n - 1) + Calculate(n - 2) + 1
+    END IF
+```
+**Question**: What value is returned when calling `Calculate(4)`?
+- **A)** 11
+- **B)** 14
+- **C)** 18
+- **D)** 21
+
+**Correct Answer**: Option B (14)
+
+**Step-by-step Trace**:
+- $\text{Calculate}(0) = 2$
+- $\text{Calculate}(1) = 2$
+- $\text{Calculate}(2) = \text{Calculate}(1) + \text{Calculate}(0) + 1 = 2 + 2 + 1 = 5$
+- $\text{Calculate}(3) = \text{Calculate}(2) + \text{Calculate}(1) + 1 = 5 + 2 + 1 = 8$
+- $\text{Calculate}(4) = \text{Calculate}(3) + \text{Calculate}(2) + 1 = 8 + 5 + 1 = 14$
+
+**5-Second Shortcut**: Trace bottom-up like dynamic programming: $T = [2, 2, 5, 8, 14]$.  
+**Trap**: Dropping the `+ 1` constant term and confusing this with pure Fibonacci numbers ($2, 2, 4, 6, 10$).
+
+---
+
+#### Problem 18: Stack & Queue Combined Operations
+**Tag**: [MOCK-EXAM]
+
+**Pseudocode**:
+```text
+FUNCTION CombinedOperations():
+    CREATE STACK s
+    CREATE QUEUE q
+    ENQUEUE 10, 20, 30 INTO q
+    PUSH DEQUEUE(q) ONTO s     // Dequeues 10 -> Stack s = [10]
+    PUSH DEQUEUE(q) ONTO s     // Dequeues 20 -> Stack s = [10, 20]
+    ENQUEUE POP(s) INTO q      // Pops 20 -> Enqueues 20 -> q = [30, 20]
+    PUSH 40 ONTO s             // Pushes 40 -> Stack s = [10, 40]
+    PRINT TOP(s) + FRONT(q)
+```
+**Question**: What integer is printed?
+- **A)** 50
+- **B)** 60
+- **C)** 70
+- **D)** 80
+
+**Correct Answer**: Option C (70)
+
+**Trace**:
+1. Initial Queue `q`: `[10 (front), 20, 30 (rear)]`.
+2. `DEQUEUE(q)` removes `10`. `PUSH(10)` onto `s` $\implies s = [10]$.
+3. `DEQUEUE(q)` removes `20`. `PUSH(20)` onto `s` $\implies s = [10, 20]$ (top is 20).
+4. `POP(s)` pops `20`. `ENQUEUE(20)` into `q` $\implies q = [30 \text{ (front)}, 20 \text{ (rear)}]$.
+5. `PUSH(40)` onto `s` $\implies s = [10, 40]$ (top is 40).
+6. Result: $\text{TOP}(s) + \text{FRONT}(q) = 40 + 30 = 70$.
+
+**5-Second Shortcut**: Queue is FIFO (10, 20 popped); Stack is LIFO (20 popped first and appended to rear of queue). Top of stack is 40; Front of queue is 30. $40 + 30 = 70$.  
+**Trap**: Treating the queue as LIFO or confusing the front of the queue (`30`) with the newly inserted rear element (`20`).
+
+---
+
 ## 7. Assessment Strategy & Speed Heuristics
 
 | Construct | Trap to Avoid | Quick Shortcut |
 | :--- | :--- | :--- |
 | **Bitwise Operators** | Assuming arithmetic operators execute after shifts | `+` and `-` evaluate before `<<` and `>>` |
+| **Boolean Bitwise Identity** | Manually computing `(A & B) \| (A ^ B)` | $(A \ \& \ B) \mid (A \oplus B) \equiv A \mid B$ |
+| **Stack vs Queue** | Confusing `TOP` with `FRONT` | Stack is LIFO (top); Queue is FIFO (front popped first) |
 | **Short-Circuiting** | Calculating both sides of `&&` or `\|\|` unconditionally | If left of `&&` is `0`, stop. If left of `\|\|` is non-zero, stop. |
 | **Static / Global Variables** | Adding incremental $x$ during descent | Static variables hold their final incremented value when unwinding |
 | **Nested Loop Bounds** | Missing scope re-initialization | Check if the inner variable is declared inside or outside outer loop |
@@ -1041,4 +1145,5 @@ Print parse("4321", 0)
 | **Pre/Post Increment** | Mixing up pre- and post-increment side-effects | `a++` uses original value; `++a` increments first |
 | **Bitwise Shifts** | Manually writing out binary shifts | `x << k` $= x \cdot 2^k$; `x >> k` $= \lfloor x / 2^k \rfloor$ |
 | **XOR Properties** | Misidentifying XOR variable swap logic | $x \oplus x = 0$; $x \oplus 0 = x$ |
+| **Parity Testing** | Using `num % 2 == 1` which fails on negative numbers | Use `(num & 1) != 0` or `(a ^ b) & 1` |
 | **Two-Pointer Scan** | Forgetting pointer updates causing TLE | Moves inwards ($L \to, \leftarrow R$) in $O(N)$ time |

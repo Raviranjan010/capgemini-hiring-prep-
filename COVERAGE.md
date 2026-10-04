@@ -50,6 +50,11 @@
 | Video walkthrough: Fixed attention layers vs CoT scratchpad | [VIDEO] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
 | Video walkthrough: Semantic sliding window 80/20 rule | [VIDEO] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
 | AI Literacy Failure Mode / Root Cause / Fix Heuristics table | [VIDEO] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| Capgemini AI Literacy Assessment Pillars (Foundations, Prompting, Safety) | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| Q36: AI Hallucination definition and mechanics | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| Q37: Retrieval-Augmented Generation (RAG) architecture | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| Q38: Responsible AI & Security: Hardcoded DB secrets in AI code | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| Q39: Deterministic logit sampling via temperature close to 0.0 | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
 | **Networking / SQL / DBMS** | | | |
 | Subnet 255.255.255.192 usable hosts | [CHAT] | 02-ai-literacy-and-cs-mcqs/02_networking_sql_dbms.md | [x] |
 | NULL comparison | [CHAT] | 02-ai-literacy-and-cs-mcqs/02_networking_sql_dbms.md | [x] |
@@ -98,6 +103,10 @@
 | Precedence trap: x & 1 == 0 | [ADDED] | 02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md | [x] |
 | Unique element XOR array cancel | [ADDED] | 02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md | [x] |
 | Bitwise shift multiplication (n << 3) - n | [ADDED] | 02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md | [x] |
+| Problem 16: Bitwise Equivalent Logic ((A & B) \| (A ^ B) == A \| B) | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md | [x] |
+| Problem 17: Recursive tree calculation (Calculate(4) = 14) | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md | [x] |
+| Problem 18: Stack & Queue combined operations (top + front = 70) | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/04_pseudocode_and_bitwise.md | [x] |
+| Master High-Yield Patterns matrix | [MOCK-EXAM] | CHEATSHEET.md | [x] |
 | **Debugging** | | | |
 | Strategy and 10-point scanner | [CHAT] | 03-code-debugging/README.md | [x] |
 | 4 primary failure modes in Exceller debugging | [MOCK-EXAM] | 03-code-debugging/README.md | [x] |
@@ -122,12 +131,16 @@
 | Cycle in directed graph missing backtrack reset (inStack[u]) | [VIDEO] | 03-code-debugging/05_graphs_and_dp.md | [x] |
 | Kadane's algorithm all-negative array bug (maxSoFar = nums[0]) | [VIDEO] | 03-code-debugging/06_kadane_and_binary_search.md | [x] |
 | Binary search first occurrence (high = mid - 1 & overflow) | [VIDEO] | 03-code-debugging/06_kadane_and_binary_search.md | [x] |
+| Problem 3: Standard Binary Search Boundary Conditions (low < high, high = arr.length, stale mid) | [MOCK-EXAM] | 03-code-debugging/06_kadane_and_binary_search.md | [x] |
+| Problem 4: Array Frequency Duplicate Counter (i <= arr.length OOB & duplicate printing) | [MOCK-EXAM] | 03-code-debugging/06_kadane_and_binary_search.md | [x] |
 | Common bug categories reference table | [VIDEO] | 03-code-debugging/06_kadane_and_binary_search.md | [x] |
 | BFS traversal of undirected graph (4 exam bugs) | [VIDEO] | 03-code-debugging/05_graphs_and_dp.md | [x] |
 | **AI Coding** | | | |
 | Decision flowchart | [CHAT] | 04-ai-assisted-coding/README.md | [x] |
 | Token-saving prompts & RTC-FC framework | [CHAT] | 04-ai-assisted-coding/README.md | [x] |
 | Debugging prompt pattern | [ADDED] | 04-ai-assisted-coding/README.md | [x] |
+| AI Assist Round UI architecture, Multi-Vector scoring (30/35/35), banned vs target behaviors | [VIDEO] | 01-exam-format/README.md | [x] |
+| Actionable exam strategy checklist & high-scoring prompt templates | [VIDEO] | 01-exam-format/README.md | [x] |
 | Interactive AI Co-Pilot pipeline & 5-turn structured dialogue | [VIDEO] | 04-ai-assisted-coding/04_graph_bipartite_course_schedule_islands.md | [x] |
 | Is Graph Bipartite (BFS 2-coloring, odd cycle theorem, 5-turn dialog) | [VIDEO] | 04-ai-assisted-coding/04_graph_bipartite_course_schedule_islands.md | [x] |
 | Course schedule (Kahn's in-degree BFS topological sort) | [VIDEO] | 04-ai-assisted-coding/04_graph_bipartite_course_schedule_islands.md | [x] |
@@ -146,6 +159,15 @@
 | Bitwise equality inversions A[i] & A[j] == A[i] ^ A[j] | [MOCK-EXAM] | 04-ai-assisted-coding/03_tree_lca_bitwise_palindrome_partition.md | [x] |
 | Palindromic partitioning minimum cuts (DP) | [MOCK-EXAM] | 04-ai-assisted-coding/03_tree_lca_bitwise_palindrome_partition.md | [x] |
 | Palindrome Partitioning I all valid partitions (6-turn dialog) | [VIDEO] | 04-ai-assisted-coding/03_tree_lca_bitwise_palindrome_partition.md | [x] |
+| Decode Ways (LC #91) mathematical formulation & transition decision tree | [VIDEO] | 04-ai-assisted-coding/05_dp_decode_ways_and_frequent_patterns.md | [x] |
+| Decode Ways 6-Turn AI bot cross-examination & technical defense transcript | [VIDEO] | 04-ai-assisted-coding/05_dp_decode_ways_and_frequent_patterns.md | [x] |
+| Decode Ways optimal O(1) space implementations (Java, C++, Python 3) | [VIDEO] | 04-ai-assisted-coding/05_dp_decode_ways_and_frequent_patterns.md | [x] |
+| 1D Dynamic Programming comparative matrix (LC #70, #91, #639, #198, #139) | [VIDEO] | 04-ai-assisted-coding/05_dp_decode_ways_and_frequent_patterns.md | [x] |
+| Advanced practice MCQs (Fibonacci "12121", Zero trapping "2304", Word Break limits, Base counterfactual) | [VIDEO] | 04-ai-assisted-coding/05_dp_decode_ways_and_frequent_patterns.md | [x] |
+| Coin Change Problem (amount + 1 overflow defense & Java code) | [MOCK-EXAM] | 04-ai-assisted-coding/05_dp_decode_ways_and_frequent_patterns.md | [x] |
+| Strict Alternating Parity Sequence ((arr[i] ^ arr[i - 1]) & 1 & Java code) | [MOCK-EXAM] | 04-ai-assisted-coding/05_dp_decode_ways_and_frequent_patterns.md | [x] |
+| Move All Hashes to Front (single-pass StringBuilder & Java code) | [MOCK-EXAM] | 04-ai-assisted-coding/05_dp_decode_ways_and_frequent_patterns.md | [x] |
+| Run-Length Compression (consecutive character count & Java code) | [MOCK-EXAM] | 04-ai-assisted-coding/05_dp_decode_ways_and_frequent_patterns.md | [x] |
 | long for prefix sums | [CHAT] | 04-ai-assisted-coding/README.md | [x] |
 
 

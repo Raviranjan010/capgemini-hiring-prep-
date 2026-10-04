@@ -18,6 +18,7 @@
 | Capgemini AI Assist Coding Solution (Graph Bipartite & BFS) | http://www.youtube.com/watch?v=tqXkeM3D8D4 | Verified | [04-ai-assisted-coding/04_graph_bipartite_course_schedule_islands.md](04-ai-assisted-coding/04_graph_bipartite_course_schedule_islands.md) |
 | Capgemini AI Literacy & Prompt Engineering Master Walkthrough | http://www.youtube.com/watch?v=oq3FtGoPmCE | Verified | [02-ai-literacy-and-cs-mcqs/01_ai_literacy.md](02-ai-literacy-and-cs-mcqs/01_ai_literacy.md) |
 | Complete Capgemini Master Preparation Video (1h 45m Walkthrough) | http://www.youtube.com/watch?v=q5giVVUApwM | Verified | [06-communication/01_comprehensive_english_modules.md](06-communication/01_comprehensive_english_modules.md), [03-code-debugging/05_graphs_and_dp.md](03-code-debugging/05_graphs_and_dp.md), [04-ai-assisted-coding/03_tree_lca_bitwise_palindrome_partition.md](04-ai-assisted-coding/03_tree_lca_bitwise_palindrome_partition.md) |
+| Capgemini AI Assist Preparation Video (Decode Ways & Test Structure) | https://youtu.be/Fn41k0hxcs0 | Verified | [01-exam-format/README.md](01-exam-format/README.md), [04-ai-assisted-coding/05_dp_decode_ways_and_frequent_patterns.md](04-ai-assisted-coding/05_dp_decode_ways_and_frequent_patterns.md) |
 
 ## Allowed LeetCode Practice Links
 
@@ -54,5 +55,12 @@
 | Subarray Sums Divisible by K | https://leetcode.com/problems/subarray-sums-divisible-by-k/ | [04-ai-assisted-coding/README.md](04-ai-assisted-coding/README.md) |
 | Contiguous Array | https://leetcode.com/problems/contiguous-array/ | [04-ai-assisted-coding/README.md](04-ai-assisted-coding/README.md) |
 | Single Number III | https://leetcode.com/problems/single-number-iii/ | [04-ai-assisted-coding/README.md](04-ai-assisted-coding/README.md) |
+| Decode Ways | https://leetcode.com/problems/decode-ways/ | [04-ai-assisted-coding/05_dp_decode_ways_and_frequent_patterns.md](04-ai-assisted-coding/05_dp_decode_ways_and_frequent_patterns.md) |
+| Coin Change | https://leetcode.com/problems/coin-change/ | [04-ai-assisted-coding/05_dp_decode_ways_and_frequent_patterns.md](04-ai-assisted-coding/05_dp_decode_ways_and_frequent_patterns.md) |
+| Climbing Stairs | https://leetcode.com/problems/climbing-stairs/ | [04-ai-assisted-coding/05_dp_decode_ways_and_frequent_patterns.md](04-ai-assisted-coding/05_dp_decode_ways_and_frequent_patterns.md) |
+| House Robber | https://leetcode.com/problems/house-robber/ | [04-ai-assisted-coding/05_dp_decode_ways_and_frequent_patterns.md](04-ai-assisted-coding/05_dp_decode_ways_and_frequent_patterns.md) |
+| Word Break | https://leetcode.com/problems/word-break/ | [04-ai-assisted-coding/05_dp_decode_ways_and_frequent_patterns.md](04-ai-assisted-coding/05_dp_decode_ways_and_frequent_patterns.md) |
+| Binary Search | https://leetcode.com/problems/binary-search/ | [03-code-debugging/06_kadane_and_binary_search.md](03-code-debugging/06_kadane_and_binary_search.md) |
+| Find All Duplicates in an Array | https://leetcode.com/problems/find-all-duplicates-in-an-array/ | [03-code-debugging/06_kadane_and_binary_search.md](03-code-debugging/06_kadane_and_binary_search.md) |
 
 

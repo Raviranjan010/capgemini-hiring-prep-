@@ -19,6 +19,10 @@ When given an array or subarray problem, determine the approach using this decis
    - **Action**: Use **Prefix Sum / Prefix XOR + HashMap** ($O(N)$ Time, $O(N)$ Space).
 3. **Does the problem ask for Sliding Window Maximum or Minimum across fixed size $K$?**
    - **Action**: Use a **Monotonic Deque** ($O(N)$ Time, $O(K)$ Space). Do **NOT** use a PriorityQueue/Heap, which takes $O(N \log K)$ and requires inefficient $O(K)$ stale-element deletions.
+4. **Does the problem have a fixed historical recurrence window ($k=2$ steps like Decode Ways, Fibonacci, House Robber)?**
+   - **Action**: Use **Rolling Variables** (`prev1`, `prev2`) to achieve $O(N)$ Time and strictly $O(1)$ Space.
+5. **Does the problem test strict alternating parity (Odd/Even)?**
+   - **Action**: Use bitwise operations `((arr[i] ^ arr[i - 1]) & 1) == 0` to detect parity violations. Never use `% 2 == 1` because negative odd numbers yield `-1` in Java.
 
 > **CRITICAL RULE**: Always use `long` (Java) or `long long` (C++) for prefix sum accumulators to avoid 32-bit integer overflow when elements sum beyond $2 \times 10^9$.
 
@@ -105,5 +109,6 @@ Complexity: Time O(N), Space O(1).
 2. [02_prefix_sum_hashmap.md](02_prefix_sum_hashmap.md) - Subarray Sum = K, Continuous Subarray Sum, Divisible by K, Contiguous Array, XOR = K, and Single Number III.
 3. [03_tree_lca_bitwise_palindrome_partition.md](03_tree_lca_bitwise_palindrome_partition.md) - Lowest Common Ancestor (LCA), Bitwise Equality Inversions ($A[i] \& A[j] == A[i] \oplus A[j]$), Palindromic Partitioning Min Cuts (DP), and Palindrome Partitioning I (All Partitions with 6-Turn Dialog & Loop Direction Audit).
 4. [04_graph_bipartite_course_schedule_islands.md](04_graph_bipartite_course_schedule_islands.md) - Is Graph Bipartite (2-Coloring BFS, Odd Cycle Theorem, 5-Turn Dialog), Course Schedule (Kahn's In-Degree), Number of Islands (In-Place Sinking), and 0/1 Matrix (Multi-Source BFS).
+5. [05_dp_decode_ways_and_frequent_patterns.md](05_dp_decode_ways_and_frequent_patterns.md) - Capgemini AI Assist Platform Deep Dive, Decode Ways (LeetCode #91 with 6-Turn Bot Dialog & O(1) space), Coin Change (amount+1 overflow defense), Strict Alternating Parity, Move Hashes to Front, and Run-Length Compression.
 
 

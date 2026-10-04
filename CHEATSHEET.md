@@ -77,6 +77,10 @@ A concise, high-yield master reference summarizing core strategies, formulas, tr
   - Negative values, modulo constraints, or bitwise XOR $\implies$ Prefix Sum / Prefix XOR + HashMap ($O(N)$ Time, $O(N)$ Space).
   - Sliding Window Extremes (Min/Max over $K$) $\implies$ Monotonic Deque ($O(N)$ Time, $O(K)$ Space; never use a heap).
 - **Core Problem Patterns**:
+  - **Decode Ways (LC #91)**: Single-digit if $s[i-1] \ne '0' \implies \text{add } dp[i-1]$; Double-digit if $10 \le \text{val}(s[i-2 \dots i-1]) \le 26 \implies \text{add } dp[i-2]$. Base case $\text{dp}[0] = 1$. Rolling state compression (`prev1`, `prev2`) achieves $O(1)$ space. Leading `'0'` collapses count to `0`.
+  - **Coin Change (LC #322)**: Initialize DP array with `amount + 1` (never `Integer.MAX_VALUE`, which overflows to `Integer.MIN_VALUE` upon adding 1). Transition: $\text{dp}[i] = \min(\text{dp}[i], 1 + \text{dp}[i - \text{coin}])$.
+  - **Strict Alternating Parity**: Check parity violations with `((arr[i] ^ arr[i - 1]) & 1) == 0`. Never use `arr[i] % 2 == 1` because negative odd numbers return `-1` in Java.
+  - **Move Hashes / Run-Length Encoding**: Use `StringBuilder` in a single pass ($O(N)$ time and space) to avoid $O(N^2)$ memory churn from immutable String concatenation.
   - **Is Graph Bipartite?**: Alternating 2-coloring via BFS using bitwise XOR (`color[v] = color[u] ^ 1`). A graph is bipartite $\iff$ it has **NO odd-length cycles**. Must iterate an outer loop $0 \le i < V$ to handle disconnected components.
   - **Course Schedule (Cycle Detection)**: Model as directed dependency graph. Apply Kahn's Algorithm (BFS Topological Sort) using an `inDegree` array. Push `inDegree == 0` nodes to queue; schedule is valid if processed node count equals $N$.
   - **Number of Islands**: BFS flood fill; sink visited cells in-place (`grid[r][c] = '0'`) immediately upon enqueuing to eliminate $O(M \times N)$ auxiliary visited memory.
@@ -86,6 +90,19 @@ A concise, high-yield master reference summarizing core strategies, formulas, tr
   - **Palindromic Partitioning Min Cuts**: Precompute 2D `isPal[i][j]` in $O(N^2)$, then 1D `dp[i] = min(dp[j - 1] + 1)`.
 - **Accumulator Type**: Always declare prefix sums, counts, and totals as `long long` / `long` to prevent 32-bit integer overflow.
 - **Negative Modulo**: Always normalize remainders using `((r % k) + k) % k`.
+
+---
+
+## Master High-Yield Patterns Matrix
+
+| Topic | Frequently Tested Pattern | Rule to Remember |
+| :--- | :--- | :--- |
+| **Arrays & Pointers** | Move zeroes / Move # to front | Two-pointer technique; do not allocate redundant arrays. Use `StringBuilder` in Java. |
+| **String Manipulation** | Anagram check, Run-length encoding | Use frequency array `int[26]` for lowercase alphabet letters; single-pass runs. |
+| **Dynamic Programming** | Decode Ways, Coin Change, House Robber | Identify transition dependency window ($k=2 \implies O(1)$ space using rolling variables). |
+| **Bitwise Operations** | $(A \ \& \ B) \mid (A \wedge B)$, parity checking | $(A \ \& \ B) \mid (A \oplus B) \equiv A \mid B$; Parity violation: `((a ^ b) & 1) == 0`. |
+| **SQL & DBMS** | WHERE vs HAVING, Second highest salary | `WHERE` filters rows before aggregation; `HAVING` filters aggregated groups. |
+| **AI Assessment** | Prompting, RAG, Hallucination | State inputs, clear constraints, and edge cases to score high; $T \to 0$ for deterministic code. |
 
 ---
 
@@ -167,5 +184,9 @@ A concise, high-yield master reference summarizing core strategies, formulas, tr
 18. **Binary Search (Bounds)**: Check for `high = mid` (causes TLE / infinite loop when `low + 1 == high`) and `(low + high) / 2` (integer overflow); fix to `high = mid - 1` and `low + (high - low) / 2`.
 19. **Undirected Graph BFS**: Check if `q.pop()` is called immediately after `q.front()` (omission causes infinite loop TLE); verify `vis[0] = true` root initialization; ensure `vis[neighbor] = true` is marked on enqueue (not dequeue) to avoid duplicate pushes.
 20. **Palindrome Partitioning DP**: In 2D table `isPal[i][j] = (s[i] == s[j]) && (j - i <= 2 || isPal[i + 1][j - 1])`, check outer loop direction: `for (int i = 0; i < n; i++)` reads uncomputed row $i + 1$; must loop backwards `for (int i = n - 1; i >= 0; i--)`.
+21. **Decode Ways**: Check leading `'0'` guard (`s.charAt(0) == '0' -> return 0`) and base case `dp[0] = 1`. Intermediate zero with preceding digit $> 2$ (e.g., `"30"`) immediately collapses ways to `0`.
+22. **Coin Change DP Overflow**: Check initialization; using `Integer.MAX_VALUE` triggers 32-bit signed integer overflow when computing `dp[i - c] + 1` (must initialize with `amount + 1`).
+23. **Bitwise Logic Shortcut**: Recognize $(A \ \& \ B) \mid (A \oplus B)$ as Boolean identity for $A \mid B$. Check parity with `((a ^ b) & 1) == 0`.
+24. **Array Frequency / Bounds**: Check `for (int i = 0; i <= arr.length; i++)` (causes `ArrayIndexOutOfBoundsException`) and ensure frequencies use a `HashMap` or sorted scan to avoid printing duplicates.
 
 
