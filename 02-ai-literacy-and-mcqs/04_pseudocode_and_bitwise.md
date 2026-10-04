@@ -1130,6 +1130,80 @@ FUNCTION CombinedOperations():
 
 ---
 
+#### Problem 19: Complex Bitwise Pseudocode Trace (Brian Kernighan's Algorithm & Hamming Distance)
+**Tag**: [BITWISE] [MOCK-EXAM]
+
+**Pseudocode**:
+```text
+FUNCTION ComputeMystery(A, B):
+    count = 0
+    X = A ^ B
+    WHILE X > 0 DO:
+        X = X & (X - 1)
+        count = count + 1
+    END WHILE
+    RETURN count
+```
+
+**Question**: If the function is called with `ComputeMystery(93, 58)`, what integer is returned?
+- **A)** 3
+- **B)** 4
+- **C)** 5
+- **D)** 6
+
+**Correct Answer**: **Option C (5)**
+
+**Step-by-Step Binary Trace**:
+1. **Convert to 8-bit binary**:
+   - $93 = 64 + 16 + 8 + 4 + 1 \implies \mathbf{01011101}_2$ (5 ones)
+   - $58 = 32 + 16 + 8 + 2 \implies \mathbf{00111010}_2$ (4 ones)
+2. **Bitwise XOR ($X = A \oplus B$)**:
+   ```text
+     0 1 0 1 1 1 0 1  (93)
+   ^ 0 0 1 1 1 0 1 0  (58)
+   ─────────────────
+     0 1 1 0 0 1 1 1  (X = 103)
+   ```
+3. **Count set bits using Brian Kernighan's loop (`X = X & (X - 1)`)**:
+   - Each iteration clears the lowest set bit:
+     - Iteration 1: $X = 01100111_2 \ \& \ 01100110_2 = 01100110_2 \implies count = 1$
+     - Iteration 2: $X = 01100110_2 \ \& \ 01100101_2 = 01100100_2 \implies count = 2$
+     - Iteration 3: $X = 01100100_2 \ \& \ 01100011_2 = 01100000_2 \implies count = 3$
+     - Iteration 4: $X = 01100000_2 \ \& \ 01011111_2 = 01000000_2 \implies count = 4$
+     - Iteration 5: $X = 01000000_2 \ \& \ 00111111_2 = 00000000_2 \implies count = 5$
+   - $X = 0 \implies$ loop terminates.
+
+**5-Second Shortcut**: $A \oplus B$ followed by `X = X & (X - 1)` is **Brian Kernighan's algorithm** computing the **Hamming Distance** (count of differing bit positions). Positions differing between 93 ($01011101_2$) and 58 ($00111010_2$) are 0, 1, 2, 5, 6 $\implies$ exactly **5 bits**.  
+**Trap**: Miscounting binary ones in $X$ or forgetting that $X \ \& \ (X - 1)$ clears exactly 1 set bit per iteration.
+
+---
+
+#### Problem 20: Memory-Bounded Sliding Window Minimum Optimization
+**Tag**: [DSA-EXAM] [SLIDING-WINDOW]
+
+**Scenario**:  
+You are monitoring real-time financial trades over a continuous stream. Given an array `trades[]` and an integer $K$, you must compute the minimum trade value in every sliding window of size $K$.  
+An AI bot generates a solution using a nested loop with time complexity $O(N \cdot K)$. What optimal data structure should you prompt the bot to use to reduce the runtime to $O(N)$?
+
+- **A)** Max-Heap Priority Queue
+- **B)** Monotonic Double-Ended Queue (Deque)
+- **C)** Balanced Binary Search Tree (AVL Tree)
+- **D)** Hash Map with Linear Probing
+
+**Correct Answer**: **Option B**
+
+**Deep Explanation**:
+- A **Monotonic Deque** maintains indices of elements in strictly increasing order of their values:
+  1. **Eviction from Front**: Indices that fall outside the current sliding window boundary ($< i - K + 1$) are popped from the front in $O(1)$.
+  2. **Eviction from Back**: When a new element `trades[i]` arrives, all indices at the back whose values are $\ge \text{trades}[i]$ are popped because they can never be the minimum in any future window containing `trades[i]`.
+  3. **Result Query**: The front of the deque always holds the index of the minimum element for the current window in $O(1)$ time.
+- **Complexity**: Every index is pushed and popped at most once $\implies O(N)$ total time, with $O(K)$ auxiliary space. In contrast, a Priority Queue / Heap achieves $O(N \log K)$.
+
+**5-Second Shortcut**: Sliding window min/max in $O(N)$ time = **Monotonic Deque**.  
+**Trap**: Choosing a Heap/Priority Queue, which takes $O(N \log K)$ and requires non-trivial arbitrary index removal.
+
+---
+
 ## 7. Assessment Strategy & Speed Heuristics
 
 | Construct | Trap to Avoid | Quick Shortcut |

@@ -23,6 +23,8 @@ A concise, high-yield master reference summarizing core strategies, formulas, tr
 - **Hybrid Search (Dense + BM25)**: Dense embeddings capture concepts but fail on rare alphanumeric codes/IDs (`"RX-9021-B"`); merge dense vector search with sparse lexical inverted index (BM25) using **Reciprocal Rank Fusion (RRF)**.
 - **Query Contextualization & Rewriting**: Upstream LLM resolves conversational pronouns (*"it"*, *"its battery life"*) into standalone queries using chat history before querying vector DB.
 - **RAGAS Metric Profile**: **High Context Recall + Low Faithfulness** indicates the retriever fetched all necessary documents, but the generator hallucinated ungrounded claims.
+- **Lost-in-the-Middle in Monolithic Code Migrations**: Pasting large files alongside schema dumps saturates the context window, causing middle/early security prompts and annotations (e.g., `@PreAuthorize`) to be silently dropped. Fix: modular chunking and grammar-guided decoding.
+- **Encapsulation Prompt Injection**: Disguising malicious instructions as passive data to translate or summarize bypasses naive prompts. Fix: structured XML/Markdown sandboxing and guardrail models (Llama Guard).
 
 ---
 
@@ -54,6 +56,9 @@ A concise, high-yield master reference summarizing core strategies, formulas, tr
   - **Quick Sort**: In-place partitioning. Stable: **No** ($O(N \log N)$ avg, $O(N^2)$ worst, $O(\log N)$ space).
   - **Heap Sort**: Binary max-heap. Stable: **No** ($O(N \log N)$ all cases, $O(1)$ space).
 - **OS & DBMS Fundamentals**:
+  - **Program Loader & Magic Bytes**: When executing a binary (`execve`), the OS Program Loader inspects file header magic bytes (`0x7F 'E' 'L' 'F'` for ELF, `'M' 'Z'` for PE) to verify binary compatibility before memory allocation.
+  - **Deadlock-Free Resource Formula**: $\text{Min Resources } R \ge \sum (\text{Max Demand}_i - 1) + 1$. For $N$ processes needing max 2: $4 \times (2 - 1) + 1 = 5$ units.
+  - **Transaction Isolation & Phenomena**: Non-Repeatable Read (same row altered and committed between two reads) is prevented by **REPEATABLE READ**.
   - **2NF**: No partial dependencies (no non-prime attribute depends on a proper subset of any candidate key).
   - **Thrashing**: Total working sets exceed RAM frames, causing continuous page swapping and near-zero CPU execution.
   - **Hash Map Overwrite**: Inserting an existing key updates value in-place without altering map size or creating duplicates.
@@ -61,27 +66,32 @@ A concise, high-yield master reference summarizing core strategies, formulas, tr
 - **Bitwise Formulas**:
   - Lowest set bit: `n & (-n)`
   - Clear lowest set bit / Power of 2: `(n & (n - 1)) == 0`
+  - Brian Kernighan's Count: `while (x > 0) { x = x & (x - 1); count++; }`. When applied to $A \oplus B$, calculates **Hamming Distance**.
   - Bitwise Equality: $A[i] \ \& \ A[j] == A[i] \oplus A[j] \iff A[i] = 0 \text{ and } A[j] = 0 \implies \binom{Z}{2} = \frac{Z(Z - 1)}{2}$.
 
 ---
 
 ## 3. Code Debugging (20 Minutes)
 - **Time Protocol**: Hit RUN at Minute 2 to clear syntax errors; apply the 10-point scanner from Minutes 4 to 15; test edge cases in final 5 minutes.
-- **Four Primary Exceller Failure Modes**:
-  1. **Undirected Graphs**: Pushing only `adj[u].push_back(v)` without reverse link `adj[v].push_back(u)`.
-  2. **Premature Loop Exit**: `return result;` placed accidentally inside `for` loop body.
-  3. **0-Indexed vs 1-Indexed**: Allocating size $n$ instead of $n + 1$ or accessing out-of-bounds index `dp[n]`.
-  4. **0/1 Knapsack 1D DP**: Forward loop (`w = wt[i]; w <= W`) converts problem to Unbounded Knapsack; **must loop backwards** (`w = W; w >= wt[i]; w--`).
+- **Primary Exceller Failure Modes**:
+  1. **Loop Index Out-of-Bounds**: Writing `i < n` while accessing `arr[i + 1]` throws `ArrayIndexOutOfBoundsException` at index $n - 1$. Always terminate at `i < n - 1`.
+  2. **Negative Modulo Traps**: In Java/C++, `-3 % 2 == -1`. Never use `arr[i] % 2 != arr[i + 1] % 2` for parity; use `((arr[i] ^ arr[i + 1]) & 1) == 1`.
+  3. **Undirected Graphs**: Pushing only `adj[u].push_back(v)` without reverse link `adj[v].push_back(u)`.
+  4. **Premature Loop Exit**: `return result;` placed accidentally inside `for` loop body.
+  5. **0-Indexed vs 1-Indexed**: Allocating size $n$ instead of $n + 1$ or accessing out-of-bounds index `dp[n]`.
+  6. **0/1 Knapsack 1D DP**: Forward loop (`w = wt[i]; w <= W`) converts problem to Unbounded Knapsack; **must loop backwards** (`w = W; w >= wt[i]; w--`).
 
 ---
 
-## 4. AI-Assisted (Vibe) Coding (20 Minutes)
-- **Prompt Format**: State Role, Context, Task, Data Structures, Base Cases, and Asymptotic Bounds in Turn 1.
+## 4. AI-Assisted (Vibe) Coding (20–30 Minutes)
+- **Token Management**: You receive a finite budget of **~2,000 tokens**. Never copy-paste raw problem text. State Role, Context, Task, Data Structures, Base Cases, and Asymptotic Bounds in Turn 1.
 - **Decision Rule**:
   - Non-negative elements only ($\ge 0$) $\implies$ Two-Pointer Sliding Window ($O(N)$ Time, $O(1)$ Space).
   - Negative values, modulo constraints, or bitwise XOR $\implies$ Prefix Sum / Prefix XOR + HashMap ($O(N)$ Time, $O(N)$ Space).
   - Sliding Window Extremes (Min/Max over $K$) $\implies$ Monotonic Deque ($O(N)$ Time, $O(K)$ Space; never use a heap).
 - **Core Problem Patterns**:
+  - **Grid Shortest Path with Obstacles (LC #1293)**: Reject standard 2D DP (cannot handle 4 directions or $K$ quotas). Use **BFS** with state `(r, c, steps, remK)`, 2D `visited[r][c] = max_remK` pruning, and Manhattan shortcut: `if (k >= n + m - 2) return n + m - 2;`. Time: $O(N \cdot M \cdot K)$.
+  - **Binary Tree Boundary Traversal**: Anti-clockwise traversal: Left boundary (top-down, no leaves) $\to$ Leaves (left-to-right) $\to$ Right boundary (bottom-up reverse, no leaves).
   - **Decode Ways (LC #91)**: Single-digit if $s[i-1] \ne '0' \implies \text{add } dp[i-1]$; Double-digit if $10 \le \text{val}(s[i-2 \dots i-1]) \le 26 \implies \text{add } dp[i-2]$. Base case $\text{dp}[0] = 1$. Rolling state compression (`prev1`, `prev2`) achieves $O(1)$ space. Leading `'0'` collapses count to `0`.
   - **Coin Change (LC #322)**: Initialize DP array with `amount + 1` (never `Integer.MAX_VALUE`, which overflows to `Integer.MIN_VALUE` upon adding 1). Transition: $\text{dp}[i] = \min(\text{dp}[i], 1 + \text{dp}[i - \text{coin}])$.
   - **Strict Alternating Parity**: Check parity violations with `((arr[i] ^ arr[i - 1]) & 1) == 0`. Never use `arr[i] % 2 == 1` because negative odd numbers return `-1` in Java.
@@ -102,11 +112,14 @@ A concise, high-yield master reference summarizing core strategies, formulas, tr
 
 | Topic | Frequently Tested Pattern | Rule to Remember |
 | :--- | :--- | :--- |
+| **Grid Traversal** | 2D Grid with Obstacles ($K$) | Reject 2D DP; use BFS with state `(r, c, steps, remK)` and `visited[r][c] = remK` pruning. |
+| **Tree Traversal** | Binary Tree Boundary | 3 phases: Left boundary (top-down, no leaves) $\to$ Leaves (L-to-R) $\to$ Right boundary (bottom-up reverse). |
+| **Sliding Window** | Sliding Window Min/Max | Monotonic Deque ($O(N)$); pop obsolete front indices and back elements $\ge$ current. |
 | **Arrays & Pointers** | Move zeroes / Move # to front | Two-pointer technique; do not allocate redundant arrays. Use `StringBuilder` in Java. |
 | **String Manipulation** | Anagram check, Run-length encoding | Use frequency array `int[26]` for lowercase alphabet letters; single-pass runs. |
 | **Dynamic Programming** | Decode Ways, Coin Change, House Robber | Identify transition dependency window ($k=2 \implies O(1)$ space using rolling variables). |
 | **Bitwise Operations** | $(A \ \& \ B) \mid (A \wedge B)$, parity checking | $(A \ \& \ B) \mid (A \oplus B) \equiv A \mid B$; Parity violation: `((a ^ b) & 1) == 0`. |
-| **SQL & DBMS** | WHERE vs HAVING, Second highest salary | `WHERE` filters rows before aggregation; `HAVING` filters aggregated groups. |
+| **SQL & DBMS** | Isolation levels, WHERE vs HAVING | Non-Repeatable Read prevented by `REPEATABLE READ`; `WHERE` filters rows before `HAVING`. |
 | **AI Assessment** | Prompting, RAG, Hallucination | State inputs, clear constraints, and edge cases to score high; $T \to 0$ for deterministic code. |
 
 ---
@@ -193,5 +206,10 @@ A concise, high-yield master reference summarizing core strategies, formulas, tr
 22. **Coin Change DP Overflow**: Check initialization; using `Integer.MAX_VALUE` triggers 32-bit signed integer overflow when computing `dp[i - c] + 1` (must initialize with `amount + 1`).
 23. **Bitwise Logic Shortcut**: Recognize $(A \ \& \ B) \mid (A \oplus B)$ as Boolean identity for $A \mid B$. Check parity with `((a ^ b) & 1) == 0`.
 24. **Array Frequency / Bounds**: Check `for (int i = 0; i <= arr.length; i++)` (causes `ArrayIndexOutOfBoundsException`) and ensure frequencies use a `HashMap` or sorted scan to avoid printing duplicates.
+25. **Grid BFS with Obstacles**: Reject 2D DP when 4 directions and obstacle quota $K$ are present; look for `visited[r][c] = remK` pruning and Manhattan distance optimization ($k \ge n + m - 2$).
+26. **Tree Boundary Traversal**: Avoid duplicate leaf printing by excluding leaves in boundary passes (`!isLeaf(curr)`); ensure right boundary is traversed in reverse (bottom-to-top).
+27. **Alternating Parity Subarray**: Look for loop condition `i < n` indexing `arr[i + 1]` (out-of-bounds at $n - 1$) and replace signed modulo `arr[i] % 2` with bitwise `((arr[i] ^ arr[i + 1]) & 1) == 1`.
+28. **Deadlock Free Allocation**: Quickly compute $N \times (\text{Max} - 1) + 1$ (e.g., $4 \times 1 + 1 = 5$).
+
 
 
