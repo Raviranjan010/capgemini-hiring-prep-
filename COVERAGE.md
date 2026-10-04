@@ -55,6 +55,21 @@
 | Q37: Retrieval-Augmented Generation (RAG) architecture | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
 | Q38: Responsible AI & Security: Hardcoded DB secrets in AI code | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
 | Q39: Deterministic logit sampling via temperature close to 0.0 | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| One-Shot Video Q1: Context Window Drift & Instruction Forgetting | [VIDEO] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| One-Shot Video Q2: Structured Output & JSON Schema Enforcement (BNF logit mask) | [VIDEO] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| One-Shot Video Q3: Adversarial Role-Playing & Jailbreak Defense (Role Hierarchy) | [VIDEO] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| One-Shot Video Q4: Zero-Shot Chain-of-Thought (CoT) Prompting (Scratchpad tokens) | [VIDEO] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| One-Shot Video Q5: RAG Chunking: Boundary Truncation & Overlap (10-20% overlap) | [VIDEO] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| One-Shot Video Q6: Dense vs. Sparse (BM25) Retrieval in RAG (Hybrid Search & RRF) | [VIDEO] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| One-Shot Video Q7: Vector Indexing at Scale (HNSW / IVF vs Flat KNN) | [VIDEO] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| One-Shot Video Q8: Retrieval Re-Ranking with Cross-Encoders (Two-stage pipeline) | [VIDEO] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| One-Shot Video Q9: Multi-Turn Query Rewriting & Contextualization (Pronoun resolution) | [VIDEO] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| One-Shot Video Q10: RAGAS Metrics: Context Recall vs. Faithfulness (Triad architecture) | [VIDEO] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| One-Shot Q11: Temperature and Top-P Greedy Decoding Mechanics | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| One-Shot Q12: LoRA Parameter-Efficient Fine-Tuning Rank Decomposition | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| One-Shot Q13: Vector Distance Metrics: Unit-Normalized Dot Product vs Cosine | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| One-Shot Q14: Direct vs Indirect Prompt Injection via Runtime External Data | [MOCK-EXAM] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
+| Master Architectural Cheat Sheet (10-row failure/remediation matrix) | [VIDEO] | 02-ai-literacy-and-cs-mcqs/01_ai_literacy.md | [x] |
 | **Networking / SQL / DBMS** | | | |
 | Subnet 255.255.255.192 usable hosts | [CHAT] | 02-ai-literacy-and-cs-mcqs/02_networking_sql_dbms.md | [x] |
 | NULL comparison | [CHAT] | 02-ai-literacy-and-cs-mcqs/02_networking_sql_dbms.md | [x] |
